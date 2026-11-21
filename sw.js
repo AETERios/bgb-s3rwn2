@@ -1,19 +1,27 @@
-const CACHE = "jdbg-app-20261116a";
-const ASSETS = ["./", "./index.html", "./manifest.webmanifest", "./icon-180.png", "./icon-192.png", "./icon-512.png"];
+const CACHE = "jdbg-app-exam-scope-20261121";
+const ASSETS = ["./", "./?v=exam-scope-20261121", "./index.html", "./manifest.webmanifest", "./icon-180.png", "./icon-192.png", "./icon-512.png"];
 self.addEventListener("install", e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
+  const requests = ASSETS.map(asset => new Request(new URL(asset, self.location.href), {cache:"reload"}));
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(requests)).then(() => self.skipWaiting()));
 });
 self.addEventListener("activate", e => {
-  e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim()));
+  e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k.startsWith("jdbg-app-") && k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim()));
+});
+self.addEventListener("message", e => {
+  if(e.data?.type === "BGB_VERSION") e.ports[0]?.postMessage({cache:CACHE});
 });
 self.addEventListener("fetch", e => {
   if(e.request.method !== "GET") return;
   const url = new URL(e.request.url);
-  if(url.origin !== location.origin) return;
-  e.respondWith(
-    caches.match(e.request, {ignoreSearch: true}).then(hit => hit || fetch(e.request).then(resp => {
-      if(resp.ok){ const copy = resp.clone(); caches.open(CACHE).then(c => c.put(e.request, copy)); }
-      return resp;
-    }).catch(() => caches.match("./index.html")))
-  );
+  if(url.origin !== self.location.origin) return;
+  const network = () => fetch(e.request, e.request.mode === "navigate" ? {cache:"reload"} : undefined).then(resp => {
+    if(resp.ok && !resp.redirected){ const copy = resp.clone(); caches.open(CACHE).then(c => c.put(e.request, copy)); }
+    return resp;
+  });
+  // Navigation refreshes from the server; versioned URLs never reuse an older query's response.
+  if(e.request.mode === "navigate"){
+    e.respondWith(network().catch(() => caches.open(CACHE).then(c => c.match(e.request).then(hit => hit || c.match(new URL("./index.html", self.location.href))))));
+  }else{
+    e.respondWith(caches.open(CACHE).then(c => c.match(e.request)).then(hit => hit || network()));
+  }
 });
