@@ -1,5 +1,5 @@
-const CACHE = "jdbg-app-exam-scope-20261121";
-const ASSETS = ["./", "./?v=exam-scope-20261121", "./index.html", "./manifest.webmanifest", "./icon-180.png", "./icon-192.png", "./icon-512.png"];
+const CACHE = "jdbg-app-exam-scope-20261122-v2";
+const ASSETS = ["./", "./?v=exam-scope-20261122-v2", "./index.html", "./manifest.webmanifest", "./icon-180.png", "./icon-192.png", "./icon-512.png"];
 self.addEventListener("install", e => {
   const requests = ASSETS.map(asset => new Request(new URL(asset, self.location.href), {cache:"reload"}));
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(requests)).then(() => self.skipWaiting()));

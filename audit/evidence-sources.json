@@ -1,0 +1,80 @@
+{
+  "checked": "2026-11-22",
+  "sources": [
+    {
+      "title": "铁路技术管理规程（普速铁路部分）",
+      "url": "https://jacksing.top/upload/sucai/%E4%B8%AD%E5%9B%BD%E9%93%81%E8%B7%AF%E6%80%BB%E5%85%AC%E5%8F%B8%E3%80%8A%E9%93%81%E8%B7%AF%E6%8A%80%E6%9C%AF%E7%AE%A1%E7%90%86%E8%A7%84%E7%A8%8B%E3%80%8B%EF%BC%88%E6%99%AE%E9%80%9F%E9%93%81%E8%B7%AF%E9%83%A8%E5%88%86%EF%BC%89.pdf",
+      "sha256": "2a7338717f8b1887143259987b236ea7531c43e7c53a970a531df8be97f59f08",
+      "limitation": "中国铁路总公司原件的镜像和文本提取；用于来源归属，不宣称已整合所有修订或核实原答案。"
+    },
+    {
+      "name": "accident-rule-2007",
+      "subject": "accident",
+      "title": "铁路交通事故调查处理规则（2007年铁道部令第30号）",
+      "url": "https://source.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202206/t20220624_327440.shtml",
+      "bytes": 100973,
+      "sha256": "5743b54757dda88cd4287e6cfddabb54ea2c9ede2e57e2a4072371b83e3da6f2",
+      "status": "ok",
+      "textSha256": "372e7b1a5c64a47ecef682bf66464f8eba982c35d8f754e855af8d6950351c19"
+    },
+    {
+      "name": "accident-rescue-regulation",
+      "subject": "rescue",
+      "title": "铁路交通事故应急救援和调查处理条例",
+      "url": "https://source.nra.gov.cn/jglz/sbjg/fgsb/202204/t20220405_292240.shtml",
+      "bytes": 60525,
+      "sha256": "db2211740408272eca139ede7250101efa720d10490d3b44bcacdcf3ea071e9d",
+      "status": "ok",
+      "textSha256": "4c8206727d32b7997f5d3b82cf130e0977802d91a6cc62b9555da4e8c4514e57"
+    },
+    {
+      "name": "technical-2006",
+      "subject": "technical",
+      "title": "铁路技术管理规程（2006年铁道部令第29号）",
+      "url": "https://source.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202206/t20220624_327439.shtml",
+      "bytes": 1573164,
+      "sha256": "df3f3de6d091a8790a41eb7235f6663ad797fd7e64e95e75de04f0ac5ab960e9",
+      "status": "ok",
+      "textSha256": "d7d69a341c3f691644f363c17d8164bcca046fef8c606c30f5d5255c48886571"
+    },
+    {
+      "name": "technical-highspeed-2014",
+      "subject": "technical",
+      "title": "铁路技术管理规程（高速铁路部分）",
+      "url": "https://jacksing.top/upload/sucai/中国铁路总公司《铁路技术管理规程》（高速铁路部分）.pdf",
+      "textSha256": "27e4984ad6b7267110aeb11cfc7eaa2a7fff48208629b9496ecdd21fa07dcfb0"
+    },
+    {
+      "id": "locomotive-operation-2015",
+      "subject": "operation",
+      "title": "铁路机车运用管理规则",
+      "version": "铁总运〔2015〕314号",
+      "url": "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E6%9C%BA%E8%BD%A6%E8%BF%90%E7%94%A8%E7%AE%A1%E7%90%86%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E6%80%BB%E8%BF%90%20%5B2015%5D%20314%E5%8F%B7.pdf",
+      "path": "C:\\Users\\eilot\\Documents\\Codex\\2026-11-02\\wo\\work\\jidiao20-app\\source-evidence\\exam-scope-20261122\\originals\\locomotive-operation-2015.txt",
+      "pdfPath": "C:\\Users\\eilot\\Documents\\Codex\\2026-11-02\\wo\\work\\jidiao20-app\\source-evidence\\exam-scope-20261122\\originals\\locomotive-operation-2015.pdf",
+      "sha256": "b4a486cdb70933889dc155844872d6fda6c2fdfa116bbca5998c762b4d371113",
+      "textSha256": "52a1e028cc00fcfd166eb6a94655fe54cc20ea9f022b3fe6d0063c3b353ff9f7"
+    },
+    {
+      "id": "locomotive-dispatch-2017",
+      "subject": "loco-dispatch",
+      "title": "铁路机车调度规则",
+      "version": "铁总机辆〔2017〕323号",
+      "url": "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E6%9C%BA%E8%BD%A6%E8%B0%83%E5%BA%A6%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E6%80%BB%E6%9C%BA%E8%BE%86%20%5B2017%5D%20323%E5%8F%B7.pdf",
+      "path": "C:\\Users\\eilot\\Documents\\Codex\\2026-11-02\\wo\\work\\jidiao20-app\\source-evidence\\exam-scope-20261122\\originals\\locomotive-dispatch-2017.txt",
+      "pdfPath": "C:\\Users\\eilot\\Documents\\Codex\\2026-11-02\\wo\\work\\jidiao20-app\\source-evidence\\exam-scope-20261122\\originals\\locomotive-dispatch-2017.pdf",
+      "sha256": "67f9bb3f9e7c705045732a42be109454a809c686830e0ac77d77a3a1dfbe608e",
+      "textSha256": "ce94a2ee42c861ebcd09de29ecdb132c580a1752d8d154b0b0c6d2f34509cd8d"
+    }
+  ],
+  "localTextHashes": {
+    "technical-highspeed-2014": "27e4984ad6b7267110aeb11cfc7eaa2a7fff48208629b9496ecdd21fa07dcfb0",
+    "technical-2014": "2a7338717f8b1887143259987b236ea7531c43e7c53a970a531df8be97f59f08",
+    "accident-rule-2007": "372e7b1a5c64a47ecef682bf66464f8eba982c35d8f754e855af8d6950351c19",
+    "accident-rescue-regulation": "4c8206727d32b7997f5d3b82cf130e0977802d91a6cc62b9555da4e8c4514e57",
+    "technical-2006": "d7d69a341c3f691644f363c17d8164bcca046fef8c606c30f5d5255c48886571",
+    "locomotive-operation-2015": "52a1e028cc00fcfd166eb6a94655fe54cc20ea9f022b3fe6d0063c3b353ff9f7",
+    "locomotive-dispatch-2017": "ce94a2ee42c861ebcd09de29ecdb132c580a1752d8d154b0b0c6d2f34509cd8d"
+  },
+  "limitation": "原题标注、实质原文匹配、已复审归属及候选分级记录；均不代表答案或2026现行版本已核。旧类别排除全部撤销。"
+}
