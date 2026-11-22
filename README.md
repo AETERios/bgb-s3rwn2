@@ -1,3 +1,13 @@
+# 拾光 · 填空反馈 v4
+
+[打开新版](https://aeterios.github.io/bgb-s3rwn2/?v=shiguang-feedback-20261122-v4)
+
+填空题新增“这个空有问题？反馈给 Codex”，答前答后都可填写。草稿自动保存至原存储键cfg.fillReports，旧cfg.flags保留；偏好页可查看本机反馈、导出全部、查看GitHub在线反馈。在线入口预填题号、问题、原题、答案和原文，GitHub登录后须手动提交才公开发布；打开链接不代表已提交，不会自动通知当前聊天。后续维护可使用GitHub search_issues读取。URL适当截短，完整内容可离线导出；不上传学习记录。未在公开静态页面内放凭据。
+
+新增verify-feedback.cjs验证草稿、旧标记、刷新、预填链接、导出和进度不变；设计、范围、旧SW升级及输入法验证亦通过。
+
+---
+
 # 拾光
 
 [打开新版](https://aeterios.github.io/bgb-s3rwn2/?v=shiguang-20261122-v3)

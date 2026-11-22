@@ -43,14 +43,14 @@ const server=http.createServer((req,res)=>{
   // The old worker ignores query strings. Install the new worker without losing state,
   // then load the same-origin version entrance, as a normal refresh would.
   await page.evaluate(()=>navigator.serviceWorker.getRegistration().then(r=>r.update()));
-  await page.waitForFunction(async()=>{const r=await navigator.serviceWorker.getRegistration();return r.active?.state==='activated'&&!r.installing&&await caches.match(location.origin+'/?v=shiguang-20261122-v3').then(async hit=>!!hit&&(await hit.text()).includes('id="scope-data"'));});
+  await page.waitForFunction(async()=>{const r=await navigator.serviceWorker.getRegistration();return r.active?.state==='activated'&&!r.installing&&await caches.match(location.origin+'/?v=shiguang-feedback-20261122-v4').then(async hit=>!!hit&&(await hit.text()).includes('id="scope-data"'));});
   // Confirm the controlling worker's code, rather than comparing unstable JS wrappers.
   await page.waitForFunction(()=>new Promise(resolve=>{
    const channel=new MessageChannel(),timeout=setTimeout(()=>resolve(false),500);
-   channel.port1.onmessage=e=>{clearTimeout(timeout);resolve(e.data?.cache==='jdbg-app-shiguang-20261122-v3');};
+   channel.port1.onmessage=e=>{clearTimeout(timeout);resolve(e.data?.cache==='jdbg-app-shiguang-feedback-20261122-v4');};
    navigator.serviceWorker.controller?.postMessage({type:'BGB_VERSION'},[channel.port2]);
   }),{},{timeout:15000});
-  let response=await page.goto(base+'/?v=shiguang-20261122-v3'),refreshes=0;
+  let response=await page.goto(base+'/?v=shiguang-feedback-20261122-v4'),refreshes=0;
   // A legacy controlled document may retain its original navigation response once.
   // One normal refresh is supported; no cache, storage or existing record is cleared.
   if(!await page.evaluate(()=>!!window.__BGB_TEST__)){
@@ -58,7 +58,7 @@ const server=http.createServer((req,res)=>{
   }
   await page.waitForFunction(()=>window.__BGB_TEST__?.scope.size===10067,{},{timeout:15000}).catch(async error=>{await diagnostics('Upgrade timeout',response);throw error;});
   assert.equal((await response.allHeaders())['x-test-version'],'new');
-  assert.ok(requests.some(r=>r.current&&r.url==='/?v=shiguang-20261122-v3'&&r.cache==='no-cache'));
+  assert.ok(requests.some(r=>r.current&&r.url==='/?v=shiguang-feedback-20261122-v4'&&r.cache==='no-cache'));
   assert.deepEqual(await page.evaluate(()=>window.__BGB_TEST__.state.recs),legacy.recs);
   assert.deepEqual(await page.evaluate(()=>window.__BGB_TEST__.state.log),legacy.log);
   const cfg=await page.evaluate(()=>window.__BGB_TEST__.state.cfg);

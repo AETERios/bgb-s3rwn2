@@ -25,7 +25,7 @@ const server=http.createServer((req,res)=>{const name=new URL(req.url,'http://lo
   const page=await ctx.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));await page.clock.setFixedTime(time);
   const url='http://127.0.0.1:'+server.address().port;
   await page.goto(url+'/seed');await page.evaluate(value=>localStorage.setItem('jidiao-bgb-app-v1',JSON.stringify(value)),old);
-  await page.goto(url+'/?v=shiguang-20261122-v3');await page.waitForFunction(()=>window.__BGB_TEST__?.questions.length===10067);
+  await page.goto(url+'/?v=shiguang-feedback-20261122-v4');await page.waitForFunction(()=>window.__BGB_TEST__?.questions.length===10067);
   const state=await page.evaluate(()=>window.__BGB_TEST__.state);
   assert.deepEqual(state.recs[core[0].i],rec);assert.deepEqual(state.recs[excluded[0].i],rec);assert.deepEqual(state.log,old.log);
   for(const k of ['bank','cap','exam','start','rev','heard'])assert.deepEqual(state.cfg[k],old.cfg[k]);
@@ -60,7 +60,7 @@ const server=http.createServer((req,res)=>{const name=new URL(req.url,'http://lo
   await page.evaluate(id=>{const t=window.__BGB_TEST__;t.ui.sScope=t.scopeFor(id).status;t.ui.search=id;t.ui.openId=id;t.render();},verifiedId);
   assert.equal(await page.locator('[data-correction-status^="verified_"]').count(),1,'existing evidence-backed correction is displayed separately');
   await page.locator('[data-tab="today"]').click();
-  await page.waitForFunction(async()=>{const names=await caches.keys();return names.includes('jdbg-app-shiguang-20261122-v3')&&!!(await caches.match(location.origin+'/index.html'));});
+  await page.waitForFunction(async()=>{const names=await caches.keys();return names.includes('jdbg-app-shiguang-feedback-20261122-v4')&&!!(await caches.match(location.origin+'/index.html'));});
   await ctx.setOffline(true);await page.reload();await page.waitForFunction(()=>window.__BGB_TEST__?.questions.length===10067);
   assert.deepEqual(await page.evaluate(id=>window.__BGB_TEST__.state.recs[id],excluded[0].i),rec);
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));assert.deepEqual(errors,[]);
