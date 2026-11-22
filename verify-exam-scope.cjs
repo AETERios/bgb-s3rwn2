@@ -16,7 +16,7 @@ assert.ok(core.length>100&&excluded.length&&pending.length&&auto.length);
 const time=new Date('2026-11-21T10:00:00+08:00'),day=324;
 const rec=[day,2,3,1,0,29911275];
 const old={cfg:{bank:'all',cap:200,exam:'2026-11-27',rev:4,start:'2026-11-08',heard:{one:true},u:12},recs:{[core[0].i]:rec,[excluded[0].i]:rec},log:{'317':[22,0,15,7]},sess:{type:'day',day,queue:[excluded[0].i+'|0',core[0].i+'|0',excluded[1].i+'|0',pending[0].i+'|0',auto[0].i+'|0',related[0].i+'|0',core[1].i+'|0'],pos:1,ans:1,ok:0,bad:1,combo:0,best:0,sec:20,segN:1,segOk:0,segSec:20,recent:[excluded[0].i+'|0',core[0].i+'|1'],u:15}};
-const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.png':'image/png','.webmanifest':'application/manifest+json'};
+const mime={'.css':'text/css','.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.png':'image/png','.webmanifest':'application/manifest+json'};
 const server=http.createServer((req,res)=>{const name=new URL(req.url,'http://localhost').pathname.slice(1)||'index.html';if(name==='seed'){res.setHeader('Content-Type','text/html');return res.end('<title>seed</title>');}const file=path.resolve(root,name);if(!file.startsWith(root+path.sep)||!fs.existsSync(file)){res.writeHead(404);return res.end();}res.setHeader('Content-Type',mime[path.extname(file)]||'text/plain');fs.createReadStream(file).pipe(res);});
 (async()=>{
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const browser=await chromium.launch();
@@ -25,7 +25,7 @@ const server=http.createServer((req,res)=>{const name=new URL(req.url,'http://lo
   const page=await ctx.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));await page.clock.setFixedTime(time);
   const url='http://127.0.0.1:'+server.address().port;
   await page.goto(url+'/seed');await page.evaluate(value=>localStorage.setItem('jidiao-bgb-app-v1',JSON.stringify(value)),old);
-  await page.goto(url+'/?v=exam-scope-20261122-v2');await page.waitForFunction(()=>window.__BGB_TEST__?.questions.length===10067);
+  await page.goto(url+'/?v=shiguang-20261122-v3');await page.waitForFunction(()=>window.__BGB_TEST__?.questions.length===10067);
   const state=await page.evaluate(()=>window.__BGB_TEST__.state);
   assert.deepEqual(state.recs[core[0].i],rec);assert.deepEqual(state.recs[excluded[0].i],rec);assert.deepEqual(state.log,old.log);
   for(const k of ['bank','cap','exam','start','rev','heard'])assert.deepEqual(state.cfg[k],old.cfg[k]);
@@ -60,7 +60,7 @@ const server=http.createServer((req,res)=>{const name=new URL(req.url,'http://lo
   await page.evaluate(id=>{const t=window.__BGB_TEST__;t.ui.sScope=t.scopeFor(id).status;t.ui.search=id;t.ui.openId=id;t.render();},verifiedId);
   assert.equal(await page.locator('[data-correction-status^="verified_"]').count(),1,'existing evidence-backed correction is displayed separately');
   await page.locator('[data-tab="today"]').click();
-  await page.waitForFunction(async()=>{const names=await caches.keys();return names.includes('jdbg-app-exam-scope-20261122-v2')&&!!(await caches.match(location.origin+'/index.html'));});
+  await page.waitForFunction(async()=>{const names=await caches.keys();return names.includes('jdbg-app-shiguang-20261122-v3')&&!!(await caches.match(location.origin+'/index.html'));});
   await ctx.setOffline(true);await page.reload();await page.waitForFunction(()=>window.__BGB_TEST__?.questions.length===10067);
   assert.deepEqual(await page.evaluate(id=>window.__BGB_TEST__.state.recs[id],excluded[0].i),rec);
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));assert.deepEqual(errors,[]);

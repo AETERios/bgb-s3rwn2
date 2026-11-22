@@ -1,6 +1,16 @@
+# 拾光
+
+[打开新版](https://aeterios.github.io/bgb-s3rwn2/?v=shiguang-20261122-v3)
+
+2026-11-22 v3：统一深浅色、重做首页及偏好页，抽象积光图标与中性名称；填空题在用户点击进入及下一题的同一事件中同步聚焦，取消延时。每20次点亮一格，5/20/50/100累计徽章；完成未掌握+1、掌握+3光点，等级每100光点提升。奖励从已有log推导，无新增独立进度，不扣分，不更改题库、订正、笔记及到期。原manifest start_url与存储键保持，旧手机主屏幕名称和图标由系统管理，可能保留旧缓存；不要删除应用或清数据。
+
+验证：verify-design-v3.cjs（深浅色对比度、移动溢出、聚焦、奖励与徽章）、verify-exam-scope.cjs、verify-upgrade-scope.cjs、verify-keyboard-ime.cjs。浏览器仿真不等于iPhone实机键盘测试。
+
+---
+
 # 便笺 · 机车调度员备考
 
-[打开 GitHub Pages 新版](https://aeterios.github.io/bgb-s3rwn2/?v=exam-scope-20261122-v2) · [逐题归属与材料清单](https://aeterios.github.io/bgb-s3rwn2/audit/)
+[打开 GitHub Pages 新版](https://aeterios.github.io/bgb-s3rwn2/?v=shiguang-20261122-v3) · [逐题归属与材料清单](https://aeterios.github.io/bgb-s3rwn2/audit/)
 
 2026-11-22 改为按题目实际内容及规章归属整理，旧分类不再作为结论。10067 个原题对象保持不变：5484 道纳入（3583 道可练、1901 条原文查阅），4583 道归属待核，0 道删除或排除。所有公共知识均属党口，共3106道，包含119道原来不在党建库的题。旧 Word 与考试宝党建均保留。
 
