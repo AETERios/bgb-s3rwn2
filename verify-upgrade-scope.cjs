@@ -56,7 +56,7 @@ const server=http.createServer((req,res)=>{
   if(!await page.evaluate(()=>!!window.__BGB_TEST__)){
    response=await page.reload();refreshes++;
   }
-  await page.waitForFunction(()=>window.__BGB_TEST__?.scope.size===13466,{},{timeout:15000}).catch(async error=>{await diagnostics('Upgrade timeout',response);throw error;});
+  await page.waitForFunction(()=>window.__BGB_TEST__?.scope.size===13200,{},{timeout:15000}).catch(async error=>{await diagnostics('Upgrade timeout',response);throw error;});
   assert.equal((await response.allHeaders())['x-test-version'],'new');
   assert.ok(requests.some(r=>r.current&&r.url==='/?v=shiguang-unlimited-20261123-v5'&&r.cache==='no-cache'));
   assert.deepEqual(await page.evaluate(()=>window.__BGB_TEST__.state.recs),legacy.recs);
@@ -82,7 +82,7 @@ const server=http.createServer((req,res)=>{
   assert.deepEqual(await page.evaluate(()=>window.__BGB_TEST__.state.sess.queue),['U-W-S0009|0','E-D0001|0']);
   await page.waitForTimeout(1700);
   await context.setOffline(true);await page.reload();
-  await page.waitForFunction(()=>window.__BGB_TEST__?.scope.size===13466);
+  await page.waitForFunction(()=>window.__BGB_TEST__?.scope.size===13200);
   assert.deepEqual(await page.evaluate(()=>window.__BGB_TEST__.state.recs),legacy.recs);
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
   assert.deepEqual(errors,[]);

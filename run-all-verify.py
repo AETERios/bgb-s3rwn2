@@ -6,8 +6,8 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 NODE = r"C:\Users\eilot\.workbuddy\binaries\node\versions\22.22.2-3\node.exe"
 
 SCRIPTS = [
+    "verify-unified.cjs",
     "verify-cloze.cjs",
-    "verify-qa-fill.cjs",
     "verify-focus.cjs",
     "verify-unlimited.cjs",
     "verify-feedback.cjs",
@@ -47,7 +47,7 @@ for name in SCRIPTS:
         results.append({"script": name, "status": "TIMEOUT", "code": None, "sec": 420, "tail": ["运行超时"]})
     print("%-28s %s" % (name, results[-1]["status"]), flush=True)
 
-with open(os.path.join(ROOT, "test-results", "verify-all-v9.json"), "w", encoding="utf-8") as f:
+with open(os.path.join(ROOT, "test-results", "verify-all-v10.json"), "w", encoding="utf-8") as f:
     json.dump(results, f, ensure_ascii=False, indent=2)
 
 print("\n===== SUMMARY =====")

@@ -7,9 +7,9 @@ const bank=parse(html,'bank-data'),scope=parse(html,'scope-data'),seed=parse(htm
 const original=execFileSync('git',['show','06a0048294dac927fab2f3bdd8f12d73a529031d:index.html'],{cwd:root,encoding:'utf8',maxBuffer:8*1024*1024});
 const listOf=v=>Array.isArray(v)?v:(v.q||[]);
 const nowMap=new Map(listOf(bank).map(q=>[q.i,q]));
-for(const q of listOf(parse(original,'bank-data'))){const cur=nowMap.get(q.i);assert.ok(cur,'原题 '+q.i+' 不能丢');assert.deepEqual(cur,q,'原题 '+q.i+' 的题号、选项、答案和顺序必须原样保留');}
+const parents=new Set(listOf(bank).filter(q=>q.d&&q.p).map(q=>q.p));for(const q of listOf(parse(original,'bank-data'))){const cur=nowMap.get(q.i);if(!cur){assert.ok(q.k==='r'&&parents.has(q.i),'原题 '+q.i+' 不能丢');continue;}if(q.k==='r'){assert.ok(cur.k==='f','问答 '+q.i+' 必须并入客观题');continue;}assert.deepEqual(cur,q,'原题 '+q.i+' 的题号、选项、答案和顺序必须原样保留');}
 assert.deepEqual(seed.recs,{});assert.deepEqual(seed.log,{});assert.equal(seed.sess,null);
-assert.equal(bank.q.length,13466);assert.equal(scope.entries.length,13466);
+assert.equal(bank.q.length,13200);assert.equal(scope.entries.length,13200);
 new vm.Script(html.match(/<script>\s*"use strict";([\s\S]*?)<\/script>/)[1]);
 const reviews=new Map(scope.entries.map(e=>[e.id,e]));
 const pick=(status,auto=false)=>bank.q.filter(q=>reviews.get(q.i).status===status&&!!q.auto===auto);
@@ -27,14 +27,14 @@ const server=http.createServer((req,res)=>{const name=new URL(req.url,'http://lo
   const page=await ctx.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));await page.clock.setFixedTime(time);
   const url='http://127.0.0.1:'+server.address().port;
   await page.goto(url+'/seed');await page.evaluate(value=>localStorage.setItem('jidiao-bgb-app-v1',JSON.stringify(value)),old);
-  await page.goto(url+'/?v=shiguang-unlimited-20261123-v5');await page.waitForFunction(()=>window.__BGB_TEST__?.questions.length===13466);
+  await page.goto(url+'/?v=shiguang-unlimited-20261123-v5');await page.waitForFunction(()=>window.__BGB_TEST__?.questions.length===13200);
   const state=await page.evaluate(()=>window.__BGB_TEST__.state);
   assert.deepEqual(state.recs[core[0].i],rec);assert.deepEqual(state.recs[excluded[0].i],rec);assert.deepEqual(state.log,old.log);
   for(const k of ['bank','exam','start','rev','heard'])assert.deepEqual(state.cfg[k],old.cfg[k]);
   assert.equal(state.cfg.scope,'all');assert.equal(state.cfg.cap,0);assert.equal(state.sess.pos,1);assert.equal(state.sess.queue[0],old.sess.queue[0]);
   assert.deepEqual(state.sess.queue,old.sess.queue);
   const invariants=await page.evaluate(()=>{const t=window.__BGB_TEST__;return{pool:t.poolIds(),valid:t.poolIds().every(id=>t.practiceEligible(id)),recap:t.pickRecaps(t.state.sess,5)}});
-  assert.ok(invariants.valid);assert.equal(invariants.pool.length,13466);assert.ok(invariants.recap.every(id=>invariants.pool.includes(id)));
+  assert.ok(invariants.valid);assert.equal(invariants.pool.length,13200);assert.ok(invariants.recap.every(id=>invariants.pool.includes(id)));
   await page.locator('[data-tab="bank"]').click();await page.locator('#q-category').selectOption('all');
   assert.equal(await page.locator('#q-scope').inputValue(),'all');await page.locator('.source-filters summary').click();await page.locator('#q-kind').selectOption('f');
   await page.locator('#q-search').fill(auto[0].q.replace(/\{\{blank:\d+\}\}/g,'').slice(0,8));await page.waitForTimeout(300);
@@ -42,14 +42,14 @@ const server=http.createServer((req,res)=>{const name=new URL(req.url,'http://lo
   // Former automatic cloze remains intact, searchable, and learnable as original-text memory.
   const originalStem=await page.evaluate(id=>window.__BGB_TEST__.originalStem(window.__BGB_TEST__.QMAP.get(id)),auto[0].i);
   assert.ok(!originalStem.includes('{{blank:'));assert.ok(invariants.pool.includes(auto[0].i));
-  await page.locator('[data-tab="settings"]').click();await page.locator('#s-bank').selectOption('party');
+  await page.locator('[data-tab="today"]').click();await page.locator('[data-content="party"]').click();
   assert.ok(await page.evaluate(()=>{const t=window.__BGB_TEST__;return t.poolIds().length>0&&t.poolIds().every(id=>t.scopeFor(id).subjects.includes('party'))}));
   assert.equal(await page.evaluate(()=>window.__BGB_TEST__.state.cfg.exam),'2026-11-27');
   await page.locator('[data-tab="today"]').click();await page.evaluate(()=>window.__BGB_TEST__.startExtra('random'));
   assert.ok(await page.evaluate(()=>{const t=window.__BGB_TEST__;return t.ui.xs.queue.every(e=>t.practiceEligible(e.split('|')[0]))}));
   assert.equal(await page.locator('.scope-evidence').count(),0,'scope evidence must be hidden before reveal');
   assert.equal(await page.locator('.scope-core').count(),1,'included party question is labeled core');
-  await page.locator('[data-end]').click();await page.locator('[data-tab="settings"]').click();await page.locator('#s-bank').selectOption('all');
+  await page.locator('[data-end]').click();await page.locator('[data-tab="today"]').click();await page.locator('[data-content="all"]').click();
   // Withdrawn and model-generated corrections must remain clearly unverified in the actual library UI.
   for(const id of ['U-W-J0008','U-X-J0536','U-X-J0550']){
    await page.evaluate(id=>{const t=window.__BGB_TEST__;t.ui.tab='bank';t.ui.sBank='all';t.ui.sKind='';t.ui.sScope=t.scopeFor(id).status;t.ui.search=id;t.ui.openId=id;t.render();},id);
@@ -62,8 +62,9 @@ const server=http.createServer((req,res)=>{const name=new URL(req.url,'http://lo
   await page.evaluate(id=>{const t=window.__BGB_TEST__;t.ui.sScope=t.scopeFor(id).status;t.ui.search=id;t.ui.openId=id;t.render();},verifiedId);
   assert.equal(await page.locator('[data-correction-status^="verified_"]').count(),1,'existing evidence-backed correction is displayed separately');
   await page.locator('[data-tab="today"]').click();
-  await page.waitForFunction(async()=>{const names=await caches.keys();return names.includes('jdbg-app-shiguang-unlimited-20261123-v5')&&!!(await caches.match(location.origin+'/index.html'));});
-  await ctx.setOffline(true);await page.reload();await page.waitForFunction(()=>window.__BGB_TEST__?.questions.length===13466);
+  await page.waitForFunction(async()=>{const names=await caches.keys();return names.some(k=>k.startsWith('jdbg-app-'))&&!!(await caches.match(location.origin+'/index.html'));});
+  await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
+  await ctx.setOffline(true);await page.reload();await page.waitForFunction(()=>window.__BGB_TEST__?.questions.length===13200);
   assert.deepEqual(await page.evaluate(id=>window.__BGB_TEST__.state.recs[id],excluded[0].i),rec);
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));assert.deepEqual(errors,[]);
   fs.mkdirSync(path.join(root,'test-results'),{recursive:true});await page.screenshot({path:path.join(root,'test-results','exam-scope-390.png'),fullPage:true});
