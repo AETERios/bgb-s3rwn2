@@ -420,7 +420,7 @@ function rKeySpan(q){
         if(!/^[，,、：:]$/.test(part)){
           const lead = part.length - part.trimStart().length, tail = part.trimEnd().length;
           const core = part.replace(/[。；;！!？?\s]/g, "");
-          if(core.length >= 5 && core.length <= 30) cands.push({s: start + off + lead, e: start + off + tail});
+          if(core.length >= 6 && core.length <= 20) cands.push({s: start + off + lead, e: start + off + tail});
         }
         off += part.length;
       }
@@ -513,7 +513,7 @@ function clozeCardHTML(d, c){
       const v = c.vals[k];
       out += `<button class="blank-slot ${v ? "" : "empty"}" data-slot="${k}" aria-label="第 ${k + 1} 空">${v ? esc(v) : "点词填入"}</button>`;
     } else if(!c.checked){
-      const w = Math.min(14, Math.max(3, sp.a.length + 1));
+      const w = Math.min(18, Math.max(3, sp.a.length + 1));
       out += `<input class="fill" id="fill-${k}" data-fi="${k}" value="${esc(c.vals[k] || "")}" style="width:${w}em" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="${k === c.shown.length - 1 ? "done" : "next"}" aria-label="第 ${k + 1} 空">`;
     } else if(c.res[i]){
       out += `<span class="blank shown ok">${esc(sp.a)}</span>`;
@@ -1220,7 +1220,7 @@ function fillHTML(q, c){
   return esc(q.q).replace(/\{\{blank:(\d+)\}\}/g, (_, n) => {
     const k = +n - 1, a = q.a[k] ?? "";
     if(!c.checked){
-      const w = Math.min(12, Math.max(3, a.length + 1));
+      const w = Math.min(16, Math.max(3, a.length + 1));
       return `<input class="fill" id="fill-${k}" data-fi="${k}" value="${esc(c.vals[k] || "")}" style="width:${w}em" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="${k === q.a.length - 1 ? "done" : "next"}" aria-label="第 ${k + 1} 空">`;
     }
     if(c.res[k] || c.override) return `<span class="blank shown ok">${esc(a)}</span>`;
