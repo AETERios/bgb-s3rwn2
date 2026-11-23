@@ -59,6 +59,13 @@ const server=http.createServer((req,res)=>{
   }
   assert.ok(counts.has(1),'应出现只考一个空的情况：'+[...counts]);
   assert.ok([...counts].some(n=>n>=2),'应出现一次考多个空的情况：'+[...counts]);
+  // 每次重新进入同一题也会自动换一组空，不需要手动点
+  const sets=new Set();
+  for(let i=0;i<10;i++){
+   await page.evaluate(()=>{const t=window.__BGB_TEST__;t.ui.studying=false;t.ui.card=null;t.enterStudy();});
+   sets.add(await page.evaluate(()=>window.__BGB_TEST__.ui.card.shown.join(',')));
+  }
+  assert.ok(sets.size>=3,'自动换空应产生多组不同组合：'+[...sets].join(' | '));
 
   // 5. 挖空不对时自己点字改空，并立即按新空判分
   await study('p-0004');

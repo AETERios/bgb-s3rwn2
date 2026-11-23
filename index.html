@@ -410,11 +410,17 @@ function clozeData(q){
   }
   return {text:base.text, spans:base.spans, custom:false};
 }
-function pickShown(n){
+function pickShown(n, avoid){
   if(n <= 0) return [];
   if(n === 1) return [0];
-  const k = Math.min(n, 1 + Math.floor(Math.random() * Math.min(3, n)));
-  return shuffle([...Array(n).keys()]).slice(0, k).sort((a,b) => a - b);
+  const maxK = Math.min(3, n);
+  let idx = [];
+  for(let tries = 0; tries < 14; tries++){
+    const k = 1 + Math.floor(Math.random() * maxK);
+    idx = shuffle([...Array(n).keys()]).slice(0, k).sort((a,b) => a - b);
+    if(!avoid || idx.length !== avoid.length || idx.some((v,i) => v !== avoid[i])) break;
+  }
+  return idx;
 }
 function clozeCardHTML(d, c){
   const shown = new Map((c.shown || []).map((si,k) => [si,k]));
@@ -524,7 +530,7 @@ function prepareScope(){
 }
 const S = {cfg:{...DEFAULT_CFG}, recs:{}, log:{}, sess:null};
 // rec = [due, interval, reps, lapses, lastGrade, minuteStamp]
-let ui = {tab:"today", studying:false, mode:"day", xs:null, card:null, t0:0, search:"", sBank:"all", sKind:"", sScope:"all", sSubject:"", openId:null};
+let ui = {tab:"today", studying:false, mode:"day", xs:null, card:null, t0:0, search:"", sBank:"all", sKind:"", sScope:"all", sSubject:"", openId:null, lastShown:{}};
 
 function loadLocal(){
   try{
@@ -1133,7 +1139,7 @@ function viewStudy(){
       else body += `<div class="tools"><button class="btn primary" data-reveal>看答案</button></div><div class="note">这道题没有可挖的空，按原文自评即可。</div>`;
     } else {
     if(c.forId !== q.i || !c.data){
-      c.forId = q.i; c.data = d; c.shown = pickShown(d.spans.length);
+      c.forId = q.i; c.data = d; c.shown = pickShown(d.spans.length, ui.lastShown[q.i]); ui.lastShown[q.i] = c.shown.slice();
       c.vals = []; c.res = {}; c.checked = false; c.allOk = false; c.override = false; c.edit = null; c.praise = null;
     }
     if(c.edit){
@@ -1152,9 +1158,9 @@ function viewStudy(){
     } else {
       body = `<div class="stem fill-stem">${clozeCardHTML(c.data, c)}</div>`;
       if(!c.checked){
-        body += `<div class="cloze-links"><button class="cloze-link" data-reshow>换一组空（${c.shown.length} / ${c.data.spans.length}）</button><button class="cloze-link" data-edit-cloze>挖得不对？自己选</button></div>`;
+        body += `<div class="cloze-links"><button class="cloze-link" data-reshow>再随机一组（${c.shown.length} / ${c.data.spans.length}）</button><button class="cloze-link" data-edit-cloze>挖得不对？自己选</button></div>`;
         body += `<div class="tools"><button class="btn" data-giveup>不会，看答案</button><button class="btn primary" data-check>核对</button></div>`;
-        body += `<div class="note">多个空的题，每次只随机考其中一部分；标点和空格不影响对错，“3”和“三”算一样。</div>`;
+        body += `<div class="note">多空题每次答都会自动随机换一组空，不用手动点；只有想马上再换，才点上面的“再随机一组”。标点和空格不影响对错，“3”和“三”算一样。</div>`;
       } else if(c.allOk || c.override){
         body += `<div class="verdict ok"><span class="lamp green"></span>${c.override ? "按你的意思算对" : (c.shown.length > 1 ? "全部填对" : "填对了")}</div>`;
         if(c.praise) body += `<div class="praise">✦ ${esc(c.praise.text)}</div>`;
@@ -1442,7 +1448,7 @@ app.addEventListener("click", e => {
     if(t.hasAttribute("data-check")){ readFills(c); checkCloze(q, c); c.praise = {text:praiseLine(c.allOk), bad:!c.allOk}; render(); buzz(c.allOk ? 14 : [10,50,10]); if(c.allOk) floatXP("+3 光点"); return; }
     if(t.hasAttribute("data-giveup")){ readFills(c); c.shown.forEach(i => c.res[i] = false); c.checked = true; c.allOk = false; c.praise = {text:"答案已经填好，先读一遍", bad:true}; render(); return; }
     if(t.hasAttribute("data-override")){ c.override = true; render(); return; }
-    if(t.hasAttribute("data-reshow")){ c.shown = pickShown(c.data.spans.length); c.vals = []; c.res = {}; c.checked = false; c.allOk = false; c.override = false; c.praise = null; render(); focusFirstFill(); return; }
+    if(t.hasAttribute("data-reshow")){ c.shown = pickShown(c.data.spans.length, c.shown); ui.lastShown[q.i] = c.shown.slice(); c.vals = []; c.res = {}; c.checked = false; c.allOk = false; c.override = false; c.praise = null; render(); focusFirstFill(); return; }
     if(t.hasAttribute("data-edit-cloze")){ const dd = clozeData(q); c.edit = {text:dd.text, marks:dd.spans.map(sp => [sp.s, sp.e]), pick:null}; render(); return; }
     if(t.hasAttribute("data-cloze-cancel")){ c.edit = null; render(); return; }
     if(t.hasAttribute("data-cloze-clear")){ c.edit.marks = []; c.edit.pick = null; render(); return; }
