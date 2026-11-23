@@ -133,6 +133,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .flag{border:0;background:none;color:var(--ink-2);font-size:13px;text-decoration:underline;cursor:pointer;align-self:flex-start;padding:2px 0}
 .flag.on{color:var(--sig-red);text-decoration:none;font-weight:600}
 .combo{font-size:14px;font-weight:600;color:var(--sig-green);background:var(--tint-green);border-radius:999px;padding:2px 8px;white-space:nowrap}
+@media (prefers-reduced-motion:no-preference){.combo{animation:comboPulse .55s ease-out}@keyframes comboPulse{50%{transform:scale(1.15)}}}
 input.fill{font:inherit;font-size:17px;border:0;border-bottom:2px solid var(--accent);background:var(--tint-blue);color:var(--ink);padding:0 4px;margin:0 2px;border-radius:4px 4px 0 0;max-width:100%;min-width:3em;line-height:1.5;vertical-align:baseline}
 input.fill:focus{outline:2px solid var(--accent);outline-offset:1px}
 .fill-stem{line-height:2.2}
@@ -250,6 +251,38 @@ body.studying nav.tabs{display:none}
   @keyframes blink{50%{opacity:.25}}
 }
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--nav-h) + env(safe-area-inset-bottom, 0px) + 12px);background:var(--ink);color:var(--paper);padding:8px 14px;border-radius:999px;font-size:14px;z-index:30;max-width:calc(100% - 32px)}
+
+/* ---------- 挖空作答、标注与即时反馈 ---------- */
+.cloze-canvas{font-size:18px;line-height:2.2;white-space:pre-wrap;word-break:break-word;user-select:none;-webkit-user-select:none}
+.cloze-canvas .ch{display:inline-block;padding:0 1px;border-radius:3px;cursor:pointer;touch-action:manipulation;transition:background .12s,color .12s}
+.cloze-canvas .ch.mark{background:var(--tint-blue);color:var(--accent);font-weight:650;box-shadow:inset 0 -2px 0 var(--accent)}
+.cloze-canvas .ch.pick{background:var(--tint-yellow);color:var(--sig-yellow);outline:1px dashed var(--sig-yellow)}
+.cloze-links{display:flex;gap:14px;flex-wrap:wrap}
+.cloze-link{border:0;background:none;color:var(--ink-2);font-size:13px;text-decoration:underline;cursor:pointer;padding:2px 0;min-height:0}
+.cloze-edit{display:flex;flex-direction:column;gap:10px}
+.cloze-edit .row .btn{flex:1 1 auto}
+.praise{display:inline-flex;align-items:center;gap:7px;font-weight:700;font-size:15px;color:var(--sig-green);background:var(--tint-green);border:1px solid var(--sig-green);border-radius:999px;padding:5px 13px;align-self:flex-start;animation:praisePop .4s cubic-bezier(.2,1.5,.4,1)}
+.praise.bad{color:var(--sig-yellow);background:var(--tint-yellow);border-color:var(--sig-yellow)}
+@keyframes praisePop{0%{transform:scale(.82);opacity:.2}65%{transform:scale(1.05)}100%{transform:scale(1);opacity:1}}
+.xp-float{position:fixed;left:50%;bottom:calc(var(--nav-h) + 96px);transform:translateX(-50%);z-index:40;font-weight:800;color:var(--sig-green);background:var(--sheet);border:1px solid var(--sig-green);border-radius:999px;padding:6px 16px;pointer-events:none;animation:xpRise 1.15s ease-out forwards;box-shadow:0 6px 18px rgba(0,0,0,.12)}
+@keyframes xpRise{0%{opacity:0;transform:translate(-50%,10px) scale(.9)}20%{opacity:1;transform:translate(-50%,0) scale(1)}100%{opacity:0;transform:translate(-50%,-42px) scale(1.02)}}
+.daily-plan,.study-plan{padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.daily-plan-head,.study-plan-head{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.daily-plan-head>div{display:flex;flex-direction:column;gap:2px}
+.daily-plan-head strong{font-family:var(--f-num);font-size:28px;line-height:1.05;color:var(--accent)}
+.daily-plan-head strong small{font-family:var(--f-body);font-size:12px;font-weight:400;color:var(--ink-2)}
+.daily-plan-head>span{font-size:12px;color:var(--ink-2);white-space:nowrap}
+.study-plan-head{align-items:baseline;font-size:13px;color:var(--ink-2)}
+.study-plan-head strong{font-size:14px;color:var(--ink);font-family:var(--f-body)}
+.study-plan-head b{font-size:17px;color:var(--ink);margin-left:2px}
+.study-plan-meta{display:flex;flex-wrap:wrap;gap:3px 14px;font-size:12px;color:var(--ink-2)}
+.celebrate{display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px 12px;border-radius:var(--r);background:var(--tint-green);border:1px solid var(--sig-green);color:var(--sig-green);text-align:center}
+.celebrate .big{font-size:36px;line-height:1;animation:praisePop .5s ease-out}
+.ann-bar{position:sticky;top:0;z-index:15;display:flex;align-items:center;gap:10px;background:var(--paper);padding:8px 0}
+.ann-bar strong{font-family:var(--f-display);font-size:18px}
+.ann-bar .num{margin-left:auto;color:var(--ink-2)}
+.ann-bar .btn{min-height:38px;padding:4px 12px}
+.chip.custom{background:var(--tint-green);color:var(--sig-green);font-weight:600}
 </style>
 <link rel="stylesheet" href="design-v3.css">
 
@@ -274,7 +307,7 @@ body.studying nav.tabs{display:none}
 "use strict";
 /* ===== data & audio (filled in by Claude when publishing) ===== */
 const DATA_ID = ""; const OFFLINE = true; let OFFLINE_READY = false;
-const APP_VERSION = "shiguang-unlimited-20261123-v5";
+const APP_VERSION = "shiguang-cloze-20261123-v7";
 const APP_CACHE = "jdbg-app-" + APP_VERSION;
 let UPDATE_READY = false;
 if("serviceWorker" in navigator){
@@ -323,9 +356,151 @@ function questionScope(id){ return SCOPE.get(id) || {status:"pending", subjects:
 function sourceMatches(id, bankKey = S.cfg.bank){ const q = QMAP.get(id); if(!q)return false; const party = questionScope(id).subjects.includes("party"); if(bankKey === "party")return party; if(bankKey === "professional")return !party; return (BANK_SETS[bankKey] || BANK_SETS.all).includes(q.b); }
 function practiceEligible(id, scope = studyScope(), bankKey = S.cfg.bank){ const q = QMAP.get(id); return !!q && (scope === "all" || questionScope(id).status === scope) && sourceMatches(id, bankKey); }
 function scopeTitle(id){ const e = questionScope(id); const subjects = e.subjects.map(s => SCOPE_SUBJECTS.get(s) || s).join("、"); return SCOPE_LABELS[e.status] + (subjects ? " · " + subjects : ""); }
-function referenceOnly(q){ return !!q.auto || q.k === "v"; }
+function referenceOnly(q){ return q.k === "v"; }
 function originalStem(q){ return q.k === "f" ? q.q.replace(/\{\{blank:(\d+)\}\}/g, (_,n) => (q.a || [])[+n-1] || "") : q.q; }
-function scopeBadge(q){ return `<span class="chip ${questionScope(q.i).status === "core" ? "scope-core" : "plain"}">${esc(scopeTitle(q.i))}</span>`; }
+
+/* ===== 挖空引擎：先用题目自带的空，再允许逐题改空，答题时随机抽空 ===== */
+const CLOZE_PUNCT = /[，,；;、。：:]/;
+function splitCloze(q){
+  const raw = String(q.q || ""), ans = q.a || [];
+  let text = "", last = 0, m;
+  const spans = [];
+  const re = /\{\{blank:(\d+)\}\}/g;
+  while((m = re.exec(raw))){
+    text += raw.slice(last, m.index);
+    const a = String(ans[+m[1] - 1] ?? "") || "＿";
+    spans.push({s:text.length, e:text.length + a.length, a});
+    text += a;
+    last = m.index + m[0].length;
+  }
+  text += raw.slice(last);
+  return {text, spans:spans.filter(sp => sp.e > sp.s)};
+}
+function splitPunctSpans(d){
+  const out = [];
+  for(const sp of d.spans){
+    let off = 0;
+    for(const part of sp.a.split(/([，,；;、。：:])/)){
+      if(!part) continue;
+      if(!/^[，,；;、。：:]$/.test(part)) out.push({s:sp.s + off, e:sp.s + off + part.length, a:part});
+      off += part.length;
+    }
+  }
+  return {text:d.text, spans:out};
+}
+function tidyCloze(d){
+  const spans = [];
+  for(const sp of d.spans){
+    let s = sp.s, e = sp.e;
+    while(s < e && /[\s\u3000“”"'‘’（）()《》]/.test(d.text[s])) s++;
+    while(e > s && /[\s\u3000“”"'‘’（）()《》]/.test(d.text[e-1])) e--;
+    if(e > s) spans.push({s, e, a:d.text.slice(s, e)});
+  }
+  return {text:d.text, spans};
+}
+function clozeData(q){
+  if(!q) return {text:"", spans:[], custom:false};
+  const base = tidyCloze(splitPunctSpans(splitCloze(q)));
+  const ov = (S.cfg.clozes || {})[q.i];
+  if(ov && Array.isArray(ov.m)){
+    const spans = ov.m.map(([s,e]) => ({s:+s, e:+e, a:base.text.slice(+s, +e)}))
+      .filter(x => x.e > x.s && x.s >= 0 && x.e <= base.text.length)
+      .sort((a,b) => a.s - b.s);
+    if(spans.length) return {text:base.text, spans, custom:true};
+  }
+  return {text:base.text, spans:base.spans, custom:false};
+}
+function pickShown(n){
+  if(n <= 0) return [];
+  if(n === 1) return [0];
+  const k = Math.min(n, 1 + Math.floor(Math.random() * Math.min(3, n)));
+  return shuffle([...Array(n).keys()]).slice(0, k).sort((a,b) => a - b);
+}
+function clozeCardHTML(d, c){
+  const shown = new Map((c.shown || []).map((si,k) => [si,k]));
+  let out = "", pos = 0;
+  d.spans.forEach((sp, i) => {
+    out += esc(d.text.slice(pos, sp.s));
+    const k = shown.has(i) ? shown.get(i) : -1;
+    if(k < 0){
+      out += esc(d.text.slice(sp.s, sp.e));
+    } else if(!c.checked){
+      const w = Math.min(14, Math.max(3, sp.a.length + 1));
+      out += `<input class="fill" id="fill-${k}" data-fi="${k}" value="${esc(c.vals[k] || "")}" style="width:${w}em" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="${k === c.shown.length - 1 ? "done" : "next"}" aria-label="第 ${k + 1} 空">`;
+    } else if(c.res[i]){
+      out += `<span class="blank shown ok">${esc(sp.a)}</span>`;
+    } else {
+      out += `<span class="mine">${esc(c.vals[k] || "（没填）")}</span><span class="blank shown">${esc(sp.a)}</span>`;
+    }
+    pos = sp.e;
+  });
+  return out + esc(d.text.slice(pos));
+}
+function checkCloze(q, c){
+  const d = c.data || clozeData(q);
+  const want = c.shown.map(i => normAns(d.spans[i].a));
+  const got = c.shown.map((_, k) => normAns(c.vals[k]));
+  c.res = {};
+  c.shown.forEach((i, k) => { c.res[i] = !!got[k] && got[k] === want[k]; });
+  if(c.shown.length > 1 && !c.shown.every(i => c.res[i]) && [...want].sort().join("|") === [...got].sort().join("|")) c.shown.forEach(i => c.res[i] = true);
+  c.checked = true;
+  c.allOk = c.shown.every(i => c.res[i]);
+}
+function clozeBankHTML(q, open){
+  const d = clozeData(q);
+  let out = "", pos = 0;
+  for(const sp of d.spans){
+    out += esc(d.text.slice(pos, sp.s));
+    out += open ? `<span class="blank shown">${esc(sp.a)}</span>` : `<span class="blank">${"＿".repeat(Math.min(6, Math.max(2, sp.a.length)))}</span>`;
+    pos = sp.e;
+  }
+  return out + esc(d.text.slice(pos));
+}
+function suspectScore(q){
+  const d = clozeData(q);
+  if(!d.spans.length) return 30;
+  let s = 0;
+  for(const sp of d.spans){
+    const a = sp.a;
+    if(a.length > 8) s += 2;
+    if(a.length > 14) s += 3;
+    if(CLOZE_PUNCT.test(a)) s += 5;
+    if(/^[的了和与及等]/.test(a)) s += 3;
+    if(/[的了和与及]$/.test(a)) s += 2;
+    if(a.length <= 1) s += 2;
+  }
+  if(d.spans.length > 3) s += 1;
+  if((S.cfg.clozes || {})[q.i]) s -= 9;
+  return s;
+}
+const PRAISE_OK = ["稳稳拿下", "记得很牢", "漂亮", "这一分拿到手", "又熟了一点", "手感正好"];
+const PRAISE_BAD = ["没关系，答案已经记住", "差一点，下次就对", "这题过几题还会再来", "先看清绿色的答案"];
+function praiseLine(ok){
+  const arr = ok ? PRAISE_OK : PRAISE_BAD;
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+function floatXP(text){
+  try{
+    const el = document.createElement("div");
+    el.className = "xp-float"; el.textContent = text;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 1200);
+  }catch(e){}
+}
+function buzz(pattern){ try{ if(navigator.vibrate) navigator.vibrate(pattern); }catch(e){} }
+function toggleMark(ed, i){
+  if(!ed || !ed.marks) return;
+  const hit = ed.marks.findIndex(([s,e]) => i >= s && i < e);
+  if(hit >= 0){ ed.marks.splice(hit, 1); ed.pick = null; return; }
+  if(ed.pick == null){ ed.pick = i; return; }
+  const a = Math.min(ed.pick, i), b = Math.max(ed.pick, i) + 1;
+  ed.marks = ed.marks.filter(([s,e]) => e <= a || s >= b);
+  ed.marks.push([a,b]);
+  ed.marks.sort((x,y) => x[0] - y[0]);
+  ed.pick = null;
+}
+function marksText(ed){ return ed.marks.map(([s,e]) => ed.text.slice(s,e)).join(" / "); }
+function scopeBadge(q){ const core = questionScope(q.i).status === "core"; return `<span class="chip ${core ? "scope-core" : "plain"}">${core ? "已纳入" : "归属待核"}</span>`; }
 function scopeEvidence(q){
  const e = questionScope(q.i), labels = {"content-classification":"公共知识归类","original-citation":"原件标注出处，原文待核","substantive-text-match":"历史原文实质匹配","reviewed-attribution":"已复审归属","unresolved":"归属待核"};
  const matches = (e.sourceMatches || []).map(m => { const url = /^https:\/\//.test(m.url || "") ? m.url : ""; return '<div>' + esc(m.level === "candidate" ? "候选，未确认" : m.level === "reviewed-attribution" ? "已复审归属" : "实质长句匹配") + ' · ' + esc(m.title) + ' ' + esc(m.article || "") + (m.page ? ' · PDF第' + esc(m.page) + '页' : '') + (url ? ' <a href="' + esc(url) + '" target="_blank" rel="noopener">查看原件</a>' : '') + '<br>' + esc(m.quote || "") + '<br>' + esc(m.version || "历史版本，未核2026现行修订") + '</div>'; }).join('<hr>');
@@ -508,7 +683,12 @@ function mergeState(o){
   for(const [id, r] of Object.entries(o.recs || {})){ const mine = S.recs[id]; if(!mine || (r[5] || 0) > (mine[5] || 0)){ S.recs[id] = r; n++; dirty.add(chunkOf(id)); } }
   for(const [k, v] of Object.entries(o.log || {})){ const mine = S.log[k]; if(!mine || sum(v) > sum(mine)){ S.log[k] = v; dirty.add("log"); } }
   if(o.sess && o.sess.queue && (o.sess.u || 0) > ((S.sess && S.sess.u) || 0)){ S.sess = o.sess; dirty.add("sess"); }
-  if(o.cfg && (o.cfg.u || 0) > (S.cfg.u || 0)){ Object.assign(S.cfg, o.cfg, {unlimitedV5:o.cfg.unlimitedV5 || 0}); dirty.add("cfg"); }
+  if(o.cfg && (o.cfg.u || 0) > (S.cfg.u || 0)){
+    const mineClozes = S.cfg.clozes || {};
+    Object.assign(S.cfg, o.cfg, {unlimitedV5:o.cfg.unlimitedV5 || 0});
+    S.cfg.clozes = {...(o.cfg.clozes || {}), ...mineClozes};
+    dirty.add("cfg");
+  }
   transferDup(); prepareScope(); scheduleFlush(300);
   return n;
 }
@@ -655,7 +835,7 @@ function startExtra(type){
   } else if(type === "random"){ ids = shuffle(p.pool.slice()); }
   ui.xs = newSess(ids, type); ui.mode = "extra"; enterStudy();
 }
-function blankCard(){ return {sel: new Set(), answered: false, correct: null, reveal: false, hint: false, skel: false, pts: new Set(), vals: [], checked: false, res: [], allOk: false, override: false}; }
+function blankCard(){ return {sel: new Set(), answered: false, correct: null, reveal: false, hint: false, skel: false, pts: new Set(), vals: [], checked: false, res: {}, allOk: false, override: false, shown: null, forId: null, data: null, edit: null, praise: null}; }
 function enterStudy(){ const active = curSess(), paused = ui.pausedCard; ui.card = paused && paused.sess === active && paused.pos === active.pos ? paused.card : blankCard(); ui.pausedCard = null; ui.studying = true; ui.t0 = Date.now(); document.body.classList.add("studying"); render(); window.scrollTo(0, 0); focusFirstFill(); }
 function pauseStudy(){
   const active = curSess(); if(active && ui.card){ readFills(ui.card); ui.pausedCard = {sess: active, pos: active.pos, card: ui.card}; }
@@ -807,24 +987,31 @@ function viewToday(){
     <div class="countdown"><span class="num">${Math.max(0, p.exam - p.t)}</span><span class="label">天后考试</span></div>
     <div class="sync" id="syncline">${syncHTML()}</div>
   </header>
-  ${rewardHTML()}
-  <details class="scope-overview"><summary>当前内容与资料依据</summary><div class="scope-summary note">${esc(SCOPE_LABELS[studyScope()])} · ${scopeQuestions.length} 个原编号 · ${p.pool.length} 题可练 · 其中 ${referenceCount} 题按原文记忆。全部原题均可学习；待核题仅保留待核提示，旧自动挖空按原文记忆。<a href="audit/index.html">逐题去留、待核与缺失材料清单</a></div></details>
-  <div class="row content-entries">${[["all","全部内容"],["professional","专业规章"],["party","党口与公共知识"]].map(([v,t]) => `<button class="btn" data-content="${v}" aria-pressed="${S.cfg.bank === v}">${t}</button>`).join("")}</div><section class="tiles" aria-label="今天的任务">
-    <div class="sheet tile"><span class="label"><span class="lamp"></span>新题</span><span class="num">${p.newLeft}</span><span class="note">剩余新题 · 随时可学</span></div>
-    <div class="sheet tile"><span class="label"><span class="lamp green"></span>复习</span><span class="num">${p.due.length}</span><span class="note">到期该复习</span></div>
-    <div class="sheet tile"><span class="label"><span class="lamp red"></span>错题</span><span class="num">${p.wrong}</span><span class="note">上次没答对</span></div>
+  <div class="row content-entries">${[["all","全部内容"],["professional","专业规章"],["party","党口与公共知识"]].map(([v,t]) => `<button class="btn" data-content="${v}" aria-pressed="${S.cfg.bank === v}">${t}</button>`).join("")}</div>
+  <section class="sheet daily-plan" aria-label="今日学习进度">
+    <div class="daily-plan-head"><div><span class="label">今日新学</span><strong class="num">${p.introduced}<small> / ${p.perDay} 道建议</small></strong></div><span class="num">剩余新题 ${p.newLeft}</span></div>
+    <div class="progress" role="progressbar" aria-label="今日建议进度" aria-valuemin="0" aria-valuenow="${p.introduced}" aria-valuemax="${Math.max(1,p.perDay)}"><i style="width:${Math.min(100,p.introduced/Math.max(1,p.perDay)*100)}%"></i></div>
+    <p class="note">全部已学 ${p.learned} / ${p.pool.length} 道 · 再新学 ${p.suggestedLeft} 道达到今日建议。建议不是上限，完成后仍可继续。</p>
+    ${p.introduced >= p.perDay ? `<div class="praise">✦ 今日建议已完成，继续学也计入</div>` : ""}
+  </section>
+  <section class="tiles" aria-label="剩余学习内容">
+    <div class="sheet tile"><span class="label"><span class="lamp"></span>新题</span><span class="num">${p.newLeft}</span><span class="note">还未学过</span></div>
+    <div class="sheet tile"><span class="label"><span class="lamp green"></span>复习</span><span class="num">${p.due.length}</span><span class="note">今天到期</span></div>
+    <div class="sheet tile"><span class="label"><span class="lamp red"></span>错题</span><span class="num">${p.wrong}</span><span class="note">上次不会</span></div>
   </section>
   <div class="go">
     ${goButtonHTML(p)}
     <div class="row">
-      <button class="btn" data-start="recite">问答与原文记忆</button>
+      <button class="btn" data-start="recite">问答自测</button>
       <button class="btn" data-start="wrong" ${p.wrong ? "" : "disabled"}>错题本</button>
-      <button class="btn" data-start="${sessDoneToday() ? "extra" : "random"}">随机学习 · 不限量</button>
+      <button class="btn" data-start="${sessDoneToday() ? "extra" : "random"}">随机学习</button>
     </div>
-    <p class="note plan-advice">距考试 ${Math.max(0,p.exam-p.t)} 天 · 建议今天新学 ${p.perDay} 道，尚需 ${p.suggestedLeft} 道达到建议量。建议量不设上限，完成后可一直学；原文记忆也计入进度。</p>
     ${todayStatsHTML()}
-    <details class="session-guide"><summary>今天的安排与保存方式</summary><div class="note">一天的题连着做：答错的过几题再出现，每 50 题到一站，再回顾 5 道前面做过的题。暂停、切到别的应用、关掉都会自动保存，回来点“继续”接着做。每天凌晨 4 点换新的一天。今天建议新学 ${p.perDay} 题，已经学了 ${p.introduced} 题。达到建议量后仍可继续。考前侧重复习不会关闭尚未学完的新题。</div></details>
+    <button class="cloze-link" data-annotate>空挖得别扭？逐题标注（可选）</button>
   </div>
+  ${rewardHTML(true)}
+  <details class="session-guide"><summary>学习安排、反馈与保存说明</summary><div class="note">答错或自评不会的题会再出现，每 50 次有休息站，可继续也可暂停。暂停、切出或关闭都会自动保存。所有填空题都能直接作答：多个空的题每次随机考一部分，空挖得不对可以点“自己选”。其余题型可按答案自评，每道题都能保存或在线提交问题反馈。<button class="cloze-link" data-annotate>逐题标注挖空</button></div></details>
+  <details class="scope-overview"><summary>当前内容与资料依据</summary><div class="scope-summary note">${esc(SCOPE_LABELS[studyScope()])} · ${scopeQuestions.length} 个原编号 · ${referenceCount} 题只有原文。待核题保留提示；归属确认不等于答案或现行版本已核实。<a href="audit/index.html">逐题归属、待核与缺失材料清单</a></div></details>
   ${AUDIO.length ? audioTeaser : ""}
   <details class="history-details"><summary>查看积累记录与各内容进度</summary><section class="section">
     <div class="section-head"><h2>进度运行图</h2><span class="label">每天做题数</span></div>
@@ -850,10 +1037,12 @@ function dayTrack(s){
   return `<div class="daytrack" role="img" aria-label="今天的进度 ${done} / ${total}"><div class="rail"><b style="width:${(done / Math.max(1, total) * 100).toFixed(2)}%"></b>${ticks}<span class="loco" style="left:${(done / Math.max(1, total) * 100).toFixed(2)}%"></span></div>
     <div class="daytrack-label num"><span>起点</span><span>${done} / ${total} 题</span><span>今日终点</span></div></div>`;
 }
+function studyPlanHTML(s){
+  const p = plan(), pct = Math.min(100, p.introduced / Math.max(1, p.perDay) * 100);
+  return `<section class="sheet study-plan" aria-label="今日学习进度"><div class="study-plan-head"><strong>今日新学 <span class="num">${p.introduced} / ${p.perDay}</span></strong><span>剩余新题 <b class="num">${p.newLeft}</b></span></div><div class="progress" role="progressbar" aria-label="今日建议进度" aria-valuemin="0" aria-valuenow="${p.introduced}" aria-valuemax="${Math.max(1,p.perDay)}"><i style="width:${pct}%"></i></div><div class="study-plan-meta"><span>本次完成 ${s.ans || 0} 次</span><span>到期复习 ${p.due.length}</span><span>连续 ${rewardStats().streak} 天</span><span>积光 ${rewardStats().points} · LV.${rewardStats().level}</span></div></section>`;
+}
 function topbar(s){
-  const total = countQ(s.queue), done = countQ(s.queue.slice(0, s.pos));
-  const pct = (done / Math.max(1, total) * 100).toFixed(1);
-  return `<div class="reward-mini" aria-live="polite"><span>✦ 本次已完成 ${s.ans || 0} 次</span><span>积光 ${rewardStats().points} · LV.${rewardStats().level}</span></div><div class="topbar"><button class="btn" data-end>${ui.mode === "day" ? "暂停 · 回到今日" : "结束 · 回到今日"}</button><div class="progress" role="progressbar" aria-valuenow="${done}" aria-valuemax="${total}"><i style="width:${pct}%"></i></div><span class="num muted">${Math.min(done + 1, total)} / ${total}</span>${s.combo >= 3 ? `<span class="combo num" title="连续答对">连对 ${s.combo}</span>` : ""}</div>`;
+  return `${studyPlanHTML(s)}<div class="topbar"><button class="btn" data-end>${ui.mode === "day" ? "暂停 · 回到今日" : "结束 · 回到今日"}</button><span class="session-position">本次第 ${(s.ans || 0) + 1} 次</span>${s.combo >= 3 ? `<span class="combo num" title="连续答对">连对 ${s.combo}</span>` : ""}</div>`;
 }
 function stationView(s, e){
   const [, ans, segOk, segN, segSec, best] = String(e).split("|").map(Number);
@@ -877,9 +1066,9 @@ function doneView(s){
   const acc = s.ans ? Math.round(s.ok / s.ans * 100) : 0;
   return `<div class="topbar"><button class="btn" data-end>回到今日</button><div class="progress"><i style="width:100%"></i></div></div>
   <div class="sheet done-card">
-    <span class="label">${ui.mode === "day" ? "这一轮完成" : "这一轮完成"}</span>
-    <span class="num">${s.ans}</span><div>${ui.mode === "day" ? "这一轮完成了，可继续回顾" : "题做完了"}，共答 ${s.ans} 次，正确率 ${acc}%，最高连对 ${s.best} 题，用时 ${fmtMin(s.sec)}。</div>
-    <div class="note">答错的题明天会再出现，答对的题按复习曲线隔几天再出现。</div>
+    <div class="celebrate"><span class="big">✦</span><strong>${s.ans} 次完成</strong><span class="num">正确率 ${acc}% · 最高连对 ${s.best} 题</span></div>
+    <div>${ui.mode === "day" ? "这一轮跑完了，随时可以再来一轮" : "题做完了"}，共用 ${fmtMin(s.sec)}。</div>
+    <div class="note">答错的题明天会再出现，答对的题按复习曲线隔几天再出现。休息不会扣光点。</div>
     <button class="btn primary" data-more>继续学习 · 不限题数</button>
     <button class="btn" data-end>回到今日</button></div>`;
 }
@@ -894,7 +1083,7 @@ function fillHTML(q, c){
     return `<span class="mine">${esc(c.vals[k] || "（没填）")}</span><span class="blank shown">${esc(a)}</span>`;
   });
 }
-function studyQuestion(q){ if(!q)return q; return referenceOnly(q) ? {...q,k:"r",q:"原文记忆 · "+q.t+" · "+q.i+"（展开原文阅读，再自评记忆程度）",x:originalStem(q)} : q; }
+function studyQuestion(q){ if(!q)return q; return referenceOnly(q) ? {...q,k:"r",q:originalStem(q),x:q.x || originalStem(q)} : q; }
 function viewStudy(){
   const s = curSess();
   if(!s){ ui.studying = false; return viewToday(); }
@@ -931,45 +1120,77 @@ function viewStudy(){
       body += `<div class="row"><button class="btn" data-judge="1" style="min-height:56px">正确</button><button class="btn" data-judge="0" style="min-height:56px">错误</button></div>`;
     } else {
       body += `<div class="verdict ${c.correct ? "ok" : "bad"}"><span class="lamp ${c.correct ? "green" : "red"}"></span>${c.correct ? "回答正确" : "回答错误"}：这句话是${q.a ? "正确" : "错误"}的</div>`;
+      if(c.praise) body += `<div class="praise ${c.praise.bad ? "bad" : ""}">✦ ${esc(c.praise.text)}</div>`;
       if(q.a === 0) body += corrHTML(q);
       else if(q.x) body += `<div class="answer">${esc(q.x)}</div>`;
       body += afterObjective(c.correct);
     }
   } else if(q.k === "f"){
-    body = `<div class="stem fill-stem">${fillHTML(q, c)}</div>`;
-    if(!c.checked){
-      body += `<div class="tools"><button class="btn" data-giveup>不会，看答案</button><button class="btn primary" data-check>核对</button></div><div class="note">在空格里输入答案，标点和空格不影响对错，“3”和“三”算一样。</div>`;
-    } else if(c.allOk || c.override){
-      body += `<div class="verdict ok"><span class="lamp green"></span>${c.override ? "按你的意思算对" : "全部填对"}</div>
-        <div class="grades two"><button class="grade g1" data-next="1" data-ok="1">有点不熟<small>过几天再考</small></button><button class="grade g2" data-next="2" data-ok="1">会了<small>隔久一点</small></button></div>`;
+    const d = clozeData(q);
+    if(!d.spans.length){
+      body = `<div class="stem">${esc(d.text)}</div>`;
+      if(c.reveal) body += `<div class="answer">${esc(q.x || d.text)}</div>${gradeButtons()}`;
+      else body += `<div class="tools"><button class="btn primary" data-reveal>看答案</button></div><div class="note">这道题没有可挖的空，按原文自评即可。</div>`;
     } else {
-      const wrong = c.res.filter(x => !x).length;
-      body += `<div class="verdict bad"><span class="lamp red"></span>${c.vals.some(v => v) ? `有 ${wrong} 个空不对，绿色是正确答案` : "正确答案已经填上"}</div>
-        <button class="btn primary" data-next="0" data-ok="0">下一题（记为不会，过一会儿再考）</button>
-        ${c.vals.some(v => v) ? `<button class="btn ghost" data-override>我写的意思对，算对</button>` : ""}`;
+    if(c.forId !== q.i || !c.data){
+      c.forId = q.i; c.data = d; c.shown = pickShown(d.spans.length);
+      c.vals = []; c.res = {}; c.checked = false; c.allOk = false; c.override = false; c.edit = null; c.praise = null;
     }
-    body += feedbackHTML(q);
+    if(c.edit){
+      const ed = c.edit;
+      let chars = "";
+      for(let i = 0; i < ed.text.length; i++){
+        const inside = ed.marks.some(([s,e]) => i >= s && i < e);
+        const cls = "ch" + (inside ? " mark" : "") + (ed.pick === i ? " pick" : "");
+        chars += `<span class="${cls}" data-ci="${i}" role="button" tabindex="-1">${ed.text[i] === "\n" ? "⏎" : esc(ed.text[i])}</span>`;
+      }
+      body = `<div class="cloze-edit"><div class="note">这道题现在挖的是：<b>${esc(marksText(ed) || "（还没选）")}</b></div>
+        <div class="note">点要挖掉的第一个字，再点最后一个字；点已经挖掉的字可以取消。</div>
+        <div class="cloze-canvas" aria-label="点字选择要挖的空">${chars}</div>
+        <div class="row"><button class="btn primary" data-cloze-save>保存挖空</button><button class="btn" data-cloze-clear>清空重标</button><button class="btn" data-cloze-auto>用自动空</button><button class="btn" data-cloze-cancel>取消</button></div>
+        <div class="note">只改这道题的挖空，原题、答案和学习记录都不动。</div></div>`;
+    } else {
+      body = `<div class="stem fill-stem">${clozeCardHTML(c.data, c)}</div>`;
+      if(!c.checked){
+        body += `<div class="cloze-links"><button class="cloze-link" data-reshow>换一组空（${c.shown.length} / ${c.data.spans.length}）</button><button class="cloze-link" data-edit-cloze>挖得不对？自己选</button></div>`;
+        body += `<div class="tools"><button class="btn" data-giveup>不会，看答案</button><button class="btn primary" data-check>核对</button></div>`;
+        body += `<div class="note">多个空的题，每次只随机考其中一部分；标点和空格不影响对错，“3”和“三”算一样。</div>`;
+      } else if(c.allOk || c.override){
+        body += `<div class="verdict ok"><span class="lamp green"></span>${c.override ? "按你的意思算对" : (c.shown.length > 1 ? "全部填对" : "填对了")}</div>`;
+        if(c.praise) body += `<div class="praise">✦ ${esc(c.praise.text)}</div>`;
+        body += `<div class="grades two"><button class="grade g1" data-next="1" data-ok="1">有点不熟<small>过几天再考</small></button><button class="grade g2" data-next="2" data-ok="1">会了<small>隔久一点</small></button></div>`;
+      } else {
+        const wrong = c.shown.filter(i => !c.res[i]).length;
+        const touched = c.vals.some(v => String(v || "").trim());
+        body += `<div class="verdict bad"><span class="lamp red"></span>${touched ? `有 ${wrong} 个空不对，绿色是正确答案` : "正确答案已经填上，先记一遍"}</div>`;
+        if(c.praise) body += `<div class="praise bad">✦ ${esc(c.praise.text)}</div>`;
+        body += `<button class="btn primary" data-next="0" data-ok="0">下一题（过几题再考）</button>`;
+        if(touched) body += `<button class="btn ghost" data-override>我写的意思对，算对</button>`;
+      }
+    }
+    }
   } else {
     body = `<div class="stem">${esc(q.q)}</div>${altHTML(q)}`;
     if(c.skel && !isCalc(q.x)) body += skeletonHTML(q.x, c.pts);
     if(c.hint && !c.reveal) body += `<div class="hint" aria-label="首字提示">${esc(firstCharHint(q.x))}</div>`;
     if(c.reveal) body += `<div class="answer">${esc(q.x)}</div>`;
-    body += `<div class="tools">${isCalc(q.x) ? "" : `<button class="btn" data-skel>${c.skel ? "收起骨架" : "要点骨架"}</button>`}${c.reveal ? "" : `<button class="btn" data-hint>${c.hint ? "收起提示" : "首字提示"}</button>`}<button class="btn" data-speak>朗读${c.reveal ? "答案" : ""}</button>${c.reveal ? "" : `<button class="btn primary" data-reveal>${referenceOnly(q) ? "展开原文" : "看答案"}</button>`}</div>`;
+    body += `<div class="tools">${isCalc(q.x) ? "" : `<button class="btn" data-skel>${c.skel ? "收起骨架" : "要点骨架"}</button>`}${c.reveal ? "" : `<button class="btn" data-hint>${c.hint ? "收起提示" : "首字提示"}</button>`}<button class="btn" data-speak>朗读${c.reveal ? "答案" : ""}</button>${c.reveal ? "" : `<button class="btn primary" data-reveal>看答案</button>`}</div>`;
     if(c.reveal) body += gradeButtons();
-    else if(referenceOnly(q)) body += `<div class="note">这道题保留原文学习，不使用旧自动挖空判分。展开阅读后按记忆程度自评，进度正常保存。</div>`;
     else if(isCalc(q.x)) body += `<div class="note">计算题重点记公式：先写出公式，再代数字，最后点“看答案”对照。</div>`;
-    else body += `<div class="note">先在纸上默写，再点“看答案”对照，然后如实选“不会 / 模糊 / 会了”。</div>`;
+    else body += `<div class="note">先回忆或在纸上默写，再点“看答案”对照，然后如实自评。</div>`;
   }
-  return `${topbar(s)}<article class="sheet card">${chip}${body}${c.answered || c.checked || c.reveal ? scopeEvidence(q) : ""}</article>`;
+  const evidence = c.answered || c.checked || c.reveal ? `<details class="question-evidence"><summary>题号 ${esc(q.i)} · 归属与核对说明</summary>${scopeEvidence(q)}</details>` : "";
+  return `${topbar(s)}<article class="sheet card">${chip}${body}${feedbackHTML(q)}${evidence}</article>`;
 }
 
 function feedbackIds(){ return [...new Set([...Object.keys(S.cfg.flags || {}),...Object.keys(S.cfg.fillReports || {})])].filter(id=>QMAP.has(id)); }
+function feedbackKind(q){ return q.k === "f" ? "填空反馈" : "题目反馈"; }
 function feedbackText(q,short=false){
  const r = (S.cfg.fillReports || {})[q.i] || {}, cut=(v,n)=>short?String(v).slice(0,n):String(v);
- return ['填空反馈 · '+q.i,'问题与建议：'+cut(r.note || '空位有问题，具体位置待补充',400),'原题（含空位）：'+cut(q.q,180),'原答案：'+cut((q.a || []).join(' / '),100),'原文：'+cut(originalStem(q),180),'版本：'+APP_VERSION,'本机记录时间：'+(r.at ? new Date(r.at).toISOString() : '旧版标记，未记录时间')].join('\n\n');
+ return [feedbackKind(q)+' · '+q.i,'问题与建议：'+cut(r.note || (q.k === 'f' ? '空位或题目有问题，具体情况待补充' : '题目、答案或原文有问题，具体情况待补充'),400),'原题（含空位）：'+cut(q.q,180),'原答案：'+cut(Array.isArray(q.a) ? q.a.join(' / ') : (q.a ?? ''),100),'原文：'+cut(originalStem(q),180),'版本：'+APP_VERSION,'本机记录时间：'+(r.at ? new Date(r.at).toISOString() : '旧版标记，未记录时间')].join('\n\n');
 }
 function feedbackURL(q){
- const base='https://github.com/AETERios/bgb-s3rwn2/issues/new?title='+encodeURIComponent('[填空反馈] '+q.i)+'&body=';
+ const base='https://github.com/AETERios/bgb-s3rwn2/issues/new?title='+encodeURIComponent('['+feedbackKind(q)+'] '+q.i)+'&body=';
  let body=feedbackText(q,true);while((base+encodeURIComponent(body)).length>7400)body=body.slice(0,-60);
  return base+encodeURIComponent(body+'\n\n（完整内容可从拾光导出反馈清单；归属、答案与空位需分别核对。）');
 }
@@ -979,10 +1200,10 @@ function saveFeedback(id,note){
 }
 function feedbackHTML(q){
  const r=(S.cfg.fillReports || {})[q.i], flagged=(S.cfg.flags || {})[q.i];
- return '<details class="feedback-form" data-feedback-id="'+esc(q.i)+'"><summary>这个空有问题？反馈给 Codex'+(flagged?' · 本机已记下':'')+'</summary><p class="note">题号 '+esc(q.i)+' · 说明哪里挖错、建议保留什么空；不确定也可以直接标记。</p><label for="feedback-note">问题与建议</label><textarea id="feedback-note" data-feedback-note="'+esc(q.i)+'" rows="3" maxlength="2000" placeholder="例如：不该挖掉整个名称，建议只挖关键数字。">'+esc(r?.note || '')+'</textarea><div class="row"><button class="btn" data-feedback-save="'+esc(q.i)+'">保存到本机</button><a class="btn" data-feedback-online="'+esc(q.i)+'" href="'+esc(feedbackURL(q))+'" target="_blank" rel="noopener noreferrer">在线提交（GitHub）↗</a></div><p class="note" data-feedback-state>本机记录'+(flagged?'已保存':'尚未保存')+'，不代表已在线提交。在线入口需登录 GitHub，再点“Submit new issue”才会公开发布；不会附带学习进度。Codex后续维护时可读取，当前聊天不会自动收到通知。长文可导出后补充。</p></details>';
+ return '<details class="feedback-form" data-feedback-id="'+esc(q.i)+'"><summary>这道题有问题？反馈给 Codex'+(flagged?' · 本机已记下':'')+'</summary><p class="note">题号 '+esc(q.i)+' · 可说明空位、题目、答案或原文问题；不确定也可以直接标记。</p><label for="feedback-note">问题与建议</label><textarea id="feedback-note" data-feedback-note="'+esc(q.i)+'" rows="3" maxlength="2000" placeholder="例如：空位不合理、题目无来源、答案疑似有误。">'+esc(r?.note || '')+'</textarea><div class="row"><button class="btn" data-feedback-save="'+esc(q.i)+'">保存到本机</button><a class="btn" data-feedback-online="'+esc(q.i)+'" href="'+esc(feedbackURL(q))+'" target="_blank" rel="noopener noreferrer">在线提交（GitHub）↗</a></div><p class="note" data-feedback-state>本机记录'+(flagged?'已保存':'尚未保存')+'，不代表已在线提交。在线入口需登录 GitHub 并手动确认发布；不会附带学习进度，也不会自动通知当前聊天。</p></details>';
 }
 function feedbackSettingsHTML(){
- const ids=feedbackIds();return '<div class="sheet"><div class="field"><h2>反馈给 Codex</h2><p class="note">本机共 '+ids.length+' 道已标记（含旧版标记）。可导出清单发给 Codex，也可在题目中在线提交；不会自动发送。</p><button class="btn" data-feedback-export>导出全部填空反馈</button><p class="note"><a href="https://github.com/AETERios/bgb-s3rwn2/issues?q=is%3Aissue%20%22%E5%A1%AB%E7%A9%BA%E5%8F%8D%E9%A6%88%22" target="_blank" rel="noopener noreferrer">查看在线反馈及处理结果 ↗</a></p>'+ids.slice(0,30).map(id=>'<details class="feedback-record"><summary>'+esc(id)+' · '+esc(((S.cfg.fillReports || {})[id]?.note || '旧版问题标记，未填写说明').slice(0,60))+'</summary><pre>'+esc(feedbackText(QMAP.get(id)))+'</pre><a href="'+esc(feedbackURL(QMAP.get(id)))+'" target="_blank" rel="noopener noreferrer">在线提交这条反馈 ↗</a></details>').join('')+(ids.length>30?'<p class="note">此处显示前30条，导出包含全部。</p>':'')+'</div></div>';
+ const ids=feedbackIds();return '<div class="sheet"><div class="field"><h2>题目反馈</h2><p class="note">本机共 '+ids.length+' 道已标记（含旧版标记）。可导出清单，也可在题目中在线提交；不会自动发送。</p><button class="btn" data-feedback-export>导出全部题目反馈</button><p class="note"><a href="https://github.com/AETERios/bgb-s3rwn2/issues" target="_blank" rel="noopener noreferrer">查看在线反馈及处理结果 ↗</a></p>'+ids.slice(0,30).map(id=>'<details class="feedback-record"><summary>'+esc(id)+' · '+esc(((S.cfg.fillReports || {})[id]?.note || '旧版问题标记，未填写说明').slice(0,60))+'</summary><pre>'+esc(feedbackText(QMAP.get(id)))+'</pre><a href="'+esc(feedbackURL(QMAP.get(id)))+'" target="_blank" rel="noopener noreferrer">在线提交这条反馈 ↗</a></details>').join('')+(ids.length>30?'<p class="note">此处显示前30条，导出包含全部。</p>':'')+'</div></div>';
 }
 
 function gradeButtons(){
@@ -1029,7 +1250,7 @@ function viewBank(){
     const st = stateOf(q.i), open = ui.openId === q.i;
     let ans = "";
     if(open){
-      if(referenceOnly(q)) ans = q.x && q.x !== originalStem(q) ? esc(q.x) : "完整原文已还原，可用原文记忆方式学习。";
+      if(referenceOnly(q)) ans = q.x && q.x !== originalStem(q) ? esc(q.x) : "完整原文，可对照学习。";
       else if(q.k === "c") ans = `正确答案：${LETTERS[q.a]}．${esc(q.o[q.a])}`;
       else if(q.k === "m") ans = `正确答案：${q.a.map(i => LETTERS[i] + "．" + esc(q.o[i])).join("；")}`;
       else if(q.k === "j") ans = q.a ? `这句话是正确的${q.x ? "\n" + esc(q.x) : ""}` : "这句话是错误的";
@@ -1037,8 +1258,8 @@ function viewBank(){
       else if(q.k === "f") ans = esc(q.x || q.a.join("；"));
       else ans = esc(q.x);
     }
-    const stem = referenceOnly(q) ? esc(originalStem(q)) : q.k === "f" ? clozeHTML(q.q, q.a, open) : esc(q.q);
-    return `<article class="item ${open ? "open" : ""}" data-open="${esc(q.i)}"><span class="meta"><span class="lamp ${st.cls}"></span><span>${esc(q.t)}${hotText(q.i)} · ${["excluded","pending"].includes(questionScope(q.i).status) || referenceOnly(q) ? (referenceOnly(q)?"原文记忆":"待核 · 可学") : st.text}</span></span>${scopeBadge(q)}<span class="q">${stem}</span>${open && q.o ? `<span class="note">${q.o.map((o, i) => LETTERS[i] + "．" + esc(o)).join("　")}</span>` : ""}${open ? `<span class="answer">${ans}</span>` : ""}${open && q.k === "j" && q.a === 0 ? corrHTML(q) : ""}${open ? altHTML(q) + scopeEvidence(q) + `<button class="btn" data-study-one="${esc(q.i)}">学这道题</button>` : ""}</article>`;
+    const stem = q.k === "f" ? clozeBankHTML(q, open) : esc(q.q);
+    return `<article class="item ${open ? "open" : ""}" data-open="${esc(q.i)}"><span class="meta"><span class="lamp ${st.cls}"></span><span>${esc(q.t)}${hotText(q.i)} · ${["excluded","pending"].includes(questionScope(q.i).status) ? (referenceOnly(q)?"原文":"待核 · 可学") : st.text}</span></span>${scopeBadge(q)}${q.k === "f" && (S.cfg.clozes || {})[q.i] ? '<span class="chip custom">自定义空</span>' : ''}<span class="q">${stem}</span>${open && q.o ? `<span class="note">${q.o.map((o, i) => LETTERS[i] + "．" + esc(o)).join("　")}</span>` : ""}${open ? `<span class="answer">${ans}</span>` : ""}${open && q.k === "j" && q.a === 0 ? corrHTML(q) : ""}${open ? altHTML(q) + scopeEvidence(q) + `<button class="btn" data-study-one="${esc(q.i)}">学这道题</button>` : ""}</article>`;
   }).join("");
   const bankOpts = `<option value="HOT" ${ui.sBank === "HOT" ? "selected" : ""}>背规100 · 常考（67 题）</option>` + Object.keys(BANK_LABEL).map(k => `<option value="${k}" ${k === ui.sBank ? "selected" : ""}>${esc(BANK_LABEL[k])}</option>`).join("");
   const scopeOpts = [["all",SCOPE_LABELS.all],["core",SCOPE_LABELS.core],["pending",SCOPE_LABELS.pending]].map(([v,t]) => `<option value="${v}" ${v === ui.sScope ? "selected" : ""}>${esc(t)}</option>`).join("");
@@ -1054,11 +1275,71 @@ function viewBank(){
   <div class="list">${items || `<div class="sheet empty">没有找到，换个关键词试试。</div>`}</div>`;
 }
 
+function annotateQueue(){
+  return QS.filter(q => q.k === "f" && q.auto).map(q => ({id:q.i, s:suspectScore(q)})).sort((a,b) => b.s - a.s).map(x => x.id);
+}
+function loadAnnQuestion(){
+  const a = ui.ann;
+  const q = QMAP.get(a.ids[a.i]);
+  if(!q){ a.text = ""; a.marks = []; return; }
+  const d = clozeData(q);
+  a.text = d.text; a.marks = d.spans.map(sp => [sp.s, sp.e]); a.pick = null; a.custom = d.custom;
+}
+function openAnnotate(){
+  const ids = annotateQueue();
+  if(!ids.length){ toast("没有需要标注的填空题"); return; }
+  ui.annotating = true; ui.studying = false;
+  const first = ids.findIndex(id => !(S.cfg.clozes || {})[id]);
+  ui.ann = {ids, i: first >= 0 ? first : 0, text:"", marks:[], pick:null, custom:false};
+  loadAnnQuestion(); render(); window.scrollTo(0, 0);
+}
+function annNext(step = 1){
+  const a = ui.ann;
+  a.i += step;
+  if(a.i < 0) a.i = 0;
+  if(a.i >= a.ids.length){ ui.annotating = false; render(); toast("这一轮标注到头了，已保存的都会按你的空来考"); return; }
+  loadAnnQuestion(); render(); window.scrollTo(0, 0);
+}
+function viewAnnotate(){
+  const a = ui.ann, q = QMAP.get(a.ids[a.i]);
+  if(!q) return `<div class="sheet empty">没有可标注的填空题。</div>`;
+  const total = a.ids.length;
+  const done = Object.keys(S.cfg.clozes || {}).filter(id => QMAP.has(id)).length;
+  let chars = "";
+  for(let i = 0; i < a.text.length; i++){
+    const inside = a.marks.some(([s,e]) => i >= s && i < e);
+    const cls = "ch" + (inside ? " mark" : "") + (a.pick === i ? " pick" : "");
+    chars += `<span class="${cls}" data-ci="${i}" role="button" tabindex="-1">${a.text[i] === "\n" ? "⏎" : esc(a.text[i])}</span>`;
+  }
+  const score = suspectScore(q);
+  return `<div class="ann-bar"><button class="btn" data-ann-close>退出</button><button class="btn" data-ann-prev>上一题</button><strong>挖空标注</strong><span class="num">${a.i + 1} / ${total}</span></div>
+  <article class="sheet card">
+    <div class="chips"><span class="chip">${esc(q.t)}</span><span class="chip plain">${esc(q.i)}</span>${a.custom ? '<span class="chip custom">已自定义</span>' : score >= 6 ? '<span class="chip seen">建议核对</span>' : '<span class="chip plain">自动挖空</span>'}</div>
+    <p class="note">点第一个字，再点最后一个字，就挖掉这一段；点已经挖掉的字可以取消。一句话可以有多个空。</p>
+    <div class="cloze-canvas" aria-label="点字标注挖空">${chars}</div>
+    <div class="note">当前空：<b>${esc(marksText(a) || "（还没选）")}</b></div>
+    <div class="row"><button class="btn primary" data-ann-save>保存</button><button class="btn" data-ann-skip>跳过</button><button class="btn" data-ann-reset>恢复自动</button></div>
+    <p class="note">已标注 ${done} 道，共 ${total} 道自动挖空题。标注只存在这台设备上，也可以导出 JSON 交给我写回题库。</p>
+    <button class="btn" data-ann-export>导出全部标注</button>
+  </article>`;
+}
+function exportClozes(){
+  const items = Object.entries(S.cfg.clozes || {}).filter(([id]) => QMAP.has(id)).map(([id, o]) => {
+    const d = clozeData(QMAP.get(id));
+    return {id, text:d.text, marks:o.m, answers:o.m.map(([s,e]) => d.text.slice(s,e))};
+  });
+  if(!items.length){ toast("还没有自定义标注"); return; }
+  const blob = new Blob([JSON.stringify({version:APP_VERSION, exportedAt:new Date().toISOString(), items}, null, 2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob), a = document.createElement("a");
+  a.href = url; a.download = "拾光-挖空标注-" + dayKey() + ".json"; a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
 function viewSettings(){
   const bankOpts = Object.keys(BANK_LABEL).map(k => `<option value="${k}" ${k === S.cfg.bank ? "selected" : ""}>${esc(BANK_LABEL[k])}（${poolIds(k).length} 题）</option>`).join("");
   return `<header class="board"><div class="brand">偏好<small>按自己的节奏来</small></div></header><div class="settings-intro">你的记录一直都在。调整内容或日期，只改变后续安排。</div>
   <div class="sheet settings-plan"><h2 class="section-heading">安排与内容</h2>
-    <div class="field"><label for="s-scope">练习范围</label><select id="s-scope">${["all","core","pending"].map(v=>`<option value="${v}" ${studyScope()===v?"selected":""}>${SCOPE_LABELS[v]}</option>`).join("")}</select><span class="note">默认全部原题均可学。归属待核不再阻止学习；旧自动挖空以原文记忆方式学习。选择子范围仅改变当前内容，原题和记录保留。</span></div>
+    <div class="field"><label for="s-scope">练习范围</label><select id="s-scope">${["all","core","pending"].map(v=>`<option value="${v}" ${studyScope()===v?"selected":""}>${SCOPE_LABELS[v]}</option>`).join("")}</select><span class="note">默认全部原题均可学。归属待核不再阻止学习；填空题按空作答，空不合适可以自己选。选择子范围仅改变当前内容，原题和记录保留。</span></div>
     <div class="field"><label for="s-exam">考试日期</label><input type="date" id="s-exam" value="${S.cfg.exam}"><span class="note">每天的新题数会按剩下的天数重新平均。</span></div>
     <div class="field"><label for="s-start">开始日期</label><input type="date" id="s-start" value="${S.cfg.start}"></div>
     <div class="field"><label for="s-rev">考前几天侧重复习</label><select id="s-rev">${[0,1,2,3,4,5,6].map(n => `<option value="${n}" ${+S.cfg.rev === n ? "selected" : ""}>${n} 天</option>`).join("")}</select></div>
@@ -1066,6 +1347,9 @@ function viewSettings(){
     <div class="field"><label>每日题数不限</label><span class="note">考试日期决定建议进度，不会锁题；提前完成后可继续学，全部学过也能反复回顾。</span></div>
   </div>
   ${feedbackSettingsHTML()}
+  <div class="sheet"><div class="field"><label>挖空标注</label><span class="note">自动挖空可以直接作答；遇到挖得别扭的题，点句中的字自己选空。已自定义 ${Object.keys(S.cfg.clozes || {}).length} 道。标注只存本机，也可以导出 JSON 交给我写回题库。</span>
+    <button class="btn" data-annotate>逐题标注挖空</button>
+    <button class="btn" data-ann-export>导出全部标注</button></div></div>
   <div class="sheet"><div class="field"><label>进度保存</label><div class="sync" id="syncline">${syncHTML()}</div>
     <span class="note">当前 GitHub Pages 的进度保存在本机浏览器，换设备可使用下方进度码。想像 App 一样用，在 Safari 里点分享按钮，选“添加到主屏幕”。</span></div></div>
   <div class="sheet"><div class="field"><label for="s-code">进度码（离线版和在线版之间搬进度）</label>
@@ -1084,19 +1368,21 @@ function render(){
   let html;
   if(ui.studying && !curSess()){ ui.studying = false; document.body.classList.remove("studying"); }
   if(ui.studying) html = viewStudy();
+  else if(ui.annotating) html = viewAnnotate();
   else if(ui.tab === "audio") html = viewAudio();
   else if(ui.tab === "bank") html = viewBank();
   else if(ui.tab === "settings") html = viewSettings();
   else html = viewToday();
   const active = document.activeElement && document.activeElement.id;
   const caret = active === "q-search" ? document.activeElement.selectionStart : null;
-  const pageTitle = ui.studying ? "正在练习" : ({today:"今日学习",bank:"题库查阅",settings:"学习设置",audio:"音频"}[ui.tab] || "今日学习");
+  const pageTitle = ui.studying ? "正在练习" : ui.annotating ? "挖空标注" : ({today:"今日学习",bank:"题库查阅",settings:"学习设置",audio:"音频"}[ui.tab] || "今日学习");
   app.innerHTML = `<div class="current-page" role="status">当前位置：${pageTitle} · ${esc(BANK_LABEL[ui.studying || ui.tab === "today" || ui.tab === "settings" ? S.cfg.bank : ui.sBank] || "全部内容")} ${ui.tab === "bank" ? " · " + esc(SCOPE_LABELS[ui.sScope] || "全部原题") : ""}</div>` + html + (UPDATE_READY && !ui.studying ? `<div class="sheet update-note note">新版已准备好。<button class="btn" data-update>保存并载入新版</button></div>` : "");
   if(active){ const el = document.getElementById(active); if(el){ el.focus(); if(caret != null && el.setSelectionRange) el.setSelectionRange(caret, caret); } }
   document.querySelectorAll("#tabs button").forEach(b => b.setAttribute("aria-current", b.dataset.tab === ui.tab ? "page" : "false"));
 }
 document.getElementById("tabs").addEventListener("click", e => {
   const b = e.target.closest("button[data-tab]"); if(!b) return;
+  ui.annotating = false;
   if(ui.studying) pauseStudy();
   ui.tab = b.dataset.tab; render(); window.scrollTo(0, 0);
   if(ui.tab === "audio"){ const el = document.querySelector(".day.is-today"); if(el) el.scrollIntoView({block:"start"}); }
@@ -1106,8 +1392,15 @@ app.addEventListener("click", e => {
   const online = e.target.closest('[data-feedback-online]');
   if(online){ const id=online.dataset.feedbackOnline, note=document.querySelector('[data-feedback-note]'); saveFeedback(id,note?.value || ''); online.href=feedbackURL(QMAP.get(id)); const status=online.closest('details').querySelector('[data-feedback-state]'); status.textContent='本机已保存；正在打开 GitHub。只有在 GitHub 点 Submit new issue 后才算在线提交。'; return; }
   const save = e.target.closest('[data-feedback-save]');
-  if(save){ saveFeedback(save.dataset.feedbackSave,document.querySelector('[data-feedback-note]').value); const form=save.closest('details');form.querySelector('[data-feedback-state]').textContent='本机已保存，尚未确认在线提交。';form.querySelector('summary').textContent='这个空有问题？反馈给 Codex · 本机已记下';toast('反馈已保存在本机；可在线提交或导出给 Codex');return; }
-  if(e.target.closest('[data-feedback-export]')){ const ids=feedbackIds();if(!ids.length){toast('还没有标记的填空问题');return;}const blob=new Blob([ids.map(id=>feedbackText(QMAP.get(id))).join('\n\n---\n\n')],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='拾光-填空反馈-'+dayKey()+'.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);return; }
+  if(save){ saveFeedback(save.dataset.feedbackSave,document.querySelector('[data-feedback-note]').value); const form=save.closest('details');form.querySelector('[data-feedback-state]').textContent='本机已保存，尚未确认在线提交。';form.querySelector('summary').textContent='这道题有问题？反馈给 Codex · 本机已记下';toast('反馈已保存在本机；可在线提交或导出');return; }
+  if(e.target.closest('[data-feedback-export]')){ const ids=feedbackIds();if(!ids.length){toast('还没有标记的题目问题');return;}const blob=new Blob([ids.map(id=>feedbackText(QMAP.get(id))).join('\n\n---\n\n')],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='拾光-题目反馈-'+dayKey()+'.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);return; }
+  if(e.target.closest('.feedback-form') && !e.target.closest('button')) return;
+  const ci = e.target.closest("[data-ci]");
+  if(ci){
+    const ciIndex = +ci.dataset.ci;
+    if(ui.annotating && ui.ann && ui.ann.marks){ toggleMark(ui.ann, ciIndex); render(); return; }
+    if(ui.card && ui.card.edit){ toggleMark(ui.card.edit, ciIndex); render(); return; }
+  }
   const t = e.target.closest("button, [data-open]"); if(!t) return;
   const d = t.dataset;
   if(t.hasAttribute("data-update")){ saveNow(); location.replace("./?v=" + APP_VERSION); return; }
@@ -1115,6 +1408,23 @@ app.addEventListener("click", e => {
   if(d.studyOne){ S.cfg.scope="all";S.cfg.bank="all";markCfg();ui.xs=newSess([d.studyOne],"single");ui.mode="extra";enterStudy();return; }
   if(d.content){ S.cfg.bank = d.content; prepareScope(); markCfg(); render(); return; }
   if(d.start){ if(d.start === "today") startDay(); else startExtra(d.start); return; }
+  if(t.hasAttribute("data-annotate")){ openAnnotate(); return; }
+  if(t.hasAttribute("data-ann-close")){ ui.annotating = false; render(); window.scrollTo(0, 0); return; }
+  if(t.hasAttribute("data-ann-save")){
+    const a = ui.ann, id = a.ids[a.i], marks = a.marks.slice().sort((x,y) => x[0] - y[0]);
+    if(!marks.length){ toast("至少留一个空；也可以点“恢复自动”"); return; }
+    S.cfg.clozes = S.cfg.clozes || {};
+    S.cfg.clozes[id] = {v:1, m:marks};
+    markCfg(); annNext(); return;
+  }
+  if(t.hasAttribute("data-ann-skip")){ annNext(); return; }
+  if(t.hasAttribute("data-ann-prev")){ annNext(-1); return; }
+  if(t.hasAttribute("data-ann-reset")){
+    const a = ui.ann, id = a.ids[a.i];
+    if(S.cfg.clozes) delete S.cfg.clozes[id];
+    markCfg(); loadAnnQuestion(); render(); toast("已恢复自动挖空"); return;
+  }
+  if(t.hasAttribute("data-ann-export")){ exportClozes(); return; }
   if(t.hasAttribute("data-more")){ startExtra("extra"); return; }
   if(t.hasAttribute("data-end")){ pauseStudy(); return; }
   if(t.hasAttribute("data-pass")){ passStation(); return; }
@@ -1123,15 +1433,34 @@ app.addEventListener("click", e => {
     const q = studyQuestion(QMAP.get(qId(s.queue[s.pos]))), c = ui.card;
     if(d.opt != null && !c.answered){
       const i = +d.opt;
-      if(q.k === "c"){ c.sel = new Set([i]); c.answered = true; c.correct = i === q.a; }
+      if(q.k === "c"){ c.sel = new Set([i]); c.answered = true; c.correct = i === q.a; c.praise = {text:praiseLine(c.correct), bad:!c.correct}; }
       else { c.sel.has(i) ? c.sel.delete(i) : c.sel.add(i); }
-      render(); return;
+      render(); if(c.answered) buzz(c.correct ? 14 : [10,50,10]); if(c.answered && c.correct) floatXP("+3 光点"); return;
     }
-    if(t.hasAttribute("data-confirm")){ const want = q.a.join(","), got = [...c.sel].sort((a, b) => a - b).join(","); c.answered = true; c.correct = want === got; render(); return; }
-    if(d.judge != null && !c.answered){ c.answered = true; c.correct = +d.judge === q.a; render(); return; }
-    if(t.hasAttribute("data-check")){ readFills(c); checkFill(q, c); render(); return; }
-    if(t.hasAttribute("data-giveup")){ readFills(c); c.checked = true; c.res = q.a.map(() => false); c.allOk = false; render(); return; }
+    if(t.hasAttribute("data-confirm")){ const want = q.a.join(","), got = [...c.sel].sort((a, b) => a - b).join(","); c.answered = true; c.correct = want === got; c.praise = {text:praiseLine(c.correct), bad:!c.correct}; render(); buzz(c.correct ? 14 : [10,50,10]); if(c.correct) floatXP("+3 光点"); return; }
+    if(d.judge != null && !c.answered){ c.answered = true; c.correct = +d.judge === q.a; c.praise = {text:praiseLine(c.correct), bad:!c.correct}; render(); buzz(c.correct ? 14 : [10,50,10]); if(c.correct) floatXP("+3 光点"); return; }
+    if(t.hasAttribute("data-check")){ readFills(c); checkCloze(q, c); c.praise = {text:praiseLine(c.allOk), bad:!c.allOk}; render(); buzz(c.allOk ? 14 : [10,50,10]); if(c.allOk) floatXP("+3 光点"); return; }
+    if(t.hasAttribute("data-giveup")){ readFills(c); c.shown.forEach(i => c.res[i] = false); c.checked = true; c.allOk = false; c.praise = {text:"答案已经填好，先读一遍", bad:true}; render(); return; }
     if(t.hasAttribute("data-override")){ c.override = true; render(); return; }
+    if(t.hasAttribute("data-reshow")){ c.shown = pickShown(c.data.spans.length); c.vals = []; c.res = {}; c.checked = false; c.allOk = false; c.override = false; c.praise = null; render(); focusFirstFill(); return; }
+    if(t.hasAttribute("data-edit-cloze")){ const dd = clozeData(q); c.edit = {text:dd.text, marks:dd.spans.map(sp => [sp.s, sp.e]), pick:null}; render(); return; }
+    if(t.hasAttribute("data-cloze-cancel")){ c.edit = null; render(); return; }
+    if(t.hasAttribute("data-cloze-clear")){ c.edit.marks = []; c.edit.pick = null; render(); return; }
+    if(t.hasAttribute("data-cloze-save")){
+      const marks = c.edit.marks.slice().sort((a,b) => a[0] - b[0]);
+      if(!marks.length){ toast("至少留一个空"); return; }
+      S.cfg.clozes = S.cfg.clozes || {};
+      S.cfg.clozes[q.i] = {v:1, m:marks};
+      markCfg();
+      c.edit = null; c.forId = null; c.data = null; c.shown = null; c.vals = []; c.res = {}; c.checked = false; c.allOk = false; c.override = false; c.praise = null;
+      render(); toast("已按你选的空保存，学习记录不变"); return;
+    }
+    if(t.hasAttribute("data-cloze-auto")){
+      if(S.cfg.clozes) delete S.cfg.clozes[q.i];
+      markCfg();
+      c.edit = null; c.forId = null; c.data = null; c.shown = null; c.vals = []; c.res = {}; c.checked = false; c.allOk = false; c.override = false; c.praise = null;
+      render(); toast("已恢复自动挖空"); return;
+    }
     if(t.hasAttribute("data-reveal")){ c.reveal = true; render(); return; }
     if(t.hasAttribute("data-hint")){ c.hint = !c.hint; render(); return; }
     if(t.hasAttribute("data-skel")){ c.skel = !c.skel; render(); return; }
@@ -1217,7 +1546,7 @@ async function boot(){
     CORRECTIONS = new Map([...(corrections.verifiedEntries || []),...(corrections.entries || [])].map(e => [e.id,e]));
     if(!SCOPE_REVISION || QS.some(q => !SCOPE.has(q.i))) throw Error("范围核对资料不完整");
     applyHot(); transferDup(); prepareScope(); saveLocal();
-    window.__BGB_TEST__ = {get questions(){return QS},get state(){return S},get ui(){return ui},get scope(){return SCOPE},get QMAP(){return QMAP},get SCOPE(){return SCOPE},get corrections(){return CORRECTIONS},get order(){return ORDER},scopeFor:questionScope,poolIds,practiceEligible,questionScope,originalStem,referenceOnly,plan,repairSession,pickRecaps,render,startDay,startExtra,mergeState,newSess};
+    window.__BGB_TEST__ = {get questions(){return QS},get state(){return S},get ui(){return ui},get scope(){return SCOPE},get QMAP(){return QMAP},get SCOPE(){return SCOPE},get corrections(){return CORRECTIONS},get order(){return ORDER},scopeFor:questionScope,poolIds,practiceEligible,questionScope,originalStem,referenceOnly,plan,repairSession,pickRecaps,render,startDay,startExtra,mergeState,newSess,enterStudy,clozeData,checkCloze,openAnnotate,exportClozes};
   }catch(e){
     document.getElementById("boot").innerHTML = `<div class="sheet empty">题库没有载入成功（${esc(e.message)}）。请检查网络后刷新页面。</div>`;
     return;

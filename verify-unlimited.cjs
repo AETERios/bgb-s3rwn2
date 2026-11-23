@@ -38,7 +38,7 @@ const server=http.createServer((req,res)=>{
    await page.evaluate(id=>{const t=window.__BGB_TEST__;t.ui.studying=false;t.ui.tab='bank';t.ui.sKind='';t.ui.sScope='all';t.ui.sBank='all';t.ui.sSubject='';t.ui.search=id;t.ui.openId=id;t.render();},id);
    await page.locator('[data-study-one="'+id+'"]').click();
    assert.equal(await page.evaluate(()=>window.__BGB_TEST__.ui.xs.queue[0]),id+'|0');
-   if(id===inventory.auto){assert.equal(await page.locator('input.fill').count(),0);await page.locator('[data-reveal]').click();assert.ok((await page.locator('.answer').innerText()).length>0);assert.equal(await page.locator('[data-next="2"]').count(),1);}
+   if(id===inventory.auto){assert.ok(await page.locator('input.fill').count()>=1);assert.equal(await page.locator('[data-check]').count(),1);assert.equal(await page.locator('[data-reveal]').count(),0);}
    if(id===inventory.pending)assert.match(await page.locator('.card .chip').allTextContents().then(a=>a.join(' ')),/待核/);
    if(id===inventory.fill)assert.equal(await page.evaluate(()=>document.activeElement?.classList.contains('fill')),true);
   }

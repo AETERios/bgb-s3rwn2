@@ -1,5 +1,5 @@
-const CACHE = "jdbg-app-shiguang-unlimited-20261123-v5";
-const ASSETS = ["./", "./?v=shiguang-unlimited-20261123-v5", "./index.html", "./design-v3.css", "./manifest.webmanifest", "./icon-180-v3.png", "./icon-192-v3.png", "./icon-512-v3.png"];
+const CACHE = "jdbg-app-shiguang-cloze-20261123-v7";
+const ASSETS = ["./", "./?v=shiguang-cloze-20261123-v7", "./index.html", "./design-v3.css", "./manifest.webmanifest", "./icon-180-v3.png", "./icon-192-v3.png", "./icon-512-v3.png"];
 self.addEventListener("install", e => {
   const requests = ASSETS.map(asset => new Request(new URL(asset, self.location.href), {cache:"reload"}));
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(requests)).then(() => self.skipWaiting()));
