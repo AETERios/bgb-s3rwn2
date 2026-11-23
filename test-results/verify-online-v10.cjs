@@ -37,9 +37,9 @@ const sha = s => crypto.createHash('sha256').update(s.replace(/\r\n/g, '\n')).di
     assert.equal(meta.version, VERSION);
     assert.equal(meta.count, TOTAL);
     assert.equal(meta.pool, TOTAL, '线上练习池应为全部 13,200 道');
-    assert.equal(meta.rCount, 0, '线上不应再有问答题');
+    assert.equal(meta.rCount, 22, '线上只保留 22 道指标自评题');
     assert.equal(meta.derived, 431, '派生练习应保留');
-    assert.ok(meta.converted >= 235, '问答应已就地转换成填空');
+    assert.ok(meta.converted >= 213, '问答应已就地转换成填空（22 道指标题除外）');
     assert.equal(meta.legacyStillFilters, TOTAL, '旧的来源设置不应再缩池');
 
     // 今日页：整体题库、无来源选择
