@@ -43,14 +43,14 @@ const server=http.createServer((req,res)=>{
   // The old worker ignores query strings. Install the new worker without losing state,
   // then load the same-origin version entrance, as a normal refresh would.
   await page.evaluate(()=>navigator.serviceWorker.getRegistration().then(r=>r.update()));
-  await page.waitForFunction(async()=>{const r=await navigator.serviceWorker.getRegistration();return r.active?.state==='activated'&&!r.installing&&await caches.match(location.origin+'/?v=shiguang-feedback-20261122-v4').then(async hit=>!!hit&&(await hit.text()).includes('id="scope-data"'));});
+  await page.waitForFunction(async()=>{const r=await navigator.serviceWorker.getRegistration();return r.active?.state==='activated'&&!r.installing&&await caches.match(location.origin+'/?v=shiguang-unlimited-20261123-v5').then(async hit=>!!hit&&(await hit.text()).includes('id="scope-data"'));});
   // Confirm the controlling worker's code, rather than comparing unstable JS wrappers.
   await page.waitForFunction(()=>new Promise(resolve=>{
    const channel=new MessageChannel(),timeout=setTimeout(()=>resolve(false),500);
-   channel.port1.onmessage=e=>{clearTimeout(timeout);resolve(e.data?.cache==='jdbg-app-shiguang-feedback-20261122-v4');};
+   channel.port1.onmessage=e=>{clearTimeout(timeout);resolve(e.data?.cache==='jdbg-app-shiguang-unlimited-20261123-v5');};
    navigator.serviceWorker.controller?.postMessage({type:'BGB_VERSION'},[channel.port2]);
   }),{},{timeout:15000});
-  let response=await page.goto(base+'/?v=shiguang-feedback-20261122-v4'),refreshes=0;
+  let response=await page.goto(base+'/?v=shiguang-unlimited-20261123-v5'),refreshes=0;
   // A legacy controlled document may retain its original navigation response once.
   // One normal refresh is supported; no cache, storage or existing record is cleared.
   if(!await page.evaluate(()=>!!window.__BGB_TEST__)){
@@ -58,28 +58,28 @@ const server=http.createServer((req,res)=>{
   }
   await page.waitForFunction(()=>window.__BGB_TEST__?.scope.size===10067,{},{timeout:15000}).catch(async error=>{await diagnostics('Upgrade timeout',response);throw error;});
   assert.equal((await response.allHeaders())['x-test-version'],'new');
-  assert.ok(requests.some(r=>r.current&&r.url==='/?v=shiguang-feedback-20261122-v4'&&r.cache==='no-cache'));
+  assert.ok(requests.some(r=>r.current&&r.url==='/?v=shiguang-unlimited-20261123-v5'&&r.cache==='no-cache'));
   assert.deepEqual(await page.evaluate(()=>window.__BGB_TEST__.state.recs),legacy.recs);
   assert.deepEqual(await page.evaluate(()=>window.__BGB_TEST__.state.log),legacy.log);
   const cfg=await page.evaluate(()=>window.__BGB_TEST__.state.cfg);
-  for(const key of ['exam','start','rev','bank','cap','heard','u'])assert.deepEqual(cfg[key],legacy.cfg[key]);
-  assert.equal(cfg.scope,'core');
+  for(const key of ['exam','start','rev','bank','heard','u'])assert.deepEqual(cfg[key],legacy.cfg[key]);
+  assert.equal(cfg.scope,'all');assert.equal(cfg.cap,0);
   assert.equal(await page.evaluate(()=>caches.has('unrelated-app-keep')),true);
-  assert.equal(await page.evaluate(()=>window.__BGB_TEST__.poolIds().includes('U-W-S0009')),false);
-  assert.equal(await page.evaluate(()=>window.__BGB_TEST__.poolIds().every(id=>window.__BGB_TEST__.questionScope(id).status==='core')),true);
-  assert.equal(await page.evaluate(()=>window.__BGB_TEST__.poolIds().some(id=>window.__BGB_TEST__.questions.find(q=>q.i===id).auto)),false);
+  assert.equal(await page.evaluate(()=>window.__BGB_TEST__.poolIds().includes('U-W-S0009')),true);
+  assert.equal(await page.evaluate(()=>window.__BGB_TEST__.poolIds().every(id=>window.__BGB_TEST__.practiceEligible(id))),true);
+  assert.equal(await page.evaluate(()=>window.__BGB_TEST__.poolIds().some(id=>window.__BGB_TEST__.questions.find(q=>q.i===id).auto)),true);
   // Repair only the unfinished queue; keep answered history and all records.
   const repaired=await page.evaluate(()=>{
    const t=window.__BGB_TEST__,s={queue:['U-W-S0009|0','U-W-S0009|0','E-D0001|0'],pos:1,recent:['U-W-S0009|0','E-D0001|2']};
    t.repairSession(s);return s;
   });
-  assert.deepEqual(repaired.queue,['U-W-S0009|0','E-D0001|0']);assert.equal(repaired.pos,1);
-  assert.deepEqual(repaired.recent,['E-D0001|2']);
-  // Re-open an old imported session: it must not restore removed questions.
+  assert.deepEqual(repaired.queue,['U-W-S0009|0','U-W-S0009|0','E-D0001|0']);assert.equal(repaired.pos,1);
+  assert.deepEqual(repaired.recent,['U-W-S0009|0','E-D0001|2']);
+  // Imported sessions keep pending questions available while preserving prior history.
   await page.evaluate(()=>{
    const t=window.__BGB_TEST__;t.mergeState({sess:{queue:['U-W-S0009|0','E-D0001|0'],pos:0,recent:['U-W-S0009|0'],u:Date.now()+10000}});
   });
-  assert.deepEqual(await page.evaluate(()=>window.__BGB_TEST__.state.sess.queue),['E-D0001|0']);
+  assert.deepEqual(await page.evaluate(()=>window.__BGB_TEST__.state.sess.queue),['U-W-S0009|0','E-D0001|0']);
   await page.waitForTimeout(1700);
   await context.setOffline(true);await page.reload();
   await page.waitForFunction(()=>window.__BGB_TEST__?.scope.size===10067);
@@ -90,6 +90,6 @@ const server=http.createServer((req,res)=>{
   await page.screenshot({path:path.join(__dirname,'test-results','scope-upgrade-offline-390.png'),fullPage:true});
   await context.close();
   console.log('Normal refreshes after version entry: '+refreshes);
-  console.log('Passed: real old Service Worker and HTTP cache upgrade; preserved records, log, dates, due and settings; source filters and old queues; no automatic cloze in practice; unrelated caches; offline reload; 390px layout.');
+  console.log('Passed: real old Service Worker and HTTP cache upgrade; preserved records, log, dates, due and settings; source filters and old queues; all questions available including original-text memory; unrelated caches; offline reload; 390px layout.');
  }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
 })().catch(e=>{console.error(e);process.exitCode=1;server.close();});

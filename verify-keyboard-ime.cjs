@@ -16,7 +16,7 @@ const server=http.createServer((req,res)=>{
   await page.goto('http://127.0.0.1:'+server.address().port+'/?v=exam-scope-20261121');
   await page.waitForFunction(()=>window.__BGB_TEST__?.questions.length===10067);
   const sample=await page.evaluate(()=>{
-   const t=window.__BGB_TEST__,q=t.questions.find(q=>q.k==='f'&&q.a.length>1&&t.practiceEligible(q.i));
+   const t=window.__BGB_TEST__,q=t.questions.find(q=>q.k==='f'&&!q.auto&&q.a.length>1&&t.practiceEligible(q.i));
    if(!q)throw Error('Need a real eligible multiple-blank question');
    t.startExtra('random');t.ui.xs=t.newSess([q.i],'keyboard-ime');t.render();
    return {id:q.i,answers:q.a};
