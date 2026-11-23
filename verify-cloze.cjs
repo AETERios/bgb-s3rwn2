@@ -15,11 +15,12 @@ const server=http.createServer((req,res)=>{
   await page.clock.setFixedTime(new Date('2026-11-23T10:00:00+08:00'));
   const url='http://127.0.0.1:'+server.address().port;
   await page.goto(url);
-  await page.waitForFunction(()=>window.__BGB_TEST__?.questions.length===10067);
+  await page.waitForFunction(()=>window.__BGB_TEST__?.questions.length===13466);
   const study=async id=>{
    await page.evaluate(id=>{const t=window.__BGB_TEST__;t.ui.studying=false;t.ui.annotating=false;t.ui.tab='bank';t.ui.sKind='';t.ui.sScope='all';t.ui.sBank='all';t.ui.sSubject='';t.ui.search=id;t.ui.openId=id;t.render();},id);
    await page.locator('[data-study-one="'+id+'"]').click();
-   await page.waitForSelector('input.fill');
+   await page.evaluate(()=>{const t=window.__BGB_TEST__;if(t.ui.card&&t.ui.card.data){t.ui.card.mode='type';t.render();}});
+   await page.waitForSelector('input.fill, .blank-slot');
   };
 
   // 1. 每一道填空题都能真正作答，不再出现“展开原文”卡片

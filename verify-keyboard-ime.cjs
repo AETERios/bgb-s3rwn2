@@ -14,11 +14,12 @@ const server=http.createServer((req,res)=>{
   const context=await browser.newContext({viewport:{width:390,height:844}}),page=await context.newPage(),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
   await page.goto('http://127.0.0.1:'+server.address().port+'/?v=exam-scope-20261121');
-  await page.waitForFunction(()=>window.__BGB_TEST__?.questions.length===10067);
+  await page.waitForFunction(()=>window.__BGB_TEST__?.questions.length===13466);
   const sample=await page.evaluate(()=>{
    const t=window.__BGB_TEST__,q=t.questions.find(q=>q.k==='f'&&!q.auto&&q.a.length>1&&t.practiceEligible(q.i));
    if(!q)throw Error('Need a real eligible multiple-blank question');
-   t.startExtra('random');t.ui.xs=t.newSess([q.i],'keyboard-ime');t.render();
+   t.startExtra('random');t.ui.xs=t.newSess([q.i],'keyboard-ime');t.ui.studying=true;t.render();
+   const c=t.ui.card;c.mode='type';if(c.data.spans.length>1){c.shown=[0,1];c.vals=[];c.res={};c.checked=false;c.allOk=false;}t.render();
    return {id:q.i,answers:q.a};
   });
   const first=page.locator('#fill-0');await first.focus();await first.fill('中文选词草稿');
@@ -38,8 +39,9 @@ const server=http.createServer((req,res)=>{
   await send({repeat:true});assert.equal(await active(),'fill-0','a held Enter must not skip blanks');
   await first.press('Enter');assert.equal(await active(),'fill-1','a fresh Enter after IME commit must advance normally');
   assert.equal(await page.locator('.scope-evidence').count(),0,'guarded Enter must not reveal answers or evidence');
-  for(let i=0;i<sample.answers.length;i++)await page.locator('#fill-'+i).fill(sample.answers[i]);
-  await page.locator('#fill-'+(sample.answers.length-1)).press('Enter');
+ const want=await page.evaluate(()=>{const c=window.__BGB_TEST__.ui.card;return c.shown.map(i=>c.data.spans[i].a);});
+ for(let i=0;i<want.length;i++)await page.locator('#fill-'+i).fill(want[i]);
+ await page.locator('#fill-'+(want.length-1)).press('Enter');
   assert.ok(await page.evaluate(()=>window.__BGB_TEST__.ui.card.checked&&window.__BGB_TEST__.ui.card.allOk),'last blank Enter must still check the real answer');
   await page.evaluate(()=>{const el=document.createElement('textarea');el.id='ime-textarea-probe';document.getElementById('app').append(el);});
   const textarea=page.locator('#ime-textarea-probe');await textarea.fill('问答笔记');await textarea.press('End');await textarea.press('Space');await textarea.press('Enter');
