@@ -48,7 +48,7 @@ body{
   padding-block:0 calc(var(--nav-h) + env(safe-area-inset-bottom, 0px) + 24px);
   -webkit-text-size-adjust:100%;
 }
-body.studying{padding-bottom:calc(env(safe-area-inset-bottom, 0px) + 24px)}
+body.studying{padding-bottom:calc(env(safe-area-inset-bottom, 0px) + 24px + var(--kb, 0px))}
 .wrap{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
 button{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
@@ -283,6 +283,23 @@ body.studying nav.tabs{display:none}
 .ann-bar .num{margin-left:auto;color:var(--ink-2)}
 .ann-bar .btn{min-height:38px;padding:4px 12px}
 .chip.custom{background:var(--tint-green);color:var(--sig-green);font-weight:600}
+
+/* ---------- 练习页精简顶栏与键盘避让 ---------- */
+body.studying .current-page{display:none}
+.study-head{position:sticky;top:env(safe-area-inset-top, 0px);z-index:6;background:var(--paper);padding:4px 0 6px}
+.study-head-row{display:flex;align-items:center;gap:8px}
+.study-head .btn{min-height:34px;padding:4px 11px;font-size:14px;border-radius:999px}
+.study-head .progress{height:5px}
+.study-head-count{border:0;background:none;color:var(--ink-2);font-size:13px;padding:2px 0;white-space:nowrap;cursor:pointer;display:inline-flex;align-items:baseline;gap:3px;min-height:0}
+.study-head-count b{color:var(--ink);font-weight:650}
+.study-head-more{display:flex;flex-wrap:wrap;gap:2px 12px;font-size:12px;color:var(--ink-2);padding:6px 2px 0}
+.study-head-more[hidden]{display:none}
+.study-head .combo{font-size:13px}
+body.kb-open .study-head .combo{display:none}
+input.fill{scroll-margin-block:130px}
+body.kb-open .card > .note,body.kb-open .card .feedback-form{display:none}
+body.kb-open .card{gap:12px}
+body.kb-open .study-head .study-head-count{display:none}
 </style>
 <link rel="stylesheet" href="design-v3.css">
 
@@ -307,7 +324,7 @@ body.studying nav.tabs{display:none}
 "use strict";
 /* ===== data & audio (filled in by Claude when publishing) ===== */
 const DATA_ID = ""; const OFFLINE = true; let OFFLINE_READY = false;
-const APP_VERSION = "shiguang-cloze-20261123-v7";
+const APP_VERSION = "shiguang-focus-20261123-v8";
 const APP_CACHE = "jdbg-app-" + APP_VERSION;
 let UPDATE_READY = false;
 if("serviceWorker" in navigator){
@@ -1048,7 +1065,16 @@ function studyPlanHTML(s){
   return `<section class="sheet study-plan" aria-label="今日学习进度"><div class="study-plan-head"><strong>今日新学 <span class="num">${p.introduced} / ${p.perDay}</span></strong><span>剩余新题 <b class="num">${p.newLeft}</b></span></div><div class="progress" role="progressbar" aria-label="今日建议进度" aria-valuemin="0" aria-valuenow="${p.introduced}" aria-valuemax="${Math.max(1,p.perDay)}"><i style="width:${pct}%"></i></div><div class="study-plan-meta"><span>本次完成 ${s.ans || 0} 次</span><span>到期复习 ${p.due.length}</span><span>连续 ${rewardStats().streak} 天</span><span>积光 ${rewardStats().points} · LV.${rewardStats().level}</span></div></section>`;
 }
 function topbar(s){
-  return `${studyPlanHTML(s)}<div class="topbar"><button class="btn" data-end>${ui.mode === "day" ? "暂停 · 回到今日" : "结束 · 回到今日"}</button><span class="session-position">本次第 ${(s.ans || 0) + 1} 次</span>${s.combo >= 3 ? `<span class="combo num" title="连续答对">连对 ${s.combo}</span>` : ""}</div>`;
+  const p = plan(), pct = Math.min(100, p.introduced / Math.max(1, p.perDay) * 100);
+  return `<div class="study-head">
+    <div class="study-head-row">
+      <button class="btn" data-end>${ui.mode === "day" ? "暂停" : "结束"}</button>
+      <div class="progress" role="progressbar" aria-label="今日建议进度" aria-valuemin="0" aria-valuenow="${p.introduced}" aria-valuemax="${Math.max(1,p.perDay)}"><i style="width:${pct}%"></i></div>
+      <button class="study-head-count" data-head-toggle aria-expanded="false" title="今日新学 / 建议"><b class="num">${p.introduced}</b><span class="num">/ ${p.perDay}</span></button>
+      ${s.combo >= 3 ? `<span class="combo num" title="连续答对">连对 ${s.combo}</span>` : ""}
+    </div>
+    <div class="study-head-more" hidden><span>剩余新题 ${p.newLeft}</span><span>本次完成 ${s.ans || 0} 次</span><span>到期复习 ${p.due.length}</span><span>连续 ${rewardStats().streak} 天</span><span>积光 ${rewardStats().points} · LV.${rewardStats().level}</span></div>
+  </div>`;
 }
 function stationView(s, e){
   const [, ans, segOk, segN, segSec, best] = String(e).split("|").map(Number);
@@ -1160,7 +1186,7 @@ function viewStudy(){
       if(!c.checked){
         body += `<div class="cloze-links"><button class="cloze-link" data-reshow>再随机一组（${c.shown.length} / ${c.data.spans.length}）</button><button class="cloze-link" data-edit-cloze>挖得不对？自己选</button></div>`;
         body += `<div class="tools"><button class="btn" data-giveup>不会，看答案</button><button class="btn primary" data-check>核对</button></div>`;
-        body += `<div class="note">多空题每次答都会自动随机换一组空，不用手动点；只有想马上再换，才点上面的“再随机一组”。标点和空格不影响对错，“3”和“三”算一样。</div>`;
+        body += `<div class="note">多空题每次自动换一组空；标点、空格和“3 / 三”都不影响对错。</div>`;
       } else if(c.allOk || c.override){
         body += `<div class="verdict ok"><span class="lamp green"></span>${c.override ? "按你的意思算对" : (c.shown.length > 1 ? "全部填对" : "填对了")}</div>`;
         if(c.praise) body += `<div class="praise">✦ ${esc(c.praise.text)}</div>`;
@@ -1432,6 +1458,11 @@ app.addEventListener("click", e => {
   }
   if(t.hasAttribute("data-ann-export")){ exportClozes(); return; }
   if(t.hasAttribute("data-more")){ startExtra("extra"); return; }
+  if(t.hasAttribute("data-head-toggle")){
+    const more = document.querySelector(".study-head-more");
+    if(more){ more.hidden = !more.hidden; t.setAttribute("aria-expanded", String(!more.hidden)); }
+    return;
+  }
   if(t.hasAttribute("data-end")){ pauseStudy(); return; }
   if(t.hasAttribute("data-pass")){ passStation(); return; }
   const s = ui.studying ? curSess() : null;
@@ -1495,7 +1526,54 @@ app.addEventListener("click", e => {
     S.recs = {}; S.log = {}; S.sess = null; dirty.add("sess"); for(let i = 0; i < CHUNKS; i++) dirty.add("p" + i); markCfg(); dirty.add("log"); scheduleFlush(300); toast("做题记录已清空"); ui.tab = "today"; render(); return;
   }
 });
+const vv = window.visualViewport || null;
+function applyKeyboardHeight(h){
+  const kb = h > 120 ? Math.round(h) : 0;
+  document.documentElement.style.setProperty("--kb", kb + "px");
+  document.body.classList.toggle("kb-open", kb > 0);
+  return kb;
+}
+function kbHeight(){
+  if(!vv) return 0;
+  return applyKeyboardHeight(window.innerHeight - vv.height - (vv.offsetTop || 0));
+}
+function revealActive(){
+  const el = document.activeElement;
+  if(!el || !el.classList || !(el.classList.contains("fill") || el.tagName === "TEXTAREA")) return;
+  const head = document.querySelector(".study-head");
+  const headBottom = head ? head.getBoundingClientRect().bottom : 0;
+  const visTop = vv ? vv.offsetTop : 0;
+  const kb = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--kb")) || 0;
+  const visBottom = Math.min(window.innerHeight - kb, visTop + (vv ? vv.height : window.innerHeight));
+  const avail = visBottom - Math.max(headBottom, visTop) - 16;
+  const r = el.getBoundingClientRect();
+  if(r.top >= headBottom + 6 && r.bottom <= visBottom - 12) return;
+  const card = el.closest(".card");
+  const cr = card ? card.getBoundingClientRect() : null;
+  const dy = cr && cr.height <= avail ? cr.top - headBottom - 8 : r.top - (headBottom + Math.max(48, avail * 0.3));
+  if(Math.abs(dy) < 6) return;
+  window.scrollBy({top: dy, behavior: "smooth"});
+}
+function syncKeyboard(){
+  const h = kbHeight();
+  if(h) requestAnimationFrame(revealActive);
+}
+if(vv){
+  vv.addEventListener("resize", syncKeyboard);
+  vv.addEventListener("scroll", () => { if(document.body.classList.contains("kb-open")) requestAnimationFrame(revealActive); });
+}
+window.addEventListener("orientationchange", () => setTimeout(syncKeyboard, 350));
 function readFills(c){ document.querySelectorAll("input.fill").forEach(el => { c.vals[+el.dataset.fi] = el.value; }); }
+app.addEventListener("focusin", e => {
+  const t = e.target;
+  if(!(t.classList && (t.classList.contains("fill") || t.tagName === "TEXTAREA"))) return;
+  setTimeout(syncKeyboard, 80);
+  setTimeout(revealActive, 380);
+  setTimeout(revealActive, 720);
+});
+app.addEventListener("focusout", e => {
+  if(e.target.classList && e.target.classList.contains("fill")) setTimeout(syncKeyboard, 150);
+});
 const fillImeState = new WeakMap();
 app.addEventListener("compositionstart", e => {
   if(e.target.classList.contains("fill")) fillImeState.set(e.target, {composing:true, endedAt:-Infinity});
@@ -1552,7 +1630,7 @@ async function boot(){
     CORRECTIONS = new Map([...(corrections.verifiedEntries || []),...(corrections.entries || [])].map(e => [e.id,e]));
     if(!SCOPE_REVISION || QS.some(q => !SCOPE.has(q.i))) throw Error("范围核对资料不完整");
     applyHot(); transferDup(); prepareScope(); saveLocal();
-    window.__BGB_TEST__ = {get questions(){return QS},get state(){return S},get ui(){return ui},get scope(){return SCOPE},get QMAP(){return QMAP},get SCOPE(){return SCOPE},get corrections(){return CORRECTIONS},get order(){return ORDER},scopeFor:questionScope,poolIds,practiceEligible,questionScope,originalStem,referenceOnly,plan,repairSession,pickRecaps,render,startDay,startExtra,mergeState,newSess,enterStudy,clozeData,checkCloze,openAnnotate,exportClozes};
+    window.__BGB_TEST__ = {get questions(){return QS},get state(){return S},get ui(){return ui},get scope(){return SCOPE},get QMAP(){return QMAP},get SCOPE(){return SCOPE},get corrections(){return CORRECTIONS},get order(){return ORDER},scopeFor:questionScope,poolIds,practiceEligible,questionScope,originalStem,referenceOnly,plan,repairSession,pickRecaps,render,startDay,startExtra,mergeState,newSess,enterStudy,clozeData,checkCloze,openAnnotate,exportClozes,applyKeyboardHeight,revealActive,syncKeyboard,kbHeight};
   }catch(e){
     document.getElementById("boot").innerHTML = `<div class="sheet empty">题库没有载入成功（${esc(e.message)}）。请检查网络后刷新页面。</div>`;
     return;
