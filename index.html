@@ -348,7 +348,7 @@ body.kb-open .study-head .study-head-count{display:none}
 "use strict";
 /* ===== data & audio (filled in by Claude when publishing) ===== */
 const DATA_ID = ""; const OFFLINE = true; let OFFLINE_READY = false;
-const APP_VERSION = "shiguang-unified-20261123-v10-r2";
+const APP_VERSION = "shiguang-unified-20261123-v10-r3";
 const APP_CACHE = "jdbg-app-" + APP_VERSION;
 let UPDATE_READY = false;
 if("serviceWorker" in navigator){
@@ -477,15 +477,33 @@ function tidyCloze(d){
   }
   return {text:d.text, spans};
 }
+function relocateMarks(savedText, marks, curText){
+  // 文本没变就直接用；变了则按每段空的内容在当前文本里重新找位置。
+  if(savedText === curText) return marks;
+  const out = []; let cursor = 0;
+  for(const [s, e] of marks.slice().sort((a,b) => a[0] - b[0])){
+    const frag = savedText.slice(+s, +e);
+    if(!frag) return null;
+    let at = curText.indexOf(frag, cursor);
+    if(at < 0){ at = curText.indexOf(frag); }
+    if(at < 0) return null;
+    out.push([at, at + frag.length]);
+    cursor = at + frag.length;
+  }
+  return out;
+}
 function clozeData(q){
   if(!q) return {text:"", spans:[], custom:false};
   const base = tidyCloze(splitPunctSpans(splitCloze(q)));
   const ov = (S.cfg.clozes || {})[q.i];
   if(ov && Array.isArray(ov.m)){
-    const spans = ov.m.map(([s,e]) => ({s:+s, e:+e, a:base.text.slice(+s, +e)}))
-      .filter(x => x.e > x.s && x.s >= 0 && x.e <= base.text.length)
-      .sort((a,b) => a.s - b.s);
-    if(spans.length) return {text:base.text, spans, custom:true};
+    const m2 = ov.x ? relocateMarks(ov.x, ov.m, base.text) : ov.m;
+    if(m2){
+      const spans = m2.map(([s,e]) => ({s:+s, e:+e, a:base.text.slice(+s, +e)}))
+        .filter(x => x.e > x.s && x.s >= 0 && x.e <= base.text.length)
+        .sort((a,b) => a.s - b.s);
+      if(spans.length) return {text:base.text, spans, custom:true};
+    }
   }
   return {text:base.text, spans:base.spans, custom:false};
 }
@@ -623,7 +641,13 @@ function loadLocal(){
     else { const o = JSON.parse(document.getElementById("seed-data").textContent); Object.assign(S.cfg, o.cfg || {}); S.recs = o.recs || {}; S.log = o.log || {}; S.sess = o.sess || null; }
   }catch(e){}
 }
-function saveLocal(){ try{ localStorage.setItem("jidiao-bgb-app-v1", JSON.stringify(S)); }catch(e){} }
+let SAVE_WARNED = false;
+function saveLocal(){
+  try{ localStorage.setItem("jidiao-bgb-app-v1", JSON.stringify(S)); }
+  catch(e){
+    if(!SAVE_WARNED){ SAVE_WARNED = true; try{ toast("本机存储写入失败（多半是空间不足），最近的改动可能没保存上"); }catch(_){} }
+  }
+}
 
 /* ===== cloud sync (private per person) ===== */
 let db = null, col = null, syncMode = "local", dirty = new Set(), flushTimer = null, chains = {};
@@ -1591,7 +1615,7 @@ app.addEventListener("click", e => {
     const a = ui.ann, id = a.ids[a.i], marks = a.marks.slice().sort((x,y) => x[0] - y[0]);
     if(!marks.length){ toast("至少留一个空；也可以点“恢复自动”"); return; }
     S.cfg.clozes = S.cfg.clozes || {};
-    S.cfg.clozes[id] = {v:1, m:marks};
+    S.cfg.clozes[id] = {v:2, m:marks, x:a.text};
     markCfg(); annNext(); return;
   }
   if(t.hasAttribute("data-ann-skip")){ annNext(); return; }
@@ -1667,7 +1691,7 @@ app.addEventListener("click", e => {
       const marks = c.edit.marks.slice().sort((a,b) => a[0] - b[0]);
       if(!marks.length){ toast("至少留一个空"); return; }
       S.cfg.clozes = S.cfg.clozes || {};
-      S.cfg.clozes[q.i] = {v:1, m:marks};
+      S.cfg.clozes[q.i] = {v:2, m:marks, x:c.edit.text};
       markCfg();
       c.edit = null; c.forId = null; c.data = null; c.shown = null; c.vals = []; c.res = {}; c.checked = false; c.allOk = false; c.override = false; c.praise = null;
       render(); toast("已按你选的空保存，学习记录不变"); return;
@@ -1811,7 +1835,7 @@ async function boot(){
     CORRECTIONS = new Map([...(corrections.verifiedEntries || []),...(corrections.entries || [])].map(e => [e.id,e]));
     if(!SCOPE_REVISION || QS.some(q => !SCOPE.has(q.i))) throw Error("范围核对资料不完整");
     applyHot(); transferDup(); prepareScope(); saveLocal();
-    window.__BGB_TEST__ = {get questions(){return QS},get state(){return S},get ui(){return ui},get scope(){return SCOPE},get QMAP(){return QMAP},get SCOPE(){return SCOPE},get corrections(){return CORRECTIONS},get order(){return ORDER},scopeFor:questionScope,poolIds,practiceEligible,questionScope,originalStem,referenceOnly,plan,repairSession,pickRecaps,render,startDay,startExtra,mergeState,newSess,enterStudy,clozeData,checkCloze,openAnnotate,exportClozes,applyKeyboardHeight,revealActive,syncKeyboard,kbHeight,rKeySpan,studyQuestion,wordBankFor,asAnswerable,baseQuestion,prepareScope};
+    window.__BGB_TEST__ = {get questions(){return QS},get state(){return S},get ui(){return ui},get scope(){return SCOPE},get QMAP(){return QMAP},get SCOPE(){return SCOPE},get corrections(){return CORRECTIONS},get order(){return ORDER},scopeFor:questionScope,poolIds,practiceEligible,questionScope,originalStem,referenceOnly,plan,repairSession,pickRecaps,render,startDay,startExtra,mergeState,newSess,enterStudy,clozeData,checkCloze,openAnnotate,exportClozes,applyKeyboardHeight,revealActive,syncKeyboard,kbHeight,rKeySpan,studyQuestion,wordBankFor,asAnswerable,baseQuestion,prepareScope,markCfg,saveLocal};
   }catch(e){
     document.getElementById("boot").innerHTML = `<div class="sheet empty">题库没有载入成功（${esc(e.message)}）。请检查网络后刷新页面。</div>`;
     return;

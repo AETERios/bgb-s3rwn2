@@ -1,7 +1,7 @@
 const fs = require('fs'), crypto = require('crypto'), assert = require('assert/strict');
 const { chromium } = require('C:/Users/eilot/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
 const URL = 'https://aeterios.github.io/bgb-s3rwn2/';
-const VERSION = 'shiguang-unified-20261123-v10-r2';
+const VERSION = 'shiguang-unified-20261123-v10-r3';
 const TOTAL = 13200;
 const sha = s => crypto.createHash('sha256').update(s.replace(/\r\n/g, '\n')).digest('hex');
 
