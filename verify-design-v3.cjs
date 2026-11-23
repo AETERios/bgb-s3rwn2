@@ -4,7 +4,7 @@ const h=fs.readFileSync('index.html','utf8'),parse=(h,id)=>JSON.parse(h.match(ne
 const scope=parse(h,'scope-data'),bank=parse(h,'bank-data'),old=execFileSync('git',['show','b7193b2:index.html'],{encoding:'utf8',maxBuffer:15e6});
 const listOf=v=>Array.isArray(v)?v:(v.q||[]);
 const oldBank=listOf(parse(old,'bank-data')),nowMap=new Map(listOf(bank).map(q=>[q.i,q]));
-const parents=new Set(listOf(bank).filter(q=>q.d&&q.p).map(q=>q.p));for(const q of oldBank){const cur=nowMap.get(q.i);if(!cur){assert.ok(q.k==='r'&&parents.has(q.i),'原题 '+q.i+' 不能丢');continue;}if(q.k==='r'){assert.ok(cur.k==='f','问答 '+q.i+' 必须并入客观题');continue;}assert.deepEqual(cur,q,'原题 '+q.i+' 必须原样保留');}
+const parents=new Set(listOf(bank).filter(q=>q.d&&q.p).map(q=>q.p));for(const q of oldBank){const cur=nowMap.get(q.i);if(!cur){assert.ok(q.k==='r'&&parents.has(q.i),'原题 '+q.i+' 不能丢');continue;}if(q.k==='r'){assert.ok(cur.k==='f'||cur.k==='r','问答 '+q.i+' 必须并入客观题或保留自评');continue;}assert.deepEqual(cur,q,'原题 '+q.i+' 必须原样保留');}
 assert.deepEqual(parse(h,'correction-data'),parse(old,'correction-data'));assert.deepEqual(parse(h,'seed-data'),parse(old,'seed-data'));
 assert.equal(scope.entries.length,13200);assert.equal(new Set(scope.entries.map(e=>e.id)).size,13200);
 const map=new Map(scope.entries.map(e=>[e.id,e]));for(let id of ['U-X-J0488','U-X-F0358','U-X-F0359','U-X-F0365','U-X-F0988','U-X-S0649','U-W-F0090','S-R141'])assert.equal(map.get(id).status,'core',id);

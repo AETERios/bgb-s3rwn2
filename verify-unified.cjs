@@ -35,9 +35,9 @@ const TOTAL = 13200;
     assert.equal(info.n, TOTAL);
     assert.equal(info.order, TOTAL);
     assert.equal(info.pool, TOTAL);
-    assert.equal(info.rCount, 0, 'no r questions left');
+    assert.equal(info.rCount, 22, 'only the 22 metric self-assessments remain');
     assert.equal(info.derived, 431, 'derived exercises kept');
-    assert.ok(info.converted >= 235, 'converted q&a count');
+    assert.equal(info.rCount, 22, '22 metric questions stay as self-assessment');assert.ok(info.converted >= 213, 'converted q&a count');
     assert.ok(!info.kinds.o || true);
 
     // 统一题库：旧的来源键不再缩小题池
@@ -80,16 +80,18 @@ const TOTAL = 13200;
     assert.equal(await page.locator('[data-start="order"]').count(), 1, 'order practice button');
     assert.equal(await page.locator('[data-start="recite"]').count(), 0, 'old recite button gone');
 
-    // 就地转换的题目可以作答：指标计算题一空
+    // 指标计算题：原始数据在周转图图片里，恢复为看答案自评（nf 跳过填空投影）
     const calc = await page.evaluate(() => {
       const t = window.__BGB_TEST__;
       const q = t.questions.find(x => x.i === 'U-C1-01');
       const d = t.clozeData(q);
-      return { k: q.k, a: q.a, spans: d.spans.length, text: d.text.slice(0, 40) };
+      const proj = t.asAnswerable ? t.asAnswerable(q) : q;
+      return { k: q.k, x: q.x, spans: d.spans.length, projK: proj.k, ask: q._ask.slice(0, 20) };
     });
-    assert.equal(calc.k, 'f');
-    assert.equal(calc.spans, 1);
-    assert.equal(calc.a[0], '9小时46分钟');
+    assert.equal(calc.k, 'r');
+    assert.equal(calc.projK, 'r', 'nf 题不应被投影成填空');
+    assert.equal(calc.spans, 0);
+    assert.equal(calc.x, '9小时46分钟');
 
     // 带括号的原文题：只挖第一个括号
     const sig = await page.evaluate(() => {

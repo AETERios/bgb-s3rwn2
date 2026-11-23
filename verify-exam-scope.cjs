@@ -7,7 +7,7 @@ const bank=parse(html,'bank-data'),scope=parse(html,'scope-data'),seed=parse(htm
 const original=execFileSync('git',['show','06a0048294dac927fab2f3bdd8f12d73a529031d:index.html'],{cwd:root,encoding:'utf8',maxBuffer:8*1024*1024});
 const listOf=v=>Array.isArray(v)?v:(v.q||[]);
 const nowMap=new Map(listOf(bank).map(q=>[q.i,q]));
-const parents=new Set(listOf(bank).filter(q=>q.d&&q.p).map(q=>q.p));for(const q of listOf(parse(original,'bank-data'))){const cur=nowMap.get(q.i);if(!cur){assert.ok(q.k==='r'&&parents.has(q.i),'原题 '+q.i+' 不能丢');continue;}if(q.k==='r'){assert.ok(cur.k==='f','问答 '+q.i+' 必须并入客观题');continue;}assert.deepEqual(cur,q,'原题 '+q.i+' 的题号、选项、答案和顺序必须原样保留');}
+const parents=new Set(listOf(bank).filter(q=>q.d&&q.p).map(q=>q.p));for(const q of listOf(parse(original,'bank-data'))){const cur=nowMap.get(q.i);if(!cur){assert.ok(q.k==='r'&&parents.has(q.i),'原题 '+q.i+' 不能丢');continue;}if(q.k==='r'){assert.ok(cur.k==='f'||cur.k==='r','问答 '+q.i+' 必须并入客观题或保留自评');continue;}assert.deepEqual(cur,q,'原题 '+q.i+' 的题号、选项、答案和顺序必须原样保留');}
 assert.deepEqual(seed.recs,{});assert.deepEqual(seed.log,{});assert.equal(seed.sess,null);
 assert.equal(bank.q.length,13200);assert.equal(scope.entries.length,13200);
 new vm.Script(html.match(/<script>\s*"use strict";([\s\S]*?)<\/script>/)[1]);
