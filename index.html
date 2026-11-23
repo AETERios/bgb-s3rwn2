@@ -831,7 +831,7 @@ function startExtra(type){
   else if(type === "wrong"){ ids = p.pool.filter(id => S.recs[id] && S.recs[id][4] === 0); if(!ids.length){ toast("错题本是空的"); return; } }
   else if(type === "recite"){
     ids = p.pool.filter(id => studyQuestion(QMAP.get(id)).k === "r");
-    if(!ids.length){ toast("这个范围没有问答或原文记忆题"); return; }
+    if(!ids.length){ toast("这个范围没有问答自测题"); return; }
   } else if(type === "random"){ ids = shuffle(p.pool.slice()); }
   ui.xs = newSess(ids, type); ui.mode = "extra"; enterStudy();
 }
