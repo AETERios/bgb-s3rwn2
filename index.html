@@ -5,6 +5,8 @@
 @media(max-width:600px){.forecast-grid{grid-template-columns:repeat(7,105px)}.daily-route{padding:18px}.fun-modes{gap:6px}.fun-modes .btn{flex:1 0 40%}}
 
 .blank-slot{display:inline-flex;align-items:center;justify-content:center;min-height:40px;margin:2px 4px;padding:5px 12px;border:1px dashed #528671;border-radius:9px;background:#edf5ef;color:#225641;font:inherit;vertical-align:baseline;cursor:pointer}.blank-slot:focus-visible{outline:3px solid #e9b950;outline-offset:2px}
+
+.simple-home{max-width:760px;margin:auto}.home-header{display:flex;justify-content:space-between;align-items:center;margin:8px 0 18px}.home-header h1{font-size:30px;margin:0}.home-header p{margin:5px 0 0;color:var(--muted,#637171);font-size:14px}.home-main{padding:20px}.home-range{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:14px}.home-range select{max-width:72%;padding:8px;font:inherit;border:1px solid #d5dfdb;border-radius:10px}.home-start{width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-height:72px;margin:18px 0}.home-start small{font-size:13px;font-weight:400;opacity:.88}.home-counts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}.home-counts div{display:flex;flex-direction:column;gap:5px}.home-counts b{font:700 27px/1.25 system-ui}.home-counts span{font-size:12px;color:#526765}.home-advice{font-size:14px;line-height:1.65;margin:18px 0 9px}.home-main .note,.home-plan .note{font-size:12px}.home-plan{margin-top:12px;padding:16px 20px}.home-deadline{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;font-size:13px}.home-deadline b{display:block;margin-top:5px}.plan-alert{font-size:13px;line-height:1.6;color:#925819;margin:10px 0 0}.home-shortcuts{margin:14px 0;display:flex;gap:8px}.home-shortcuts .btn{flex:1;padding:8px;font-size:13px;min-height:42px}.home-details summary{font-size:14px;padding:14px 0;color:#526765;cursor:pointer}.home-details .sheet{padding:16px}.home-details .forecast-grid{grid-template-columns:repeat(7,115px)}
 </style></head><body>
 
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -354,7 +356,7 @@ body.kb-open .study-head .study-head-count{display:none}
 "use strict";
 /* ===== data & audio (filled in by Claude when publishing) ===== */
 const DATA_ID = ""; const OFFLINE = true; let OFFLINE_READY = false;
-const APP_VERSION = "shiguang-unified-20261124-v10-r12";
+const APP_VERSION = "shiguang-unified-20261124-v10-r13";
 const APP_CACHE = "jdbg-app-" + APP_VERSION;
 let UPDATE_READY = false;
 if("serviceWorker" in navigator){
@@ -643,10 +645,10 @@ function repairSession(s){
 }
 function prepareScope(){
  if(!S.cfg.unlimitedV5){ S.cfg.scope="all"; S.cfg.bank="key"; S.cfg.unlimitedV5=1; }
- // v10-r7 起只保留两个题库：重点（技规·运规·调规·事规·救援·党口）与操规（不考）；旧的 all/professional/party 默认归重点题库
- if(S.cfg.bank === "all" || S.cfg.bank === "professional" || S.cfg.bank === "party") S.cfg.bank = "key";
- if(!["key","misc"].includes(S.cfg.bank)) S.cfg.bank = "key";
- if(!Number.isFinite(+S.cfg.cap) || +S.cfg.cap < 0) S.cfg.cap=30;
+ // 统一截止日期规划支持全部、重点、操规；旧 professional/party 归重点。
+ if(!S.cfg.deadlinePlanV13){S.cfg.bank="all";S.cfg.scope="all";S.cfg.deadlinePlanV13=1;}
+ if(S.cfg.bank === "professional" || S.cfg.bank === "party") S.cfg.bank="key";
+ if(!["all","key","misc"].includes(S.cfg.bank)) S.cfg.bank = "key";
  if(repairSession(S.sess)) markSess();
 }
 const S = {cfg:{...DEFAULT_CFG}, recs:{}, log:{}, sess:null};
@@ -754,21 +756,19 @@ function poolIds(bankKey = S.cfg.bank){
  return POOL_CACHE[key];
 }
 function plan(){
-  const t=today(), start=dayNum(S.cfg.start), exam=dayNum(S.cfg.exam);
-  const lastNew=exam-1-(+S.cfg.rev||0), pool=poolIds();
-  let unseen=0, due=[], wrong=0, learned=0;
-  for(const id of pool){ const r=S.recs[id]; if(!r){unseen++;continue;} learned++; if(r[0]<=t)due.push(id); if(r[4]===0)wrong++; }
-  const lg=S.log[t]||[0,0,0,0], introduced=lg[0]||0, reviewed=lg[1]||0;
-  const daysLeftNew=lastNew-t+1;
-  const raw=Math.ceil((unseen+introduced)/Math.max(1,daysLeftNew>0?daysLeftNew:exam-t));
-  const cap=Math.max(1,Math.min(500,Math.floor(+S.cfg.cap||30)));
-  const reviewCap=Math.max(1,Math.min(500,Math.floor(+S.cfg.reviewCap||60)));
-  const sprint=t>lastNew && t<exam;
-  const perDay=t<start?0:Math.min(raw,sprint?Math.min(10,cap):cap);
-  const suggestedLeft=Math.min(unseen,Math.max(0,perDay-introduced));
-  due.sort((a,b)=>(S.recs[a][0]-S.recs[b][0])||(S.recs[a][4]-S.recs[b][4]));
-  const reviewLeft=Math.min(due.length,Math.max(0,reviewCap-reviewed));
-  return {t,start,exam,lastNew,pool,unseen,learned,due,wrong,perDay,cap,reviewCap,reviewed,reviewLeft,sprint,fullPerDay:raw,newLeft:suggestedLeft,suggestedLeft,introduced,totalDays:exam-start,dayIdx:t-start};
+ const t=today(),start=dayNum(S.cfg.start),exam=dayNum(S.cfg.exam),lastNew=exam-1-(+S.cfg.rev||0),pool=poolIds();
+ let unseen=0,due=[],wrong=0,learned=0,mastered=0,weak=[];
+ for(const id of pool){const r=S.recs[id];if(!r){unseen++;continue;}learned++;if(r[0]<=t)due.push(id);if(r[4]===0)wrong++;
+   if(r[4]===2&&r[1]>=4)mastered++;else weak.push(id);
+ }
+ const lg=S.log[t]||[0,0,0,0],introduced=lg[0]||0,reviewed=lg[1]||0;
+ const daysLeftNew=Math.max(1,lastNew-Math.max(t,start)+1);
+ const perDay=Math.ceil((unseen+introduced)/daysLeftNew),suggestedLeft=Math.min(unseen,Math.max(0,perDay-introduced));
+ const sprint=t>lastNew&&t<exam;
+ due.sort((a,b)=>(S.recs[a][0]-S.recs[b][0])||(S.recs[a][4]-S.recs[b][4]));
+ weak.sort((a,b)=>(S.recs[a][4]-S.recs[b][4])||(S.recs[a][1]-S.recs[b][1]));
+ const dueSet=new Set(due),reinforce=(sprint?pool.filter(id=>S.recs[id]):unseen===0?weak:[]).filter(id=>!dueSet.has(id));
+ return {t,start,exam,lastNew,pool,unseen,learned,mastered,weak,due,wrong,perDay,reviewed,reviewLeft:due.length,sprint,fullPerDay:perDay,newLeft:unseen,suggestedLeft,introduced,daysLeftNew,reinforce,totalDays:exam-start,dayIdx:t-start};
 }
 function nextNew(n, skip = new Set()){
   const out = [];
@@ -960,16 +960,20 @@ function tickTime(){
   ui.t0 = Date.now();
 }
 function startDay(){
-  prepareScope();ui.mode="day";
-  const p=plan(), ids=[...p.due.slice(0,p.reviewLeft),...nextNew(p.newLeft)];
-  if(S.sess && S.sess.day===today() && S.sess.type==="day"){
-    const s=S.sess, prefix=s.queue.slice(0,s.pos);
-    const retries=s.queue.slice(s.pos).filter(e=>qId(e)==="@station" || (qFlag(e)>0 && practiceEligible(qId(e))));
-    s.queue=[...prefix,...retries,...ids.map(id=>id+"|0")];s.planVersion=2;markSess();
-    if(s.pos<s.queue.length){enterStudy();return;}
-  }
-  if(!ids.length){toast(p.due.length?"今日目标已完成，剩余到期题仍保留，可在加练中继续":"今日目标已完成，明天继续；也可以自选加练");render();return;}
-  S.sess=newSess(ids,"day");markSess();enterStudy();
+ prepareScope();ui.mode="day";
+ const p=plan(),fresh=[...p.due,...nextNew(p.unseen)].map(id=>id+"|0");
+ // An early rehearsal does not advance a future due date; a forgotten answer
+ // still resets it through the existing flag-2 handling in answer().
+ fresh.push(...p.reinforce.map(id=>id+"|2"));
+ if(S.sess&&S.sess.day===today()&&S.sess.type==="day"){
+  const s=S.sess,prefix=s.queue.slice(0,s.pos),tail=s.queue.slice(s.pos);
+  const retries=tail.filter(e=>qId(e)==="@station"||(qFlag(e)===1&&practiceEligible(qId(e))));
+  const retried=new Set(retries.map(qId));
+  s.queue=[...prefix,...retries,...fresh.filter(e=>!retried.has(qId(e)))];s.planVersion=3;markSess();
+  if(s.pos<s.queue.length){enterStudy();return;}
+ }
+ if(!fresh.length){startExtra("random");return;}
+ S.sess=newSess([],"day");S.sess.queue=fresh;S.sess.planVersion=3;markSess();enterStudy();
 }
 function startExtra(type){
   const p = plan(); let ids = [];
@@ -1153,10 +1157,8 @@ function streakDays(){
   return n;
 }
 function goButtonHTML(p){
- if(!p.pool.length)return '<button class="btn primary" disabled>当前筛选没有题目</button>';
- const retries=S.sess?.day===today() && S.sess.queue.slice(S.sess.pos).some(e=>qFlag(e)>0);
- if(!p.newLeft&&!p.reviewLeft&&!retries)return '<button class="btn primary" data-start="extra">今日已达标 · 自选加练 10 题</button>';
- return '<button class="btn primary" data-start="today">'+(sessActive()?'继续今日关卡':'开始今日关卡')+'</button>';
+ if(!p.pool.length)return '<button class="btn primary" disabled>当前范围没有可练题目</button>';
+ return '<button class="btn primary home-start" data-start="today">'+(sessActive()?'继续答题':'开始答题')+'<small>不限制题数，随时暂停</small></button>';
 }
 function todayStatsHTML(){
   const s = S.sess && S.sess.day === today() ? S.sess : null, k = streakDays();
@@ -1176,95 +1178,31 @@ function rewardHTML(compact=false){
 }
 
 function dailyForecastHTML(p){
- const rows=[];let remaining=p.unseen;
+ let remaining=p.unseen;const rows=[];
  for(let i=0;i<7;i++){
-   const day=p.t+i, due=p.pool.filter(id=>S.recs[id] && (i===0?S.recs[id][0]<=day:S.recs[id][0]===day)).length;
-   const sprint=day>p.lastNew&&day<p.exam;
-   const daysLeft=p.lastNew-day+1,raw=Math.ceil(remaining/Math.max(1,daysLeft>0?daysLeft:p.exam-day));
-   const n=day<p.start?0:Math.min(remaining,i===0?p.newLeft:Math.min(raw,sprint?Math.min(10,p.cap):p.cap));remaining-=n;
-   rows.push(`<div class="forecast-day ${i===0?'is-today':''}"><b>${i===0?'今天':md(day)}</b><span>${i===0?"新学":"预计新学"} ${n}</span><span>${i===0?"到期":"新增到期"} ${due}</span></div>`);
+  const day=p.t+i,days=Math.max(1,p.lastNew-Math.max(day,p.start)+1);
+  const n=Math.min(remaining,i===0?p.suggestedLeft:Math.ceil(remaining/days));remaining-=n;
+  const due=p.pool.filter(id=>S.recs[id]&&(i===0?S.recs[id][0]<=day:S.recs[id][0]===day)).length;
+  rows.push(`<div class="forecast-day ${i===0?'is-today':''}"><b>${i===0?'今天':md(day)}</b><span>建议新学 ${n}</span><span>${i===0?'到期':'新增到期'} ${due}</span></div>`);
  }
- return `<section class="sheet daily-route"><div class="section-head"><h2>每天一小段，记得更久</h2><span class="pill">每关 ${STATION} 题</span></div><div class="note">今天新学 ${p.newLeft} 题 · 到期 ${p.due.length} 题（今日安排 ${p.reviewLeft} 题）。${p.sprint?'已进入考前复习阶段，先巩固，再补学。':''}</div><div class="forecast-grid">${rows.join('')}</div><div class="note">记住后依次间隔 1、2、4、7、15、30 天复习；不熟缩短间隔，答错次日再复习。本轮错题还会重现。下方仅显示已生成的到期安排，后续随作答更新。${p.fullPerDay>p.cap?' 按当前考试日期需每日新学约 '+p.fullPerDay+' 题，超过你的目标；可在偏好中调整。':''}</div></section>`;
+ return `<div class="forecast-grid">${rows.join('')}</div><p class="note">建议量按未学题和新题完成日计算，不限制每天答题量。到期数只表示已有学习记录中应复习的题；后续复习会随作答生成。熟练后按 1、2、4、7、15、30 天逐步延长，不熟缩短，答错次日再复习。</p>`;
 }
 function viewToday(){
-  const p = plan();
-  const scopeQuestions = QS.filter(q => (studyScope() === "all" || questionScope(q.i).status === studyScope()) && sourceMatches(q.i));
-  const referenceCount = scopeQuestions.filter(referenceOnly).length;
-  const days = Math.max(1, p.totalDays);
-  const inNew = p.t <= p.lastNew;
-  const phase = p.t >= p.exam ? "考试日已到" : inNew ? "新学阶段" : "总复习阶段";
-  const dayNo = Math.min(days, Math.max(1, p.dayIdx + 1));
-  const totalLeft = p.newLeft + p.due.length;
-  let bars = "", axis = "", maxv = 1;
-  const vals = [];
-  for(let d = 0; d < days; d++){ const n = p.start + d; const lg = S.log[n]; const v = lg ? lg[0] + lg[1] : 0; vals.push(v); maxv = Math.max(maxv, v, p.perDay || 0); }
-  for(let d = 0; d < days; d++){
-    const n = p.start + d, v = vals[d];
-    const cls = ["bar", n < p.t ? "done" : "", n === p.t ? "today done" : "", n > p.lastNew ? "review" : ""].join(" ");
-    const h = n > p.t ? 0 : Math.max(2, Math.round(v / maxv * 96));
-    bars += `<div class="${cls}" style="height:${n > p.t ? 2 : h}px" title="${md(n)} · ${v}题"></div>`;
-    axis += `<span>${d === 0 || d === days - 1 || n === p.t || (d + 1) % 5 === 0 ? (+keyOf(n).slice(8,10)) : ""}</span>`;
-  }
-  const bankRows = (() => {
-    let n = 0, g = 0, y = 0, r = 0;
-    for(const q of QS){ if(!practiceEligible(q.i)) continue; n++; const rec = S.recs[q.i]; if(!rec) continue; if(rec[4] === 2) g++; else if(rec[4] === 1) y++; else r++; }
-    const pct = x => (x / Math.max(1, n) * 100).toFixed(2) + "%";
-    return `<div class="bankrow"><span class="name">整体题库 · 全部来源混合</span><span class="num">已学 ${g + y + r} / ${n}</span>
-      <div class="meter" aria-label="会了${g}，模糊${y}，不会${r}"><i style="width:${pct(g)};background:var(--sig-green)"></i><i style="width:${pct(y)};background:var(--sig-yellow)"></i><i style="width:${pct(r)};background:var(--sig-red)"></i></div></div>`;
-  })();
-  const ad = AUDIO.find(a => a.day === dayNo);
-  const audioTeaser = AUDIO.length
-    ? (ad ? `<div class="sheet audio-teaser"><div class="section-head"><h2>今天的音频</h2><button class="btn ghost" data-tab-go="audio" style="min-height:36px;padding:4px 10px;font-size:14px">去听</button></div>
-        <div class="note">第 ${dayNo} 天：${ad.tracks.map(t => `${esc(t.name)} ${t.min} 分钟`).join("，")}。通勤、做饭的时候听，睡前再听一遍问答。</div></div>` : "")
-    : `<div class="sheet audio-teaser"><h2>今天的音频</h2><div class="note">这个 App 不带音频。音频文件可以单独存到手机的“文件”App 里，没网也能听。</div></div>`;
-  return `
-  <header class="board">
-    <div class="brand">拾光<span class="brand-mark">日积 · 月累</span><small>${md(p.t)} · 第 ${dayNo} 天 / 共 ${days} 天 · ${phase}</small></div>
-    <div class="countdown"><span class="num">${Math.max(0, p.exam - p.t)}</span><span class="label">天后考试</span></div>
-    <div class="sync" id="syncline">${syncHTML()}</div>
-  </header>
-  ${dailyForecastHTML(p)}
-  <div class="row content-entries">${[["key","重点题库（技规·运规·调规·事规·救援·党口）"],["misc","操规（不考）"]].map(([v,t]) => `<button class="btn" data-content="${v}" aria-pressed="${S.cfg.bank === v}">${t}</button>`).join("")}</div>
-  <section class="sheet daily-plan" aria-label="今日学习进度">
-    <div class="daily-plan-head"><div><span class="label">今日新学</span><strong class="num">${p.introduced}<small> / ${p.perDay} 道建议</small></strong></div><span class="num">剩余新题 ${p.newLeft}</span></div>
-    <div class="progress" role="progressbar" aria-label="今日建议进度" aria-valuemin="0" aria-valuenow="${p.introduced}" aria-valuemax="${Math.max(1,p.perDay)}"><i style="width:${Math.min(100,p.introduced/Math.max(1,p.perDay)*100)}%"></i></div>
-    <p class="note">全部已学 ${p.learned} / ${p.pool.length} 道 · 再新学 ${p.suggestedLeft} 道达到今日建议。完成今日目标后，可自选加练。</p>
-    ${p.introduced >= p.perDay ? `<div class="praise">✦ 今日新学已达标，到期复习也别忘了</div>` : ""}
-  </section>
-  <section class="tiles" aria-label="剩余学习内容">
-    <div class="sheet tile"><span class="label"><span class="lamp"></span>新题</span><span class="num">${p.newLeft}</span><span class="note">还未学过</span></div>
-    <div class="sheet tile"><span class="label"><span class="lamp green"></span>复习</span><span class="num">${p.due.length}</span><span class="note">今天到期</span></div>
-    <div class="sheet tile"><span class="label"><span class="lamp red"></span>错题</span><span class="num">${p.wrong}</span><span class="note">上次不会</span></div>
-  </section>
-  <div class="go">
-    ${goButtonHTML(p)}
-    <div class="row">
-      <button class="btn" data-start="order">按序号顺练</button>
-      <button class="btn" data-start="wrong" ${p.wrong ? "" : "disabled"}>错题本</button>
-      <button class="btn" data-start="${sessDoneToday() ? "extra" : "random"}">随机学习</button>
-    </div>
-    ${todayStatsHTML()}
-    <button class="cloze-link" data-annotate>空挖得别扭？逐题标注（可选）</button>
-  </div>
-  ${rewardHTML(true)}
-  <details class="session-guide"><summary>学习安排、反馈与保存说明</summary><div class="note">答错的题会再出现，每 50 次有休息站，可继续也可暂停。暂停、切出或关闭都会自动保存。全部题目都已合并成一个整体题库，题型只有填空、选择、多选、判断和排序：多个空的题每次随机考一部分，空挖得不对可以点“自己选”。每道题都能保存或在线提交问题反馈。<button class="cloze-link" data-annotate>逐题标注挖空</button></div></details>
-  <details class="scope-overview"><summary>当前内容与资料依据</summary><div class="scope-summary note">${esc(SCOPE_LABELS[studyScope()])} · ${scopeQuestions.length} 个原编号 · ${referenceCount} 题只有原文。待核题保留提示；归属确认不等于答案或现行版本已核实。<a href="audit/index.html">逐题归属、待核与缺失材料清单</a></div></details>
-  ${AUDIO.length ? audioTeaser : ""}
-  <details class="history-details"><summary>查看积累记录与各内容进度</summary><section class="section">
-    <div class="section-head"><h2>进度运行图</h2><span class="label">每天做题数</span></div>
-    <div class="sheet graph" style="--days:${days}">
-      <div class="graph-grid" role="img" aria-label="每天做题数量">${bars}</div>
-      <div class="graph-axis num">${axis}</div>
-      <div class="legend"><span><i class="sw" style="background:var(--accent)"></i>新学阶段</span><span><i class="sw" style="background:color-mix(in srgb,var(--sig-green) 35%,transparent)"></i>总复习（最后 ${S.cfg.rev} 天）</span><span><i class="sw" style="outline:2px solid var(--sig-yellow);background:transparent"></i>今天</span></div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="section-head"><h2>整体掌握情况</h2><span class="label">${QS.length} 题混合</span></div>
-    <div class="sheet banks">${bankRows}</div>
-    <div class="legend"><span><span class="lamp green"></span>会了</span><span><span class="lamp yellow"></span>模糊</span><span><span class="lamp red"></span>不会</span><span><span class="lamp"></span>未学</span></div>
-  </section></details>`;
+ const p=plan(),r=rewardStats(),total=QS.filter(q=>sourceMatches(q.i)&&(studyScope()==="all"||questionScope(q.i).status===studyScope())).length;
+ const pending=total-p.pool.length,bankName=S.cfg.bank==="all"?"全部题库（含操规）":S.cfg.bank==="misc"?"操规":"重点题库";
+ const remainingDays=Math.max(0,p.exam-p.t),reviewStart=keyOf(p.lastNew+1);
+ return `<div class="simple-home"><header class="home-header"><div><h1>拾光</h1><p>${md(p.t)} · 距截止 ${remainingDays} 天</p></div><button class="btn" data-tab-go="settings">调整计划</button></header>
+ <section class="sheet home-main"><label class="home-range" for="s-bank-plan">学习范围<select id="s-bank-plan">${[["all","全部题库（含操规）"],["key","重点题库"],["misc","操规"]].map(([k,v])=>`<option value="${k}" ${S.cfg.bank===k?'selected':''}>${v}</option>`).join('')}</select></label>
+ ${goButtonHTML(p)}
+ <div class="home-counts"><div><b>${p.unseen}</b><span>还未学</span></div><div><b>${p.due.length}</b><span>今天到期复习</span></div><div><b>${p.mastered}</b><span>巩固达标</span></div></div>
+ <p class="home-advice">今天建议新学 <b>${p.perDay}</b> 题，还差 <b>${p.suggestedLeft}</b> 题。可以继续多学，复习题全部开放。</p>
+ <p class="note">${bankName}共 ${total} 题 · 可练 ${p.pool.length} 题${pending?' · 待核 '+pending+' 题':''}。到期题不包含未学题。</p></section>
+ <section class="sheet home-plan"><div class="home-deadline"><span>新题完成日 <b>${keyOf(p.lastNew)}</b></span><span>截止日 <b>${esc(S.cfg.exam)}</b></span></div><p class="note">预留 ${+S.cfg.rev||0} 天复习${+S.cfg.rev?'，从 '+reviewStart+' 开始':''}；已学 ${p.learned} / ${p.pool.length}，待巩固 ${p.learned-p.mastered}。</p>
+ ${p.t>p.lastNew&&p.unseen?`<p class="plan-alert">预留复习期已开始，还有 ${p.unseen} 道未学，需尽快补齐；也可调整截止日或预留天数。</p>`:''}
+ ${p.t>=p.exam?'<p class="plan-alert">截止日期已到，请在调整计划中设置下一次备考日期。</p>':''}</section>
+ <div class="row home-shortcuts"><button class="btn" data-start="wrong">错题 ${p.wrong}</button><button class="btn" data-start="random">随机练习</button><button class="btn" data-start="order">按题号练习</button></div>
+ <details class="home-details"><summary>查看复习安排与学习进度</summary><div class="sheet">${dailyForecastHTML(p)}<p>连续学习 ${r.streak} 天 · ${r.points} 光点 · LV.${r.level}</p><p class="note">“已学”表示做过；“巩固达标”表示最近答对且复习间隔已达 4 天，仍需继续按到期安排复习。考前巩固可以提前回忆，答对不会擅自推迟原到期日。待核题保留查阅，确认后再计分。</p></div></details></div>`;
 }
-
 function fmtMin(sec){ const m = Math.round(sec / 60); return m < 60 ? `${m} 分钟` : `${Math.floor(m / 60)} 小时 ${m % 60} 分钟`; }
 function dayTrack(s){
   const total = countQ(s.queue), done = countQ(s.queue.slice(0, s.pos));
@@ -1313,9 +1251,9 @@ function doneView(s){
   return `<div class="topbar"><button class="btn" data-end>回到今日</button><div class="progress"><i style="width:100%"></i></div></div>
   <div class="sheet done-card">
     <div class="celebrate"><span class="big">✦</span><strong>${s.ans} 次完成</strong><span class="num">正确率 ${acc}% · 最高连对 ${s.best} 题</span></div>
-    <div>${ui.mode === "day" ? "今日关卡已完成，明天再见" : "题做完了"}，共用 ${fmtMin(s.sec)}。</div>
+    <div>${ui.mode === "day" ? "这一轮完成，仍可继续学习" : "题做完了"}，共用 ${fmtMin(s.sec)}。</div>
     <div class="note">答错的题明天会再出现，答对的题按复习曲线隔几天再出现。休息不会扣光点。</div>
-    <button class="btn primary" data-more>自选加练 · 10 题</button>
+    <button class="btn primary" data-more>继续答题 · 不限量</button>
     <button class="btn" data-end>回到今日</button></div>`;
 }
 function fillHTML(q, c){
@@ -1611,11 +1549,11 @@ function viewSettings(){
   return `<header class="board"><div class="brand">偏好<small>按自己的节奏来</small></div></header><div class="settings-intro">你的记录一直都在。调整内容或日期，只改变后续安排。</div>
   <div class="sheet settings-plan"><h2 class="section-heading">安排与内容</h2>
     <div class="field"><label for="s-scope">练习范围</label><select id="s-scope">${["all","core","pending"].map(v=>`<option value="${v}" ${studyScope()===v?"selected":""}>${SCOPE_LABELS[v]}</option>`).join("")}</select><span class="note">默认全部原题均可学。归属待核不再阻止学习；填空题按空作答，空不合适可以自己选。选择子范围仅改变当前内容，原题和记录保留。</span></div>
-    <div class="field"><label for="s-exam">考试日期</label><input type="date" id="s-exam" value="${S.cfg.exam}"><span class="note">保留你的考试日期，按剩余天数计算建议量；实际新题不超过每日目标。</span></div>
+    <div class="field"><label for="s-exam">考试日期</label><input type="date" id="s-exam" value="${S.cfg.exam}"><span class="note">按截止日期和预留复习天数计算建议新题量；每天答题不设上限。</span></div>
     <div class="field"><label for="s-start">开始日期</label><input type="date" id="s-start" value="${S.cfg.start}"></div>
     <div class="field"><label for="s-rev">考前几天侧重复习</label><select id="s-rev">${[0,1,2,3,4,5,6].map(n => `<option value="${n}" ${+S.cfg.rev === n ? "selected" : ""}>${n} 天</option>`).join("")}</select></div>
-    <div class="field"><label>题库范围</label><span class="note">所有来源已合并成一个整体题库，技规、事规、机调、党建等全部混在一起出题，不再分开选择。学习记录、笔记和到期时间都按原题号保留。</span></div>
-    <div class="field"><label>每日新题目标</label><input id="s-cap" type="number" min="1" max="500" value="${+S.cfg.cap||30}"><span class="note">默认每天最多 30 道新题；考前复习阶段最多补学 10 道。做完即可休息，也能自选加练。</span></div><div class="field"><label for="s-review-cap">每日复习目标</label><input id="s-review-cap" type="number" min="1" max="500" value="${+S.cfg.reviewCap||60}"><span class="note">优先复习最早到期的题；超出目标的到期题会保留。</span></div><div class="field"><label for="s-fun">练习形式</label><select id="s-fun"><option value="1" ${S.cfg.fun!==0?"selected":""}>混合趣味关卡</option><option value="0" ${S.cfg.fun===0?"selected":""}>经典答题</option></select><span class="note">填空可选词、拼词、配对或输入；选择、判断保留原题型和选项。</span></div>
+    <div class="field"><label>题库范围</label><span class="note">首页可选择全部题库（含操规）、重点题库或操规；所选范围按截止日期统一规划，原题号和学习记录保留。</span></div>
+    <div class="field"><label>每日题数不限</label><span class="note">今日建议量只用于赶进度，达到后仍可继续学；到期复习全部开放。请在预留复习期开始前完成新题。</span></div><div class="field"><label for="s-fun">练习形式</label><select id="s-fun"><option value="1" ${S.cfg.fun!==0?"selected":""}>混合趣味关卡</option><option value="0" ${S.cfg.fun===0?"selected":""}>经典答题</option></select><span class="note">填空可选词、拼词、配对或输入；选择、判断保留原题型和选项。</span></div>
     <div class="field"><label>字号</label><div class="fs-row" role="group" aria-label="字号">${[[0.85,"小"],[0.95,"标准"],[1.1,"大"],[1.25,"特大"]].map(([v,t]) => `<button class="btn" data-fs="${v}" aria-pressed="${Math.abs((Number(S.cfg.fs)||0.95)-v)<0.01}">${t}</button>`).join("")}</div><span class="note">只改显示大小，题目、记录和计划都不变。练习页点顶部数字也能调。</span></div>
     <div class="field"><label>题型</label><span class="note">问答题已全部改写成填空、选择、多选、判断和排序，题库里不再有需要自评的问答。有原文的按原文挖空，指标计算题直接填数值。</span></div>
   </div>
@@ -1705,7 +1643,7 @@ app.addEventListener("click", e => {
     markCfg(); loadAnnQuestion(); render(); toast("已恢复自动挖空"); return;
   }
   if(t.hasAttribute("data-ann-export")){ exportClozes(); return; }
-  if(t.hasAttribute("data-more")){ startExtra("extra"); return; }
+  if(t.hasAttribute("data-more")){ startDay(); return; }
   if(t.hasAttribute("data-head-toggle")){
     const more = document.querySelector(".study-head-more");
     if(more){ more.hidden = !more.hidden; t.setAttribute("aria-expanded", String(!more.hidden)); }
@@ -1896,14 +1834,13 @@ app.addEventListener("change", e => {
   else if(id === "q-bank"){ ui.sBank = v; render(); }
   else if(id === "q-scope"){ ui.sScope = v; ui.openId = null; render(); }
   else if(id === "q-subject"){ ui.sSubject = v; ui.openId = null; render(); }
+  else if(id === "s-bank-plan"){S.cfg.bank=["key","misc"].includes(v)?v:"all";prepareScope();markCfg();render();}
   else if(id === "s-scope"){ S.cfg.scope = ["core","pending"].includes(v) ? v : "all"; prepareScope(); markCfg(); toast("练习范围已切换，原记录保留"); render(); }
   else if(id === "q-kind"){ ui.sKind = v; render(); }
   else if(id === "s-exam" && v){ S.cfg.exam = v; markCfg(); toast("考试日期已更新"); }
   else if(id === "s-start" && v){ S.cfg.start = v; markCfg(); toast("开始日期已更新"); }
   else if(id === "s-rev"){ S.cfg.rev = +v; markCfg(); toast("复习天数已更新"); }
   else if(id === "s-fun"){ S.cfg.fun=+v; markCfg(); render(); }
-  if(id === "s-review-cap"){ S.cfg.reviewCap=Math.max(1,Math.min(500,+v||60));markCfg();render(); }
-  if(id === "s-cap"){ S.cfg.cap = Math.max(1,Math.min(500,+v||30)); markCfg(); toast("每日新题上限已更新"); render(); }
 });
 app.addEventListener("play", e => {
   if(e.target.tagName !== "AUDIO") return;
