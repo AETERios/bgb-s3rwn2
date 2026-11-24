@@ -173,6 +173,15 @@ def norm_key(text):
     return t.lower()
 
 
+def question_key(q):
+    """Same stem alone is not a duplicate: preserve type, options and answer."""
+    stem = re.sub(r"\{\{blank:(\d+)\}\}", r"SOURCEBLANK\1", q.get("q", ""))
+    return json.dumps([q.get("k"), norm_key(stem),
+                       [clean(o) for o in q.get("o", [])], q.get("a"),
+                       clean(q.get("x")) if q.get("k") == "r" else ""],
+                      ensure_ascii=False, sort_keys=True)
+
+
 def to_question(raw):
     """把解析行转成题库对象；无法判断的返回 (None, 原因)"""
     stem = clean(raw["stem"])
@@ -186,7 +195,7 @@ def to_question(raw):
     if len(opts) == 2 and opts[0] in YES | {"对"} and opts[1] in NO | {"错"}:
         val = 1 if ans_raw in YES or ans_raw.upper() == "A" else 0 if ans_raw in NO or ans_raw.upper() == "B" else None
         if val is None:
-            return None, "判断题答案无法识别:" + ans_raw
+            return {"k": "j", "q": stem, "a": None, "answerPending": True}, ""
         return {"k": "j", "q": stem, "a": val, "x": exp or ("正确。" if val else "错误。")}, ""
 
     # 选择题：有选项且答案像字母
@@ -200,12 +209,10 @@ def to_question(raw):
             if len(idx) == 1:
                 return {"k": "c", "q": stem, "o": opts, "a": idx[0], "x": exp}, ""
             return {"k": "m", "q": stem, "o": opts, "a": idx, "x": exp}, ""
-        # 答案不是字母：按填空处理
-        blanks = stem.count("()")
-        if blanks == 1:
-            q = stem.replace("()", "{{blank:1}}", 1)
-            return {"k": "f", "q": q, "a": [ans_raw], "x": stem.replace("()", ans_raw), "auto": 1}, ""
-        return None, "选择题答案既非字母也非单空"
+        # Missing or unrecognized answers must never discard choice options.
+        kind = re.sub(r"\s+", "", raw.get("kind", ""))
+        return {"k": "m" if "多选" in kind else "c", "q": stem,
+                "o": opts, "a": None, "answerPending": True}, ""
 
     # 无选项
     if "()" in stem:
@@ -213,13 +220,13 @@ def to_question(raw):
         parts = [p.strip() for p in re.split(r"[、;；,]", ans_raw) if p.strip()] if ans_raw else []
         if blanks == 1 and parts:
             q = stem.replace("()", "{{blank:1}}", 1)
-            return {"k": "f", "q": q, "a": [parts[0]], "x": stem.replace("()", parts[0]), "auto": 1}, ""
+            return {"k": "f", "q": q, "a": [parts[0]], "x": stem.replace("()", parts[0]), "clozeOrigin": "source"}, ""
         if blanks > 1 and len(parts) == blanks:
             q, x = stem, stem
             for i, p in enumerate(parts, 1):
                 q = q.replace("()", "{{blank:%d}}" % i, 1)
                 x = x.replace("()", p, 1)
-            return {"k": "f", "q": q, "a": parts, "x": x, "auto": 1}, ""
+            return {"k": "f", "q": q, "a": parts, "x": x, "clozeOrigin": "source"}, ""
         if ans_raw:
             return {"k": "r", "q": stem, "x": ans_raw.replace("()", " ").strip()}, ""
         return None, "多空个数与答案不一致"
@@ -394,12 +401,11 @@ def main():
     html = open(os.path.join(here, "index.html"), encoding="utf-8").read()
     m = _re.search(r'<script id="bank-data" type="application/json">(.*?)</script>', html, _re.S)
     old = json.loads(m.group(1))
-    old_keys = {norm_key(q.get("q")) for q in old["q"]}
-    old_keys |= {norm_key(q.get("x")) for q in old["q"] if q.get("x")}
+    old_keys = {question_key(q) for q in old["q"]}
     uniq, dup = [], 0
     local = set()
     for q in kept:
-        k = norm_key(q.get("q"))
+        k = question_key(q)
         if k in old_keys or k in local:
             dup += 1
             continue

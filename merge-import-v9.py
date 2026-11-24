@@ -47,7 +47,13 @@ def main():
         if q.get("x"):
             out["x"] = q["x"]
         if q["k"] == "f":
-            out["auto"] = 1
+            if q.get("clozeOrigin") == "source":
+                out["clozeOrigin"] = "source"
+            elif q.get("auto"):
+                out["auto"] = 1
+        if q.get("answerPending"):
+            out["answerPending"] = True
+            out["a"] = None
         if q.get("d"):
             out["d"] = 1
             out["p"] = q["p"]
