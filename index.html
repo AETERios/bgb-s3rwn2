@@ -356,7 +356,7 @@ body.kb-open .study-head .study-head-count{display:none}
 "use strict";
 /* ===== data & audio (filled in by Claude when publishing) ===== */
 const DATA_ID = ""; const OFFLINE = true; let OFFLINE_READY = false;
-const APP_VERSION = "shiguang-unified-20261124-v10-r13";
+const APP_VERSION = "shiguang-unified-20261125-v10-r14";
 const APP_CACHE = "jdbg-app-" + APP_VERSION;
 let UPDATE_READY = false;
 if("serviceWorker" in navigator){
@@ -447,13 +447,7 @@ function rKeySpan(q){
   return out;
 }
 function rFillOn(){ return S.cfg.objectiveOnly !== 0; }
-function asAnswerable(q){
-  if(!q || q.k !== "r" || !rFillOn() || q.nf) return q;
-  const sp = rKeySpan(q);
-  if(!sp) return q;
-  const text = String(q.x || "");
-  return {...q, k:"f", _ask:q.q, q:text.slice(0, sp.s) + "{{blank:1}}" + text.slice(sp.e), a:[text.slice(sp.s, sp.e)], _r:1};
-}
+function asAnswerable(q){ return q; }
 function splitCloze(q){
   const raw = String(q.q || ""), ans = q.a || [];
   let text = "", last = 0, m;
@@ -524,21 +518,7 @@ function clozeData(q){
   }
   return {text:base.text, spans:base.spans, custom:false};
 }
-function pickShown(n, avoid){
-  if(n <= 0) return [];
-  if(n === 1) return [0];
-  // 每次回忆 1~3 个知识点；完整标注保留，后续轮换。
-  let minK = 1, maxK = Math.min(3, n);
-  if(S.cfg.fun===0 && n>5){minK=5;maxK=n;}
-
-  let idx = [];
-  for(let tries = 0; tries < 20; tries++){
-    const k = minK + Math.floor(Math.random() * (maxK - minK + 1));
-    idx = shuffle([...Array(n).keys()]).slice(0, k).sort((a,b) => a - b);
-    if(!avoid || idx.length !== avoid.length || idx.some((v,i) => v !== avoid[i])) break;
-  }
-  return idx;
-}
+function pickShown(n){ return Array.from({length:Math.max(0,n)},(_,i)=>i); }
 function clozeCardHTML(d, c){
   const shown = new Map((c.shown || []).map((si,k) => [si,k]));
   let out = "", pos = 0;
@@ -547,12 +527,9 @@ function clozeCardHTML(d, c){
     const k = shown.has(i) ? shown.get(i) : -1;
     if(k < 0){
       out += esc(d.text.slice(sp.s, sp.e));
-    } else if(!c.checked && ["word","build","pair"].includes(c.mode)){
-      const v = c.vals[k];
-      out += `<button class="blank-slot ${v ? "" : "empty"}" data-slot="${k}" aria-label="第 ${k + 1} 空">${v ? esc(v) : "第 "+(k+1)+" 空"}${c.mode!=="word"&&(c.target||0)===k?" ◉":""}</button>`;
     } else if(!c.checked){
       const w = Math.min(18, Math.max(3, sp.a.length + 1));
-      out += `<input class="fill" id="fill-${k}" data-fi="${k}" value="${esc(c.vals[k] || "")}" style="width:${w}em" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="${k === c.shown.length - 1 ? "done" : "next"}" aria-label="第 ${k + 1} 空">`;
+      out += `<input class="fill" id="fill-${k}" data-fi="${k}" value="${esc(c.vals[k] || "")}" style="width:${w}em;max-width:100%;box-sizing:border-box" inputmode="text" ${k===0?"autofocus":""} autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="${k === c.shown.length - 1 ? "done" : "next"}" aria-label="第 ${k + 1} 空">`;
     } else if(c.res[i]){
       out += `<span class="blank shown ok">${esc(sp.a)}</span>`;
     } else {
@@ -771,9 +748,7 @@ function plan(){
  return {t,start,exam,lastNew,pool,unseen,learned,mastered,weak,due,wrong,perDay,reviewed,reviewLeft:due.length,sprint,fullPerDay:perDay,newLeft:unseen,suggestedLeft,introduced,daysLeftNew,reinforce,totalDays:exam-start,dayIdx:t-start};
 }
 function nextNew(n, skip = new Set()){
-  const out = [];
-  for(const id of poolIds()){ if(out.length >= n) break; if(!S.recs[id] && !skip.has(id)) out.push(id); }
-  return out;
+  return shuffle(poolIds().filter(id=>!S.recs[id]&&!skip.has(id))).slice(0,n);
 }
 function grade(id,g){
   if(QMAP.get(id)?.answerPending || needsClozeReview(QMAP.get(id)))return;
@@ -951,7 +926,7 @@ function mixLists(a, b){
   return out;
 }
 function newSess(ids, type){
-  return {type, planVersion:2, day: today(), scope:studyScope(), bank:S.cfg.bank, scopeRevision:SCOPE_REVISION, queue: ids.filter(id => practiceEligible(id)).map(id => id + "|0"), pos: 0, ans: 0, ok: 0, bad: 0, combo: 0, best: 0, sec: 0, segOk: 0, segN: 0, segSec: 0, recent: [], u: Date.now()};
+  return {type, planVersion:4, day: today(), scope:studyScope(), bank:S.cfg.bank, scopeRevision:SCOPE_REVISION, queue: ids.filter(id => practiceEligible(id)).map(id => id + "|0"), pos: 0, ans: 0, ok: 0, bad: 0, combo: 0, best: 0, sec: 0, segOk: 0, segN: 0, segSec: 0, recent: [], u: Date.now()};
 }
 function markSess(){ if(!S.sess) return; S.sess.u = Date.now(); dirty.add("sess"); scheduleFlush(1500); }
 function tickTime(){
@@ -961,19 +936,26 @@ function tickTime(){
 }
 function startDay(){
  prepareScope();ui.mode="day";
- const p=plan(),fresh=[...p.due,...nextNew(p.unseen)].map(id=>id+"|0");
+ const p=plan(),fresh=[...shuffle(p.due.slice()),...nextNew(p.unseen)].map(id=>id+"|0");
  // An early rehearsal does not advance a future due date; a forgotten answer
  // still resets it through the existing flag-2 handling in answer().
- fresh.push(...p.reinforce.map(id=>id+"|2"));
+ fresh.push(...shuffle(p.reinforce.slice()).map(id=>id+"|2"));
  if(S.sess&&S.sess.day===today()&&S.sess.type==="day"){
   const s=S.sess,prefix=s.queue.slice(0,s.pos),tail=s.queue.slice(s.pos);
   const retries=tail.filter(e=>qId(e)==="@station"||(qFlag(e)===1&&practiceEligible(qId(e))));
   const retried=new Set(retries.map(qId));
-  s.queue=[...prefix,...retries,...fresh.filter(e=>!retried.has(qId(e)))];s.planVersion=3;markSess();
+  if(s.planVersion===4){
+   const eligible=new Set(fresh.map(qId)),kept=tail.filter(e=>qId(e)==="@station"||(qFlag(e)===1?practiceEligible(qId(e)):eligible.has(qId(e))));
+   const queued=new Set(kept.map(qId));
+   s.queue=[...prefix,...kept,...fresh.filter(e=>!queued.has(qId(e)))];
+  }else{
+   s.queue=[...prefix,...retries,...fresh.filter(e=>!retried.has(qId(e)))];ui.pausedCard=null;
+  }
+  s.planVersion=4;markSess();
   if(s.pos<s.queue.length){enterStudy();return;}
  }
  if(!fresh.length){startExtra("random");return;}
- S.sess=newSess([],"day");S.sess.queue=fresh;S.sess.planVersion=3;markSess();enterStudy();
+ S.sess=newSess([],"day");S.sess.queue=fresh;S.sess.planVersion=4;markSess();enterStudy();
 }
 function startExtra(type){
   const p = plan(); let ids = [];
@@ -1032,35 +1014,6 @@ function bankUsed(bank, vals){
 function wordBankHTML(q, c){
   const bank = wordBankFor(q, c), used = bankUsed(bank, c.vals);
   return `<div class="wordbank" aria-label="可选词">${bank.map((w, i) => `<button class="wchip" data-word="${i}" ${used[i] ? "disabled" : ""}>${esc(w)}</button>`).join("")}</div>`;
-}
-function answerPieces(a){
- const parts=a.match(/[A-Za-z0-9０-９]+(?:\.[0-9]+)?|[\u4e00-\u9fff]{1,2}|./gu)||[];
- return parts.length===1&&Array.from(a).length>1&&!/^[\d０-９.]+$/.test(a)?Array.from(a):parts;
-}
-function funModes(c){
- const answers=c.shown.map(i=>c.data.spans[i].a), modes=["type","word"];
- if(answers.some(a=>answerPieces(a).length>1))modes.push("build");
- if(answers.length>1&&new Set(answers.map(normAns)).size===answers.length)modes.push("pair");
- return modes;
-}
-function setFunMode(c,mode){
- c.mode=mode;c.vals=[];c.res={};c.checked=false;c.allOk=false;c.override=false;c.target=0;c.picks=[];
- const parts=c.shown.flatMap(i=>answerPieces(c.data.spans[i].a));
- c.tiles=seededShuffle(parts,hashSeed(c.forId+"|tiles|"+c.shown.join(',')));
- c.pairBank=seededShuffle(c.shown.map(i=>c.data.spans[i].a),hashSeed(c.forId+"|pairs"));
-}
-function funControlsHTML(q,c){
- const labels={type:"输入回忆",word:"选词填空",build:"词块拼装",pair:"线索配对"};
- let out=`<div class="fun-modes" role="group" aria-label="练习形式">${funModes(c).map(m=>`<button class="btn" data-fun-mode="${m}" aria-pressed="${c.mode===m}">${labels[m]}</button>`).join('')}</div>`;
- if(c.mode==="word")return out+wordBankHTML(q,c);
- if(c.mode==="build"){
-  const used=new Set((c.picks||[]).flat());
-  out+=`<div class="note">当前拼第 ${(c.target||0)+1} 空；点题干中的空切换，点已拼的词块可取回。</div><div class="build-slots">${c.shown.map((_,k)=>`<div class="build-answer"><button class="btn" data-build-target="${k}" aria-pressed="${(c.target||0)===k}">第 ${k+1} 空</button>${(c.picks[k]||[]).map((ti,pos)=>`<button class="wchip" data-tile-remove="${k}:${pos}">${esc(c.tiles[ti])}</button>`).join('')}</div>`).join('')}</div><div class="wordbank" aria-label="可拼词块">${c.tiles.map((v,i)=>`<button class="wchip" data-tile="${i}" ${used.has(i)?'disabled':''}>${esc(v)}</button>`).join('')}</div>`;
- }else if(c.mode==="pair"){
-  const used=bankUsed(c.pairBank,c.vals);
-  out+=`<div class="note">先点题干中的一个空，再选对应的知识点。每个空按原位置核对。</div><div class="wordbank" aria-label="配对知识点">${c.pairBank.map((v,i)=>`<button class="wchip" data-pair-word="${i}" ${used[i]?'disabled':''}>${esc(v)}</button>`).join('')}</div>`;
- }
- return out;
 }
 function blankCard(){ return {sel: new Set(), answered: false, correct: null, reveal: false, hint: false, skel: false, pts: new Set(), vals: [], checked: false, res: {}, allOk: false, override: false, shown: null, forId: null, data: null, edit: null, praise: null, mode: "type", bank: null, bankKey: "", order: [], pool: null, orderFor: ""}; }
 function enterStudy(){ const active = curSess(), paused = ui.pausedCard; ui.card = paused && paused.sess === active && paused.pos === active.pos ? paused.card : blankCard(); ui.pausedCard = null; ui.studying = true; ui.t0 = Date.now(); document.body.classList.add("studying"); render(); window.scrollTo(0, 0); focusFirstFill(); }
@@ -1261,7 +1214,7 @@ function fillHTML(q, c){
     const k = +n - 1, a = q.a[k] ?? "";
     if(!c.checked){
       const w = Math.min(16, Math.max(3, a.length + 1));
-      return `<input class="fill" id="fill-${k}" data-fi="${k}" value="${esc(c.vals[k] || "")}" style="width:${w}em" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="${k === q.a.length - 1 ? "done" : "next"}" aria-label="第 ${k + 1} 空">`;
+      return `<input class="fill" id="fill-${k}" data-fi="${k}" value="${esc(c.vals[k] || "")}" style="width:${w}em;max-width:100%;box-sizing:border-box" inputmode="text" ${k===0?"autofocus":""} autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="${k === q.a.length - 1 ? "done" : "next"}" aria-label="第 ${k + 1} 空">`;
     }
     if(c.res[k] || c.override) return `<span class="blank shown ok">${esc(a)}</span>`;
     return `<span class="mine">${esc(c.vals[k] || "（没填）")}</span><span class="blank shown">${esc(a)}</span>`;
@@ -1323,7 +1276,7 @@ function viewStudy(){
       const ans = c.shown.map(i => d.spans[i].a);
       // 根据可用答案形态轮换练习，始终沿用原空和个人标注。
       const numeric = ans.some(a => /^[\d０-９]/.test(String(a).trim()));
-      const modes=funModes(c);setFunMode(c,S.cfg.fun===0?"type":modes[(s.pos+today())%modes.length]);
+      c.mode="type";
       c.vals = []; c.res = {}; c.checked = false; c.allOk = false; c.override = false; c.edit = null; c.praise = null;
     }
     if(c.edit){
@@ -1342,10 +1295,9 @@ function viewStudy(){
     } else {
       body = askHTML + `<div class="stem fill-stem">${clozeCardHTML(c.data, c)}</div>`;
       if(!c.checked){
-        body += funControlsHTML(q,c);
-        body += `<div class="cloze-links"><button class="cloze-link" data-reshow>再随机一组（${c.shown.length} / ${c.data.spans.length}）</button><button class="cloze-link" data-edit-cloze>挖得不对？自己选</button></div>`;
+        body += `<div class="cloze-links"><button class="cloze-link" data-edit-cloze>挖得不对？自己选</button></div>`;
         body += `<div class="tools"><button class="btn" data-giveup>不会，看答案</button><button class="btn primary" data-check>核对</button></div>`;
-        body += `<div class="note">${c.mode === "word" ? "点下面的词填进空里，点空可以取回；多空题每次自动换一组。" : "多空题每次自动换一组空；标点、空格和“3 / 三”都不影响对错。"}</div>`;
+        body += `<div class="note">全部空同时显示；标点、空格和“3 / 三”不影响对错。</div>`;
       } else if(c.allOk || c.override){
         body += `<div class="verdict ok"><span class="lamp green"></span>${c.override ? "按你的意思算对" : (c.shown.length > 1 ? "全部填对" : "填对了")}</div>`;
         if(c.praise) body += `<div class="praise">✦ ${esc(c.praise.text)}</div>`;
@@ -1553,7 +1505,7 @@ function viewSettings(){
     <div class="field"><label for="s-start">开始日期</label><input type="date" id="s-start" value="${S.cfg.start}"></div>
     <div class="field"><label for="s-rev">考前几天侧重复习</label><select id="s-rev">${[0,1,2,3,4,5,6].map(n => `<option value="${n}" ${+S.cfg.rev === n ? "selected" : ""}>${n} 天</option>`).join("")}</select></div>
     <div class="field"><label>题库范围</label><span class="note">首页可选择全部题库（含操规）、重点题库或操规；所选范围按截止日期统一规划，原题号和学习记录保留。</span></div>
-    <div class="field"><label>每日题数不限</label><span class="note">今日建议量只用于赶进度，达到后仍可继续学；到期复习全部开放。请在预留复习期开始前完成新题。</span></div><div class="field"><label for="s-fun">练习形式</label><select id="s-fun"><option value="1" ${S.cfg.fun!==0?"selected":""}>混合趣味关卡</option><option value="0" ${S.cfg.fun===0?"selected":""}>经典答题</option></select><span class="note">填空可选词、拼词、配对或输入；选择、判断保留原题型和选项。</span></div>
+    <div class="field"><label>每日题数不限</label><span class="note">今日建议量只用于赶进度，达到后仍可继续学；到期复习全部开放。请在预留复习期开始前完成新题。</span></div>
     <div class="field"><label>字号</label><div class="fs-row" role="group" aria-label="字号">${[[0.85,"小"],[0.95,"标准"],[1.1,"大"],[1.25,"特大"]].map(([v,t]) => `<button class="btn" data-fs="${v}" aria-pressed="${Math.abs((Number(S.cfg.fs)||0.95)-v)<0.01}">${t}</button>`).join("")}</div><span class="note">只改显示大小，题目、记录和计划都不变。练习页点顶部数字也能调。</span></div>
     <div class="field"><label>题型</label><span class="note">问答题已全部改写成填空、选择、多选、判断和排序，题库里不再有需要自评的问答。有原文的按原文挖空，指标计算题直接填数值。</span></div>
   </div>
@@ -1622,7 +1574,6 @@ app.addEventListener("click", e => {
   if(d.studyOne){ S.cfg.scope="all";S.cfg.bank="key";markCfg();ui.xs=newSess([d.studyOne],"single");ui.mode="extra";enterStudy();return; }
   if(d.content){ S.cfg.bank = d.content; prepareScope(); markCfg(); render(); return; }
   if(d.fs != null){ S.cfg.fs = Math.min(1.3, Math.max(0.8, Number(d.fs) || 0.95)); markCfg(); applyFontSize(); render(); scheduleFlush(300); return; }
-  if(d.obj != null){ S.cfg.objectiveOnly = +d.obj ? 1 : 0; markCfg(); for(const k of Object.keys(POOL_CACHE)) delete POOL_CACHE[k]; R_SPAN_CACHE.clear(); toast(S.cfg.objectiveOnly ? "问答题改为原文填空" : "问答题按原文自评"); render(); scheduleFlush(300); return; }
   if(d.start){ if(d.start === "today") startDay(); else startExtra(d.start); return; }
   if(t.hasAttribute("data-annotate")){ openAnnotate(); return; }
   if(t.hasAttribute("data-ann-close")){ ui.annotating = false; render(); window.scrollTo(0, 0); return; }
@@ -1662,29 +1613,6 @@ app.addEventListener("click", e => {
     }
     if(t.hasAttribute("data-confirm")){ const want = q.a.join(","), got = [...c.sel].sort((a, b) => a - b).join(","); c.answered = true; c.correct = want === got; c.praise = {text:praiseLine(c.correct), bad:!c.correct}; render(); buzz(c.correct ? 14 : [10,50,10]); if(c.correct) floatXP("+3 光点"); return; }
     if(d.judge != null && !c.answered){ c.answered = true; c.correct = +d.judge === q.a; c.praise = {text:praiseLine(c.correct), bad:!c.correct}; render(); buzz(c.correct ? 14 : [10,50,10]); if(c.correct) floatXP("+3 光点"); return; }
-    if(d.funMode && c.data && !c.checked && funModes(c).includes(d.funMode)){setFunMode(c,d.funMode);render();return;}
-    if(d.buildTarget!=null && !c.checked){c.target=+d.buildTarget;render();return;}
-    if(d.tile!=null && c.mode==="build" && !c.checked){
-      const i=+d.tile,k=c.target||0;if(!c.picks.flat().includes(i)&&c.tiles[i]!=null){(c.picks[k]||(c.picks[k]=[])).push(i);c.vals[k]=c.picks[k].map(n=>c.tiles[n]).join('');render();}return;
-    }
-    if(d.tileRemove!=null && c.mode==="build" && !c.checked){const [k,pos]=d.tileRemove.split(':').map(Number);c.picks[k].splice(pos,1);c.vals[k]=c.picks[k].map(n=>c.tiles[n]).join('');c.target=k;render();return;}
-    if(d.pairWord!=null && c.mode==="pair" && !c.checked){
-      const i=+d.pairWord;if(!bankUsed(c.pairBank,c.vals)[i]){c.vals[c.target||0]=c.pairBank[i];const next=c.shown.findIndex((_,k)=>!c.vals[k]);if(next>=0)c.target=next;render();}return;
-    }
-    if(d.word != null && ui.card && !c.checked){
-      const bi = +d.word, bank = wordBankFor(q, c), used = bankUsed(bank, c.vals);
-      if(!used[bi]){
-        const slot = c.shown.findIndex((_, k) => !c.vals[k]);
-        if(slot >= 0){ c.vals[slot] = bank[bi]; render(); }
-      }
-      return;
-    }
-    if(d.slot != null && ui.card && !c.checked){
-      const k = +d.slot;
-      if(c.mode==="build" || c.mode==="pair"){c.target=k;if(c.mode==="pair")c.vals[k]="";render();}
-      else if(c.vals[k]){ c.vals[k] = ""; render(); }
-      return;
-    }
     if(d.orderAdd != null && !c.checked){
       const oi = +d.orderAdd;
       if(!c.order.includes(oi)){ c.order.push(oi); render(); }
@@ -1710,7 +1638,6 @@ app.addEventListener("click", e => {
     if(t.hasAttribute("data-check")){ readFills(c); checkCloze(q, c); c.praise = {text:praiseLine(c.allOk), bad:!c.allOk}; render(); buzz(c.allOk ? 14 : [10,50,10]); if(c.allOk) floatXP("+3 光点"); return; }
     if(t.hasAttribute("data-giveup")){ readFills(c); c.shown.forEach(i => c.res[i] = false); c.checked = true; c.allOk = false; c.praise = {text:"答案已经填好，先读一遍", bad:true}; render(); return; }
     if(t.hasAttribute("data-override")){ c.override = true; render(); return; }
-    if(t.hasAttribute("data-reshow")){ c.shown = pickShown(c.data.spans.length, c.shown); ui.lastShown[q.i] = c.shown.slice(); c.vals = []; c.res = {}; c.checked = false; c.allOk = false; c.override = false; c.praise = null; c.bank = null; setFunMode(c,funModes(c).includes(c.mode)?c.mode:"word"); render(); focusFirstFill(); return; }
     if(t.hasAttribute("data-edit-cloze")){ const dd = clozeData(q); c.edit = {text:dd.text, marks:dd.spans.map(sp => [sp.s, sp.e]), pick:null}; render(); return; }
     if(t.hasAttribute("data-cloze-cancel")){ c.edit = null; render(); return; }
     if(t.hasAttribute("data-cloze-clear")){ c.edit.marks = []; c.edit.pick = null; render(); return; }
@@ -1840,7 +1767,6 @@ app.addEventListener("change", e => {
   else if(id === "s-exam" && v){ S.cfg.exam = v; markCfg(); toast("考试日期已更新"); }
   else if(id === "s-start" && v){ S.cfg.start = v; markCfg(); toast("开始日期已更新"); }
   else if(id === "s-rev"){ S.cfg.rev = +v; markCfg(); toast("复习天数已更新"); }
-  else if(id === "s-fun"){ S.cfg.fun=+v; markCfg(); render(); }
 });
 app.addEventListener("play", e => {
   if(e.target.tagName !== "AUDIO") return;

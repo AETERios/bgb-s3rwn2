@@ -6,7 +6,7 @@ const server=http.createServer((req,res)=>{
  const file=path.resolve(root,pathname==='/'?'index.html':'.'+pathname);
  if(!file.startsWith(root+path.sep)||!fs.existsSync(file)){res.writeHead(404).end();return;}
  let body=fs.readFileSync(file);
- if(file.endsWith('index.html'))body=body.toString().replace('scopeFor:questionScope,poolIds,','answerPieces,grade,answer,today,setFunMode,funModes,blankCard,dayNum,scopeFor:questionScope,poolIds,');
+ if(file.endsWith('index.html'))body=body.toString().replace('scopeFor:questionScope,poolIds,','pickShown,grade,answer,today,blankCard,dayNum,scopeFor:questionScope,poolIds,');
  res.setHeader('Content-Type',file.endsWith('.js')?'text/javascript':file.endsWith('.png')?'image/png':file.endsWith('.webmanifest')?'application/manifest+json':'text/html;charset=utf-8');
  res.end(body);
 });
@@ -14,7 +14,7 @@ const server=http.createServer((req,res)=>{
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
  const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_PATH||'C:/Program Files/Google/Chrome/Application/chrome.exe'});
  try{
-  const context=await browser.newContext({serviceWorkers:'block',viewport:{width:390,height:844},timezoneId:'Asia/Shanghai'});
+  const context=await browser.newContext({serviceWorkers:'block',hasTouch:true,isMobile:true,viewport:{width:390,height:844},timezoneId:'Asia/Shanghai'});
   await context.addInitScript(()=>{
    const RealDate=Date;window.__testClock=RealDate.parse('2026-11-24T10:00:00+08:00');
    window.Date=class extends RealDate{constructor(...args){super(...(args.length?args:[window.__testClock]));}static now(){return window.__testClock;}};
@@ -66,57 +66,34 @@ const server=http.createServer((req,res)=>{
   const startBox=await page.locator('[data-start="today"]').boundingBox();assert.ok(startBox&&startBox.y+startBox.height<844,'Start button must be above fold');
   await page.locator('[data-start="today"]').click();
   assert.ok(await page.evaluate(()=>window.__BGB_TEST__.state.sess.queue.length)>10000,'Daily target must not stop learning');
-  // Play each form using actual rendered buttons, with distinct source answers.
+  // Every marked span is an input, even with a legacy fun preference.
   const id=await page.evaluate(()=>{
-   const t=window.__BGB_TEST__,s=t.state;s.cfg.fun=1;
-   const q=t.questions.find(q=>t.practiceEligible(q.i)&&q.k==='f'&&new Set(t.clozeData(q).spans.filter(sp=>sp.a.length>1).map(sp=>sp.a)).size>=3);
-   t.ui.mode='extra';t.ui.xs=t.newSess([q.i],'one');t.enterStudy();return q.i;
+   const t=window.__BGB_TEST__;t.state.cfg.fun=1;
+   return t.questions.find(q=>t.practiceEligible(q.i)&&q.k==='f'&&t.clozeData(q).spans.length>=4).i;
   });
-  async function setup(mode){
-   await page.evaluate(({id,mode})=>{
-    const t=window.__BGB_TEST__;t.ui.xs=t.newSess([id],'one');t.ui.mode='extra';t.enterStudy();
-    const c=t.ui.card,seen=new Set();c.shown=c.data.spans.map((sp,i)=>({sp,i})).filter(({sp})=>sp.a.length>1&&!seen.has(sp.a)&&seen.add(sp.a)).slice(0,3).map(x=>x.i);
-    t.setFunMode(c,mode);t.render();
-   },{id,mode});
+  async function setup(){
+   await page.evaluate(id=>{const t=window.__BGB_TEST__;t.ui.xs=t.newSess([id,id],'one');t.ui.mode='extra';t.enterStudy();},id);
   }
-  await setup('word');
-  for(let k=0;k<3;k++){
-   const bi=await page.evaluate(k=>{const t=window.__BGB_TEST__,c=t.ui.card;return t.wordBankFor(t.QMAP.get(c.forId),c).indexOf(c.data.spans[c.shown[k]].a);},k);
-   await page.locator('[data-word="'+bi+'"]').click();
-  }
-  await page.locator('[data-check]').click();assert.equal(await page.evaluate(()=>window.__BGB_TEST__.ui.card.allOk),true);
-  await setup('build');
-  for(let k=0;k<3;k++){
-   await page.locator('[data-build-target="'+k+'"]').click();
-   const indices=await page.evaluate(k=>{
-    const c=window.__BGB_TEST__.ui.card,used=new Set(c.picks.flat()),a=c.data.spans[c.shown[k]].a;
-    const parts=window.__BGB_TEST__.answerPieces(a);
-    return parts.map(part=>{const i=c.tiles.findIndex((v,i)=>!used.has(i)&&v===part);used.add(i);return i;});
-   },k);
-   for(const i of indices)await page.locator('[data-tile="'+i+'"]').click();
-  }
-  await page.locator('[data-check]').click();
-  assert.equal(await page.evaluate(()=>window.__BGB_TEST__.ui.card.allOk),true,'Word pieces must pass via UI');
-  await setup('build');await page.locator('[data-tile="0"]').click();
-  await page.locator('[data-tile-remove="0:0"]').click();
-  assert.equal(await page.evaluate(()=>window.__BGB_TEST__.ui.card.vals[0]),'');
-  await setup('pair');
-  for(let k=0;k<3;k++){
-   await page.locator('[data-slot="'+k+'"]').click();
-   const bi=await page.evaluate(k=>{const c=window.__BGB_TEST__.ui.card;return c.pairBank.indexOf(c.data.spans[c.shown[k]].a);},k);
-   await page.locator('[data-pair-word="'+bi+'"]').click();
-  }
-  await page.locator('[data-check]').click();assert.equal(await page.evaluate(()=>window.__BGB_TEST__.ui.card.allOk),true);
-  await setup('pair');
-  await page.evaluate(()=>{const t=window.__BGB_TEST__,c=t.ui.card;c.vals=c.shown.map(i=>c.data.spans[i].a);c.vals.push(c.vals.shift());t.checkCloze(t.QMAP.get(c.forId),c);});
-  assert.equal(await page.evaluate(()=>window.__BGB_TEST__.ui.card.allOk),false,'Wrong pairing accepted');
-  await setup('type');
-  const answers=await page.evaluate(()=>{const c=window.__BGB_TEST__.ui.card;return c.shown.map(i=>c.data.spans[i].a);});
+  await setup();
+  const expected=await page.evaluate(()=>window.__BGB_TEST__.ui.card.data.spans.length);
+  assert.equal(await page.locator('input.fill').count(),expected);
+  assert.equal(await page.locator('[data-reshow],[data-fun-mode],[data-word],[data-tile],[data-pair-word]').count(),0);
+  assert.equal(await page.evaluate(()=>document.activeElement.id),'fill-0');
+  assert.deepEqual(await page.evaluate(()=>window.__BGB_TEST__.pickShown(8)),[0,1,2,3,4,5,6,7]);
+  const answers=await page.evaluate(()=>window.__BGB_TEST__.ui.card.data.spans.map(sp=>sp.a));
   for(let k=0;k<answers.length;k++)await page.locator('[data-fi="'+k+'"]').fill(answers[k]);
   await page.locator('[data-check]').click();assert.equal(await page.evaluate(()=>window.__BGB_TEST__.ui.card.allOk),true);
-  // Group changes rebuild tiles/pair banks and never retain stale answers.
-  await setup('build');await page.locator('[data-reshow]').click();
-  assert.equal(await page.evaluate(()=>{const c=window.__BGB_TEST__.ui.card;return c.tiles.join('').split('').sort().join('')===c.shown.map(i=>c.data.spans[i].a).join('').split('').sort().join('');}),true);
+  await page.locator('[data-next="2"]').tap();
+  assert.equal(await page.evaluate(()=>document.activeElement.id),'fill-0','Next fill must focus first input');
+  const random=await page.evaluate(()=>{
+   const t=window.__BGB_TEST__;t.state.sess=null;t.startDay();
+   const a=t.state.sess.queue.slice();t.startDay();const stable=JSON.stringify(a)===JSON.stringify(t.state.sess.queue);
+   const ids=a.filter(e=>e.endsWith('|0')&&!t.state.recs[e.split('|')[0]]).map(e=>e.split('|')[0]);
+   const source=t.poolIds().filter(id=>!t.state.recs[id]);
+   return {stable,random:ids.slice(0,30).join()!==source.slice(0,30).join(),n:ids.length};
+  });
+  assert.ok(random.stable&&random.random&&random.n>10000,'Randomize new questions and preserve resume order');
+  assert.equal(await page.evaluate(()=>{const t=window.__BGB_TEST__;return t.questions.every(q=>t.asAnswerable(q).k===q.k);}),true,'Keep original question kinds');
   const early=await page.evaluate(()=>{
    const t=window.__BGB_TEST__,s=t.state;s.cfg.exam='2026-11-27';s.cfg.rev=4;s.sess=null;
    const id=t.poolIds()[0],record=[t.today()+9,15,6,1,2,1234];s.recs[id]=record.slice();t.startDay();
@@ -142,10 +119,10 @@ const server=http.createServer((req,res)=>{
   await page.locator('#s-bank-plan').selectOption('all');
   assert.equal(await page.evaluate(()=>window.__BGB_TEST__.state.cfg.bank),'all');
   assert.ok(await page.evaluate(()=>window.__BGB_TEST__.plan().pool.some(id=>window.__BGB_TEST__.QMAP.get(id).g==='misc')));
-  await page.screenshot({path:path.join(__dirname,'simple-home-r13.png'),fullPage:true});
-  await setup('build');await page.screenshot({path:path.join(__dirname,'fun-build-r13.png'),fullPage:true});
+  await page.screenshot({path:path.join(__dirname,'simple-home-r14.png'),fullPage:true});
+  await setup();await page.screenshot({path:path.join(__dirname,'all-blanks-r14.png'),fullPage:true});
   assert.deepEqual(errors,[]);
-  console.log(JSON.stringify({unlimitedQueueAnd64Due:'pass',deadlineTargets:'pass',homeStartAboveFold:'pass',unlimitedSessionUpgrade:'pass',recordsAndCapAfterReload:'pass',intervals,crossDayReview:'pass',continuePastSuggestedTarget:'pass',wordBuildPairType:'pass',wrongPairRejected:'pass',groupReset:'pass',tenQuestionStation:'pass',preExamRehearsalKeepsFutureDue:'pass',mobileLayout:'pass',pageErrors:0}));
+  console.log(JSON.stringify({unlimitedQueueAnd64Due:'pass',deadlineTargets:'pass',homeStartAboveFold:'pass',unlimitedSessionUpgrade:'pass',recordsAndCapAfterReload:'pass',intervals,crossDayReview:'pass',continuePastSuggestedTarget:'pass',allBlanksAndTyping:'pass',randomAndStableResume:'pass',originalQuestionKinds:'pass',firstInputFocus:'pass',tenQuestionStation:'pass',preExamRehearsalKeepsFutureDue:'pass',mobileLayout:'pass',pageErrors:0}));
   await context.close();
  }finally{await browser.close();server.close();}
 })().catch(e=>{console.error(e.stack);server.close();process.exitCode=1;});
