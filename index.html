@@ -348,7 +348,7 @@ body.kb-open .study-head .study-head-count{display:none}
 "use strict";
 /* ===== data & audio (filled in by Claude when publishing) ===== */
 const DATA_ID = ""; const OFFLINE = true; let OFFLINE_READY = false;
-const APP_VERSION = "shiguang-unified-20261123-v10-r3";
+const APP_VERSION = "shiguang-unified-20261124-v10-r4";
 const APP_CACHE = "jdbg-app-" + APP_VERSION;
 let UPDATE_READY = false;
 if("serviceWorker" in navigator){
@@ -357,7 +357,12 @@ if("serviceWorker" in navigator){
     if(hadController){ UPDATE_READY = true; if(typeof render === "function" && QS.length && !ui.studying) render(); }
   });
   navigator.serviceWorker.register("sw.js", {updateViaCache:"none"}).then(reg => {
-    reg.update().catch(() => {});
+    // 检查有没有等待激活的新版 SW；有就先保存进度，新版一激活就重载页面，确保跑的是最新代码。
+    reg.update().then(() => {
+      const w = reg.waiting;
+      if(w && !navigator.serviceWorker.controller){ return; }
+      if(w){ w.addEventListener("statechange", () => { if(w.state === "activated"){ saveNow(); location.reload(); } }); }
+    }).catch(() => {});
     return navigator.serviceWorker.ready;
   }).then(async () => {
     try{ const c = await caches.open(APP_CACHE); OFFLINE_READY = !!(await c.match("./index.html")); }catch(e){}
@@ -647,6 +652,19 @@ function saveLocal(){
   catch(e){
     if(!SAVE_WARNED){ SAVE_WARNED = true; try{ toast("本机存储写入失败（多半是空间不足），最近的改动可能没保存上"); }catch(_){} }
   }
+}
+// 自定义挖空保存后立即读回自检：确认真的写进了 localStorage，否则立刻提醒，避免“看起来保存了其实没存上”。
+function verifyClozesSaved(expected){
+  try{
+    const raw = localStorage.getItem("jidiao-bgb-app-v1");
+    if(!raw) return false;
+    const o = JSON.parse(raw);
+    const saved = (o && o.cfg && o.cfg.clozes) || {};
+    for(const [id, val] of Object.entries(expected)){
+      if(!saved[id] || JSON.stringify(saved[id].m) !== JSON.stringify(val.m)) return false;
+    }
+    return true;
+  }catch(e){ return false; }
 }
 
 /* ===== cloud sync (private per person) ===== */
@@ -1616,7 +1634,9 @@ app.addEventListener("click", e => {
     if(!marks.length){ toast("至少留一个空；也可以点“恢复自动”"); return; }
     S.cfg.clozes = S.cfg.clozes || {};
     S.cfg.clozes[id] = {v:2, m:marks, x:a.text};
-    markCfg(); annNext(); return;
+    markCfg();
+    if(!verifyClozesSaved({[id]:{m:marks}})) toast("⚠ 保存失败：本机存储没写进去，请重试或检查手机存储空间");
+    annNext(); return;
   }
   if(t.hasAttribute("data-ann-skip")){ annNext(); return; }
   if(t.hasAttribute("data-ann-prev")){ annNext(-1); return; }
@@ -1693,6 +1713,7 @@ app.addEventListener("click", e => {
       S.cfg.clozes = S.cfg.clozes || {};
       S.cfg.clozes[q.i] = {v:2, m:marks, x:c.edit.text};
       markCfg();
+      if(!verifyClozesSaved({[q.i]:{m:marks}})) toast("⚠ 保存失败：本机存储没写进去，请重试或检查手机存储空间");
       c.edit = null; c.forId = null; c.data = null; c.shown = null; c.vals = []; c.res = {}; c.checked = false; c.allOk = false; c.override = false; c.praise = null;
       render(); toast("已按你选的空保存，学习记录不变"); return;
     }
