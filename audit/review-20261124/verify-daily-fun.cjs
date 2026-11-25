@@ -32,7 +32,7 @@ const server=http.createServer((req,res)=>{
    const queue=s.sess.queue.slice();
    if(s.cfg.cap!==6||p.newLeft!==p.unseen||p.reviewLeft!==64||queue.length!==p.unseen+64)throw Error('Unexpected daily limit');
    const expected=Math.ceil((p.unseen+p.introduced)/(p.lastNew-p.t+1));if(p.perDay!==expected)throw Error('Deadline suggestion incorrect');
-   if(queue.slice(0,3).some(e=>!s.recs[e.split('|')[0]]))throw Error('Reviews must be first');
+   if(queue.filter(e=>s.recs[e.split('|')[0]]).length!==64)throw Error('All due reviews must be retained');
    if(JSON.stringify(s.recs)!==preserved)throw Error('Planning changed records');
    // Old unlimited sessions keep their answered prefix and pending retries.
    const prefix=queue.slice(0,2),retry=ids[0]+'|1';
@@ -106,6 +106,27 @@ const server=http.createServer((req,res)=>{
   assert.equal(await page.locator('.qa-ask').innerText(),'请写出客运列车运行途中开门的定义');
   await page.screenshot({path:path.join(__dirname,'sg-0321-context-r15.png'),fullPage:true});
   await page.locator('[data-cloze-cancel]').tap();
+  const coverage=await page.evaluate(()=>{
+   const t=window.__BGB_TEST__,data=JSON.parse(document.getElementById('semantic-cloze-data').textContent);
+   const qa=t.questions.filter(q=>q._r&&q._ask&&data[q.i]);
+   const intact=t.questions.filter(q=>!q.auto&&!(q._r&&q._ask)).every(q=>!data[q.i]);
+   return {count:Object.keys(data).length,qa:qa.length,intact,complete:qa.every(q=>t.clozeData(q).spans.length>1)};
+  });
+  assert.deepEqual(coverage,{count:3049,qa:175,intact:true,complete:true});
+  const mixed=await page.evaluate(()=>{
+   const t=window.__BGB_TEST__,s=t.state;s.sess=null;t.startDay();
+   const banks=s.sess.queue.slice(0,300).map(e=>t.QMAP.get(e.split('|')[0]).b);
+   s.cfg.exam="2026-11-27";s.cfg.rev=4;const before=t.plan(),id=s.sess.queue.find(e=>!s.recs[e.split('|')[0]]).split('|')[0];
+   t.grade(id,2);const after=t.plan();t.ui.studying=false;t.render();
+   return {banks:new Set(banks).size,adjacent:banks.some((b,i)=>i&&b===banks[i-1]),remaining:before.unseen-after.unseen,introduced:after.introduced-before.introduced,leftDrop:before.suggestedLeft-after.suggestedLeft,total:t.questions.length};
+  });
+  assert.ok(mixed.banks>=4&&!mixed.adjacent);assert.equal(mixed.remaining,1);assert.equal(mixed.introduced,1);assert.equal(mixed.leftDrop,1);assert.equal(mixed.total,13391);
+  await page.evaluate(()=>{const t=window.__BGB_TEST__;t.ui.mode='extra';t.ui.xs=t.newSess(['U-B-R0007'],'one');t.enterStudy();});
+  assert.ok(await page.locator('input.fill').count()>5,'Back regulations must use complete multiple knowledge points');
+  assert.ok(await page.locator('.qa-ask').innerText());
+  const spans=await page.evaluate(()=>window.__BGB_TEST__.ui.card.data.spans.map(s=>s.a));
+  assert.ok(spans.includes('运行揭示调度命令')&&spans.includes('施工负责人'));
+  await page.screenshot({path:path.join(__dirname,'back-regulations-r16.png'),fullPage:true});
   const early=await page.evaluate(()=>{
    const t=window.__BGB_TEST__,s=t.state;s.cfg.exam='2026-11-27';s.cfg.rev=4;s.sess=null;
    const id=t.poolIds()[0],record=[t.today()+9,15,6,1,2,1234];s.recs[id]=record.slice();t.startDay();
@@ -134,7 +155,7 @@ const server=http.createServer((req,res)=>{
   await page.screenshot({path:path.join(__dirname,'simple-home-r14.png'),fullPage:true});
   await setup();await page.screenshot({path:path.join(__dirname,'all-blanks-r14.png'),fullPage:true});
   assert.deepEqual(errors,[]);
-  console.log(JSON.stringify({unlimitedQueueAnd64Due:'pass',deadlineTargets:'pass',homeStartAboveFold:'pass',unlimitedSessionUpgrade:'pass',recordsAndCapAfterReload:'pass',intervals,crossDayReview:'pass',continuePastSuggestedTarget:'pass',allBlanksAndTyping:'pass',randomAndStableResume:'pass',originalQuestionKinds:'pass',firstInputFocus:'pass',all241DerivedContexts:'pass',sg0321StudyAndEditor:'pass',tenQuestionStation:'pass',preExamRehearsalKeepsFutureDue:'pass',mobileLayout:'pass',pageErrors:0}));
+  console.log(JSON.stringify({unlimitedQueueAnd64Due:'pass',deadlineTargets:'pass',homeStartAboveFold:'pass',unlimitedSessionUpgrade:'pass',recordsAndCapAfterReload:'pass',intervals,crossDayReview:'pass',continuePastSuggestedTarget:'pass',allBlanksAndTyping:'pass',randomAndStableResume:'pass',originalQuestionKinds:'pass',firstInputFocus:'pass',mixedSourcesAndLiveCounters:'pass',backRegulationsMultiBlank:'pass',all241DerivedContexts:'pass',sg0321StudyAndEditor:'pass',tenQuestionStation:'pass',preExamRehearsalKeepsFutureDue:'pass',mobileLayout:'pass',pageErrors:0}));
   await context.close();
  }finally{await browser.close();server.close();}
 })().catch(e=>{console.error(e.stack);server.close();process.exitCode=1;});
