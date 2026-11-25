@@ -106,6 +106,24 @@ const server=http.createServer((req,res)=>{
   assert.equal(await page.locator('.qa-ask').innerText(),'请写出客运列车运行途中开门的定义');
   await page.screenshot({path:path.join(__dirname,'sg-0321-context-r15.png'),fullPage:true});
   await page.locator('[data-cloze-cancel]').tap();
+  // The revealed-answer page and the correct-answer page both allow editing.
+  await page.evaluate(()=>{const t=window.__BGB_TEST__;t.ui.mode='extra';t.ui.xs=t.newSess(['d-0916'],'one');t.enterStudy();});
+  const beforeEdit=await page.evaluate(()=>{const t=window.__BGB_TEST__;return JSON.stringify({recs:t.state.recs,log:t.state.log,queue:t.ui.xs.queue,pos:t.ui.xs.pos,exam:t.state.cfg.exam,start:t.state.cfg.start,q:t.QMAP.get('d-0916')});});
+  await page.locator('[data-giveup]').tap();
+  assert.equal(await page.locator('[data-edit-cloze]').count(),1);
+  await page.locator('[data-edit-cloze]').tap();await page.locator('[data-cloze-cancel]').tap();
+  assert.equal(await page.evaluate(()=>window.__BGB_TEST__.ui.card.checked),true,'Cancel must preserve revealed answers');
+  await page.locator('[data-edit-cloze]').tap();await page.locator('[data-cloze-clear]').tap();
+  const chosen=await page.evaluate(()=>{const text=window.__BGB_TEST__.ui.card.edit.text,term='铁路局集团公司',start=text.indexOf(term);if(start<0)throw Error('Screenshot question missing');return {start,end:start+term.length-1};});
+  await page.locator('[data-ci="'+chosen.start+'"]').tap();await page.locator('[data-ci="'+chosen.end+'"]').tap();
+  await page.locator('[data-cloze-save]').tap();
+  assert.equal(await page.locator('input.fill').count(),1);
+  assert.deepEqual(await page.evaluate(()=>window.__BGB_TEST__.ui.card.data.spans.map(sp=>sp.a)),['铁路局集团公司']);
+  assert.equal(await page.evaluate(()=>{const t=window.__BGB_TEST__;return JSON.stringify({recs:t.state.recs,log:t.state.log,queue:t.ui.xs.queue,pos:t.ui.xs.pos,exam:t.state.cfg.exam,start:t.state.cfg.start,q:t.QMAP.get('d-0916')});}),beforeEdit);
+  assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('jidiao-bgb-app-v1')).cfg.clozes['d-0916'].v),2);
+  await page.locator('input.fill').fill('铁路局集团公司');await page.locator('[data-check]').tap();
+  await page.locator('[data-edit-cloze]').tap();await page.locator('[data-cloze-cancel]').tap();
+  assert.equal(await page.evaluate(()=>window.__BGB_TEST__.ui.card.allOk),true,'Cancel must preserve correct result');
   const coverage=await page.evaluate(()=>{
    const t=window.__BGB_TEST__,data=JSON.parse(document.getElementById('semantic-cloze-data').textContent);
    const qa=t.questions.filter(q=>q._r&&q._ask&&data[q.i]);
@@ -154,8 +172,30 @@ const server=http.createServer((req,res)=>{
   assert.ok(await page.evaluate(()=>window.__BGB_TEST__.plan().pool.some(id=>window.__BGB_TEST__.QMAP.get(id).g==='misc')));
   await page.screenshot({path:path.join(__dirname,'simple-home-r14.png'),fullPage:true});
   await setup();await page.screenshot({path:path.join(__dirname,'all-blanks-r14.png'),fullPage:true});
+  const partition=await page.evaluate(()=>{
+   const t=window.__BGB_TEST__,s=t.state,day=t.today(),ops=t.questions.filter(q=>q.b==='S'&&q.t.startsWith('运用资料·')),supp=t.questions.filter(q=>q.b==='S'&&q.t.startsWith('公开补充·'));
+   const all=t.poolIds('all'),key=t.poolIds('key'),separate=t.poolIds('operations');
+   if(ops.length!==809||supp.length!==202||separate.length!==809)throw Error('Operations source boundary mismatch');
+   if(!ops.every(q=>separate.includes(q.i)&&all.includes(q.i)&&!key.includes(q.i)))throw Error('Operations source not separated');
+   if(!supp.every(q=>key.includes(q.i)&&!separate.includes(q.i)))throw Error('Public supplements incorrectly extracted');
+   s.recs[ops[0].i]=[day+7,7,3,1,2,98765];s.sess=null;
+   t.ui.studying=false;t.ui.tab='today';t.render();
+   return {id:ops[0].i,records:JSON.stringify(s.recs),log:JSON.stringify(s.log),dates:[s.cfg.start,s.cfg.exam],count:ops.length};
+  });
+  await page.locator('#s-bank-plan').selectOption('operations');
+  await page.evaluate(()=>window.__BGB_TEST__.saveLocal());await page.reload();await page.waitForFunction(()=>window.__BGB_TEST__);
+  assert.equal(await page.locator('#s-bank-plan').inputValue(),'operations');
+  const splitState=await page.evaluate(()=>{const t=window.__BGB_TEST__;return {records:JSON.stringify(t.state.recs),log:JSON.stringify(t.state.log),dates:[t.state.cfg.start,t.state.cfg.exam],unseen:t.plan().unseen};});
+  assert.equal(splitState.records,partition.records);assert.equal(splitState.log,partition.log);assert.deepEqual(splitState.dates,partition.dates);
+  assert.equal(await page.evaluate(()=>{const t=window.__BGB_TEST__;t.startDay();return t.state.sess.queue.every(e=>t.QMAP.get(e.split('|')[0]).t.startsWith('运用资料·'));}),true);
+  await page.evaluate(()=>{const t=window.__BGB_TEST__;t.ui.studying=false;t.ui.tab='bank';t.render();});
+  await page.locator('#q-category').selectOption('operations');
+  assert.equal(await page.locator('#q-category').inputValue(),'operations');
+  await page.evaluate(()=>{const t=window.__BGB_TEST__;t.ui.studying=false;t.ui.tab='today';t.render();});
+  await page.locator('#s-bank-plan').selectOption('key');
+  assert.equal(await page.evaluate(()=>{const t=window.__BGB_TEST__;return t.poolIds().some(id=>t.QMAP.get(id).b==='S'&&t.QMAP.get(id).t.startsWith('运用资料·'));}),false);
   assert.deepEqual(errors,[]);
-  console.log(JSON.stringify({unlimitedQueueAnd64Due:'pass',deadlineTargets:'pass',homeStartAboveFold:'pass',unlimitedSessionUpgrade:'pass',recordsAndCapAfterReload:'pass',intervals,crossDayReview:'pass',continuePastSuggestedTarget:'pass',allBlanksAndTyping:'pass',randomAndStableResume:'pass',originalQuestionKinds:'pass',firstInputFocus:'pass',mixedSourcesAndLiveCounters:'pass',backRegulationsMultiBlank:'pass',all241DerivedContexts:'pass',sg0321StudyAndEditor:'pass',tenQuestionStation:'pass',preExamRehearsalKeepsFutureDue:'pass',mobileLayout:'pass',pageErrors:0}));
+  console.log(JSON.stringify({unlimitedQueueAnd64Due:'pass',deadlineTargets:'pass',homeStartAboveFold:'pass',unlimitedSessionUpgrade:'pass',recordsAndCapAfterReload:'pass',intervals,crossDayReview:'pass',continuePastSuggestedTarget:'pass',allBlanksAndTyping:'pass',randomAndStableResume:'pass',originalQuestionKinds:'pass',firstInputFocus:'pass',resultPageClozeEditor:'pass',operationsPartitionAndRecords:'pass',mixedSourcesAndLiveCounters:'pass',backRegulationsMultiBlank:'pass',all241DerivedContexts:'pass',sg0321StudyAndEditor:'pass',tenQuestionStation:'pass',preExamRehearsalKeepsFutureDue:'pass',mobileLayout:'pass',pageErrors:0}));
   await context.close();
  }finally{await browser.close();server.close();}
 })().catch(e=>{console.error(e.stack);server.close();process.exitCode=1;});
