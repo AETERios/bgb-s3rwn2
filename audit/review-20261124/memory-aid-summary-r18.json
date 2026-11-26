@@ -1,0 +1,14 @@
+{
+  "scanned": 13391,
+  "questionsWithAids": 1575,
+  "groups": 1582,
+  "craftedQuestions": 178,
+  "basis": {
+    "explicit-parallel": 85,
+    "numbered": 265,
+    "correct-options": 1207,
+    "original-order": 25
+  },
+  "uniqueLists": 1479,
+  "note": "原文串记保留完整条目，不冒充人工编写的谐音句。未明确识别的长列表不强拆。"
+}

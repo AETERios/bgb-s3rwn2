@@ -1,0 +1,20 @@
+{
+  "unseenLearning": true,
+  "readingNeverGrades": true,
+  "allBlanks": 13,
+  "originalTypes": {
+    "multi": "m",
+    "choice": "c",
+    "wrong": "j",
+    "right": "j",
+    "order": "o"
+  },
+  "knownAndRetriesRecall": true,
+  "customMemoryPersistenceAndMerge": true,
+  "coverage": {
+    "count": 1575,
+    "craftedGroups": 185
+  },
+  "mobileNoOverflow": true,
+  "pageErrors": []
+}

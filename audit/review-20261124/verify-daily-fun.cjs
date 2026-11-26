@@ -25,7 +25,7 @@ const server=http.createServer((req,res)=>{
   const planning=await page.evaluate(()=>{
    const t=window.__BGB_TEST__,s=t.state,day=t.today();
    if(s.cfg.bank!=='all'||t.poolIds().length<13300)throw Error('All-bank default missing');
-   Object.assign(s.cfg,{start:'2026-11-08',exam:'2027-01-27',rev:4,cap:6,reviewCap:4,scope:'all',bank:'key',unlimitedV5:1});
+   Object.assign(s.cfg,{learnFirst:0,start:'2026-11-08',exam:'2027-01-27',rev:4,cap:6,reviewCap:4,scope:'all',bank:'key',unlimitedV5:1});
    s.recs={};s.log={[day]:[2,1,3,0]};s.sess=null;
    const ids=t.poolIds();ids.slice(0,64).forEach((id,i)=>s.recs[id]=[day-i,4,3,0,2,111+i]);
    const preserved=JSON.stringify(s.recs);t.prepareScope();const p=t.plan();t.startDay();
