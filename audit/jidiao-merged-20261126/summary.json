@@ -1,0 +1,18 @@
+{
+  "sourceQuestions": 804,
+  "types": {
+    "f": 240,
+    "c": 41,
+    "m": 79,
+    "j": 359,
+    "r": 85
+  },
+  "knowledgeGroups": 181,
+  "sourceQuestionsUsingLegacyIds": 701,
+  "repeatedSourceQuestionsSharingNewIds": 26,
+  "sourceOnlyQuestions": 77,
+  "practiceQuestions": 649,
+  "legacyTotalUnchanged": 13391,
+  "groupsWithoutNarrative": 33,
+  "sourceSha256": "1a17c6db00b46c016b7e46dad3595519a59da42054803ed5b8624387d3446f63"
+}

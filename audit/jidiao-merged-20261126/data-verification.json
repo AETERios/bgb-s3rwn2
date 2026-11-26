@@ -1,0 +1,18 @@
+{
+  "sourceParagraphsCovered": 1043,
+  "sourceOriginals": 804,
+  "knowledgeGroups": 181,
+  "uniquePracticeQuestions": 649,
+  "legacyBankQuestions": 13391,
+  "legacyBlocksUnchanged": {
+    "bank-data": "1686598d0ae8dcd1a2a97c01a87a5a1d13da7fa0af7e2e16dbc07846b07b85db",
+    "scope-data": "8b559c337dd134c991d4b16f921084c2e5453cb43cda68a1c67bbf341d3aa4b4",
+    "correction-data": "58c2f425ae3919078338cd1e8495699977cc88fa49b1eb4925f250ddfe57ac96",
+    "seed-data": "7e21d2d04b978909cd1850bec53b41607061df47717efcb759c864aefb09350a",
+    "derived-context-data": "4531aafe1c74c2a0f46e365c0ea3cba79353afca26b01f79537cdfe8cf76ef71",
+    "semantic-cloze-data": "8cc829713f1fd153b4a92bbc9562d6da781444801dd33e14782623e3ff6dd8fe",
+    "memory-aid-data": "38084dd04d7897e7f699c1084e64bafb483020a05ebf3dd72b14d279384dfe8d"
+  },
+  "sourceSha256": "1a17c6db00b46c016b7e46dad3595519a59da42054803ed5b8624387d3446f63",
+  "allSourceTypeOptionAnswerChecks": true
+}

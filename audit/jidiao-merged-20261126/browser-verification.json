@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "checks": [
+    "home entry and 181 groups",
+    "independent pool; legacy totals unchanged",
+    "complete four-clause source and cover/reveal",
+    "reading does not alter records/dates/due/clozes/notes",
+    "all five original types preserved; all choice options rendered",
+    "search, regulation filter, and pagination",
+    "full collection JSON export",
+    "mobile width",
+    "selection persistence and direct collection URL",
+    "no JavaScript errors"
+  ],
+  "errors": []
+}
