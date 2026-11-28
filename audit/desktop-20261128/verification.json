@@ -1,7 +1,8 @@
 {
-  "passed": 13,
+  "passed": 15,
   "checks": [
     "All eight existing embedded datasets byte-identical",
+    "Default is source-first reading of the selected 181-group bank",
     "Desktop layout uses three columns, readable editor, no overflow",
     "Character diff detects substitutions, omissions, additions and punctuation",
     "Reference can be hidden or shown, blank submission is rejected",
@@ -13,6 +14,7 @@
     "Legacy storage remains byte-identical and no runtime errors",
     "Running timer survives reload and switching phase preserves focus totals",
     "Laptop and mobile layouts have no horizontal overflow",
+    "Upgrade opens reading first while preserving existing desktop drafts and paused clock",
     "Previously loaded desktop page and full collection work offline"
   ],
   "errors": []

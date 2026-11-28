@@ -1,5 +1,5 @@
-const CACHE = "jdbg-app-shiguang-unified-20261128-v10-r20";
-const ASSETS = ["./desktop.html", "./desktop.css?v=20261128-r20", "./desktop.js?v=20261128-r20", "./audit/jidiao-merged-20261126/collection-data.json?v=20261128-r20", "./", "./?v=shiguang-unified-20261128-v10-r20", "./index.html", "./design-v3.css", "./manifest.webmanifest", "./icon-180-v3.png", "./icon-192-v3.png", "./icon-512-v3.png"];
+const CACHE = "jdbg-app-shiguang-unified-20261128-v10-r21";
+const ASSETS = ["./desktop.html", "./desktop.css?v=20261128-r21", "./desktop.js?v=20261128-r21", "./audit/jidiao-merged-20261126/collection-data.json?v=20261128-r21", "./", "./?v=shiguang-unified-20261128-v10-r21", "./index.html", "./design-v3.css", "./manifest.webmanifest", "./icon-180-v3.png", "./icon-192-v3.png", "./icon-512-v3.png"];
 self.addEventListener("install", e => {
   const requests = ASSETS.map(asset => new Request(new URL(asset, self.location.href), {cache:"reload"}));
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(requests)).then(() => self.skipWaiting()));

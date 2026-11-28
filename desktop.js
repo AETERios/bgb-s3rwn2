@@ -60,6 +60,8 @@ function openGroup(id,remember=true){
   $('draft').value=state.entries[id]?.text||'';$('draft').disabled=!current.passages.length;$('compare').disabled=!current.passages.length;$('peek').disabled=!current.passages.length;
   $('draft-count').textContent=Array.from($('draft').value.replace(/\s/g,'')).length+' 字';$('save-status').textContent=storageOK?'草稿自动保存':'浏览器存储不可用';
   $('originals-body').innerHTML=current.originals.map(sid=>{const s=sourceMap.get(sid);return `<article><strong>${escapeHTML(s.sourceId)} · ${escapeHTML({f:'填空',c:'单选',m:'多选',j:'判断',r:'问答'}[s.kind])}</strong><pre>${escapeHTML(s.raw)}</pre></article>`;}).join('');
+  $('reading-body').innerHTML=(current.passages.length?current.passages.map((p,i)=>`<p>${escapeHTML(p.text)}<span class="reading-source">原文 ${i+1} / ${current.passages.length} · ${p.sources.map(escapeHTML).join('、')}</span></p>`).join(''):'<p class="muted">本组没有可直接背诵的完整正确原文，先看下面的原题与答案。</p>')+`<details ${current.passages.length?'':'open'}><summary>本组 ${current.originals.length} 道原题与答案</summary>${$('originals-body').innerHTML}</details>`;
+  $('begin-dictation').disabled=!current.passages.length;
   $('originals').open=!current.passages.length;$('editor-message').textContent=current.passages.length?'':'本组没有可默写的合并原文，可查阅右侧原题，或点击下一组。';
   $('previous').disabled=!(state.history||[]).length;
   renderReference();renderList();persist();
@@ -116,17 +118,18 @@ $('draft').addEventListener('input',()=>{if(!current)return;result=null;renderRe
 $('draft').addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter'&&!e.isComposing){e.preventDefault();submit();}});
 $('compare').addEventListener('click',submit);$('next').addEventListener('click',()=>collection&&nextGroup());$('previous').addEventListener('click',()=>{const id=state.history?.pop();if(id)openGroup(id,false);});
 $('peek').addEventListener('click',()=>{result=null;referenceVisible=!referenceVisible;renderReference();});
-function setMode(mode){state.mode=mode;result=null;referenceVisible=mode==='copy';$('mode-hidden').setAttribute('aria-pressed',String(mode!=='copy'));$('mode-copy').setAttribute('aria-pressed',String(mode==='copy'));persist();renderReference();}
-$('mode-hidden').addEventListener('click',()=>setMode('hidden'));$('mode-copy').addEventListener('click',()=>setMode('copy'));
+function setMode(mode){state.mode=mode;result=null;referenceVisible=mode==='copy';document.body.dataset.mode=mode;for(const option of ['read','hidden','copy'])$('mode-'+option).setAttribute('aria-pressed',String(mode===option));persist();renderReference();}
+$('mode-read').addEventListener('click',()=>setMode('read'));$('mode-hidden').addEventListener('click',()=>setMode('hidden'));$('mode-copy').addEventListener('click',()=>setMode('copy'));
+$('begin-dictation').addEventListener('click',()=>{setMode('hidden');$('draft').focus();});
 $('ignore-punctuation').checked=!!state.ignorePunctuation;$('ignore-punctuation').addEventListener('change',e=>{state.ignorePunctuation=e.target.checked;persist();if(result)submit();});
 function saveOnExit(){flushDraft();updateClock();persist();}
 window.addEventListener('pagehide',saveOnExit);document.addEventListener('visibilitychange',()=>{if(document.hidden)saveOnExit();else{updateClock();renderClock();}});
 async function init(){
-  try{const response=await fetch('./audit/jidiao-merged-20261126/collection-data.json?v=20261128-r20');if(!response.ok)throw Error('HTTP '+response.status);collection=await response.json();
+  try{const response=await fetch('./audit/jidiao-merged-20261126/collection-data.json?v=20261128-r21');if(!response.ok)throw Error('HTTP '+response.status);collection=await response.json();
     groupMap=new Map(collection.groups.map(g=>[g.id,g]));sourceMap=new Map(collection.originals.map(s=>[s.sourceId,s]));const ready=collection.groups.filter(g=>g.passages.length).length;
     $('bank-summary').textContent=`${ready} 组可默写 · ${collection.groups.length-ready} 组查原题 · 原文完整保留`;
     $('book-filter').innerHTML='<option value="">全部规章</option>'+[...new Set(collection.groups.map(g=>g.book))].map(b=>`<option>${escapeHTML(b)}</option>`).join('');
-    setMode(state.mode||'hidden');const initial=location.hash.slice(1)||state.current;openGroup(groupMap.has(initial)?initial:collection.groups.find(g=>g.passages.length).id,false);
+    if(!state.readFirstVersion){state.mode='read';state.readFirstVersion=1;}setMode(state.mode||'read');const initial=location.hash.slice(1)||state.current;openGroup(groupMap.has(initial)?initial:collection.groups.find(g=>g.passages.length).id,false);
     if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});
     window.__DICTATION_TEST__={state,clock,compareText,updateClock,renderClock,localDay,get current(){return current;},collection};
   }catch(error){$('load-error').hidden=false;$('load-error').textContent='题库暂时未载入，请联网后刷新页面重试。'+error.message;$('bank-summary').textContent='题库加载失败';}
