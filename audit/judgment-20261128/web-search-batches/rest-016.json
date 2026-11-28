@@ -1,0 +1,84 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "调车组不足2人时，禁止溜放作业。",
+          "ids": [
+            "U-N-J0273"
+          ]
+        },
+        {
+          "query": "铁路行车组织工作，必须贯彻安全生产的方针，坚持高度集中、统一指挥的原则。",
+          "ids": [
+            "U-N-J0275"
+          ]
+        },
+        {
+          "query": "铁路信息系统是铁路运输生产和管理的重要组成部分，铁路信息系统的建设应遵循逐级领导的原则。",
+          "ids": [
+            "U-N-J0279"
+          ]
+        },
+        {
+          "query": "无令解除擅自投入运用的机车，超过24小时的时间按运用机车统计。",
+          "ids": [
+            "U-N-J0287"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://jtt.hunan.gov.cn/jtt/jjzdgz/aqsc/zcfg_2/gdjt/202103/t20210330_15136080.html",
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202206/t20220624_327442.shtml",
+        "https://td.gd.gov.cn/attachment/0/531/531160/4250447.pdf",
+        "https://big5.mot.gov.cn/gate/big5/xxgk.mot.gov.cn/2020/xzgfxwj/202504/W020250415328716085465.pdf",
+        "https://zjw.sh.gov.cn/shsd/userfiles/130%E5%9F%8E%E5%B8%82%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E5%AE%89%E5%85%A8%E8%BF%90%E8%90%A5%E6%8A%80%E6%9C%AF%E8%A7%84%E8%8C%83.pdf",
+        "https://jtt.gxzf.gov.cn/ztzl/jtkjybzh/P020230414565440390236.pdf"
+      ],
+      "otherLinks": [
+        "https://jacksing.top/upload/sucai/%E4%B8%AD%E5%9B%BD%E9%93%81%E8%B7%AF%E6%80%BB%E5%85%AC%E5%8F%B8%E3%80%8A%E9%93%81%E8%B7%AF%E6%8A%80%E6%9C%AF%E7%AE%A1%E7%90%86%E8%A7%84%E7%A8%8B%E3%80%8B%EF%BC%88%E6%99%AE%E9%80%9F%E9%93%81%E8%B7%AF%E9%83%A8%E5%88%86%EF%BC%89.pdf",
+        "https://www.scribd.com/document/807985952/%E4%B8%AD%E5%9B%BD%E9%93%81%E8%B7%AF%E6%80%BB%E5%85%AC%E5%8F%B8-%E9%93%81%E8%B7%AF%E6%8A%80%E6%9C%AF%E7%AE%A1%E7%90%86%E8%A7%84%E7%A8%8B-%E6%99%AE%E9%80%9F%E9%93%81%E8%B7%AF%E9%83%A8%E5%88%86-%E4%B8%AD%E5%9B%BD%E9%93%81%E8%B7%AF%E6%80%BB%E5%85%AC%E5%8F%B8-Z-Library"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "\"技规\" \"第252条\"",
+          "ids": [
+            "j1-0309"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第258条\"",
+          "ids": [
+            "j1-0329"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第262条\"",
+          "ids": [
+            "j1-0341"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第266条\"",
+          "ids": [
+            "j1-0354",
+            "j1-0355"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [],
+      "otherLinks": [
+        "https://doc.xuehai.net/bdcb587fccc84cdd7ecd6857d.html",
+        "https://m.thepaper.cn/newsDetail_forward_33451543",
+        "https://www.mlzp.cc/portal.php?aid=5732&mod=view",
+        "https://m.bidcenter.com.cn/news-1-448099090.html",
+        "https://www.tongxinzhaobiao.com/news-612b8e9466a9e6bd0705288dcda20c16/"
+      ]
+    }
+  ]
+}

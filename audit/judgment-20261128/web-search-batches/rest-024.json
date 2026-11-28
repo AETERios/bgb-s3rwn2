@@ -1,0 +1,104 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "\"技规\" \"第363条\"",
+          "ids": [
+            "j2-1394",
+            "j2-1396",
+            "j2-1400"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第372条\"",
+          "ids": [
+            "j2-1481",
+            "j2-1482",
+            "j2-1483"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第377条\"",
+          "ids": [
+            "j2-1525"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第381条\"",
+          "ids": [
+            "j2-1528",
+            "j2-1531",
+            "j2-1537"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [],
+      "otherLinks": [
+        "https://www.diaochehui.com/archives/20810.html",
+        "https://zsm.shangxueba.com/5CFCAC8E.html",
+        "https://www.qingsuyun.com/lib/d/6001204800130055/",
+        "https://kaoshi.wjx.top/vm/YDZHlDF.aspx",
+        "https://nayona.cn/2001690.html",
+        "https://www.shukui.net/book/857636.html"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "\"技规\" \"第403条\"",
+          "ids": [
+            "j2-1614"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第440条\"",
+          "ids": [
+            "j2-1772",
+            "j2-1773",
+            "j2-1776",
+            "j2-1777",
+            "j2-1778",
+            "j2-1779",
+            "j2-1780",
+            "j2-1781",
+            "j2-1782",
+            "j2-1783",
+            "j2-1784",
+            "j2-1785",
+            "j2-1786",
+            "j2-1787"
+          ]
+        },
+        {
+          "query": "连续中断正线行车45分钟以上1小时以下属于事件苗头",
+          "ids": [
+            "sg-0218"
+          ]
+        },
+        {
+          "query": "客运列车夹人夹物动车，造成乘客伤亡后果的属于事件苗头。",
+          "ids": [
+            "sg-0220"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://xxgk.mot.gov.cn/2020/jigou/ysfws/202609/P020260902546355677181.pdf",
+        "https://www.beijing.gov.cn/hudong/gfxwjzj/zjxx/202409/P020240906528743642597.pdf",
+        "https://jtysj.jiyuan.gov.cn/14199/17037/17050/t825402.html",
+        "https://xxgk.mot.gov.cn/jigou/ysfws/202609/P020260902546355677181.pdf",
+        "https://www.mot.gov.cn/gongkai/zcjd/202512/t20251226_4191260.html",
+        "https://www.moj.gov.cn/pub/sfbgw/flfggz/flfggzbmgz/200405/t20040524_143658.html",
+        "https://politics.people.com.cn/n/2015/0515/c70731-27003664..."
+      ],
+      "otherLinks": [
+        "https://qccdata.qichacha.com/Standard/StandardLocal/841e096fcb239436a17db1e9c42c2216.pdf",
+        "https://pingshen.szpu.edu.cn/__local/0/1C/5F/3D7FDB21EFB76B53EFEE1BE85BF_41E27519_12B58B4.pdf"
+      ]
+    }
+  ]
+}

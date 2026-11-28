@@ -1,0 +1,101 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "\"技规\" \"第284条\"",
+          "ids": [
+            "j1-0371",
+            "j1-0372"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第285条\"",
+          "ids": [
+            "j1-0374",
+            "j1-0375",
+            "j1-0376",
+            "j1-0377",
+            "j1-0378",
+            "j1-0381",
+            "j1-0383",
+            "j1-0384"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第289条\"",
+          "ids": [
+            "j1-0387",
+            "j1-0391"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第292条\"",
+          "ids": [
+            "j1-0445",
+            "j1-0457"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [],
+      "otherLinks": [
+        "https://www.mlzp.cc/portal.php?aid=184&mod=view",
+        "https://doc.xuehai.net/bdcb587fccc84cdd7ecd6857d.html",
+        "https://ks.wjx.com/m/67393088.aspx",
+        "https://www.safehoo.com/Case/Case/Other/201903/1555569.shtml",
+        "https://max.book118.com/html/2024/0116/5100211232011042.shtm"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "\"技规\" \"第293条\"",
+          "ids": [
+            "j1-0498",
+            "j1-0500",
+            "j1-0502"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第295条\"",
+          "ids": [
+            "j1-0505",
+            "j1-0506",
+            "j1-0514",
+            "j1-0515",
+            "j1-0516"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第297条\"",
+          "ids": [
+            "j1-0523"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第298条\"",
+          "ids": [
+            "j1-0526",
+            "j1-0527",
+            "j1-0529",
+            "j1-0532",
+            "j1-0536",
+            "j1-0540",
+            "j1-0544",
+            "j1-0546"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [],
+      "otherLinks": [
+        "https://ks.wjx.com/m/67393088.aspx",
+        "https://max.book118.com/html/2023/1109/8021051074006004.shtm",
+        "https://max.book118.com/html/2023/1109/8022010074006004.shtm",
+        "https://max.book118.com/html/2023/1109/6043114140010004.shtm"
+      ]
+    }
+  ]
+}

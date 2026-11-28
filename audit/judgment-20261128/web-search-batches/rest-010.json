@@ -1,0 +1,89 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "检修机车现有数不包括在机车修理工厂修理中的机车。",
+          "ids": [
+            "U-N-J0182"
+          ]
+        },
+        {
+          "query": "降弓手信号昼间为左臂垂直高举，右臂前伸并上下重复摇动，夜间为白色灯光作圆形转动。",
+          "ids": [
+            "U-N-J0184"
+          ]
+        },
+        {
+          "query": "接发列车人员未及时或错误显示手信号，使列车停车，不算“错办或未及时办理信号导致列车停车”。",
+          "ids": [
+            "U-N-J0185"
+          ]
+        },
+        {
+          "query": "军用列车除有特殊通知外，均视为客运列车。",
+          "ids": [
+            "U-N-J0187"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://source.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202206/t20220624_327439.shtml",
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202206/t20220624_327439.shtml",
+        "https://www.stats.gov.cn/hd/lyzx/zxgk/202610/t20261014_1965479.html",
+        "https://yjgl.ln.gov.cn/yjgl/gwgg/2026061715463214361/index.shtml",
+        "https://www.caac.gov.cn/XXGK/XXGK/GFXWJ/202304/P020230426594702134766.pdf"
+      ],
+      "otherLinks": [
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E4%BA%A4%E9%80%9A%E4%BA%8B%E6%95%85%E8%B0%83%E6%9F%A5%E5%A4%84%E7%90%86%E8%A7%84%E5%88%99%E3%80%8B-%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD%E9%93%81%E9%81%93%E9%83%A8%E4%BB%A4%E7%AC%AC30%E5%8F%B7.pdf",
+        "https://www.055110.com/law/1/17924.html",
+        "https://www.qingsuyun.com/lib/d/6001204800170202/p3/",
+        "https://www.renrendoc.com/paper/324115839.html"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "客车报废1辆或大破3辆以上，为一般A类事故。",
+          "ids": [
+            "U-N-J0188"
+          ]
+        },
+        {
+          "query": "客运列车脱轨5辆以上18辆以下，并中断繁忙干线铁路行车12h以上，为重大事故。",
+          "ids": [
+            "U-N-J0189"
+          ]
+        },
+        {
+          "query": "空车走行率为重车走行公里占空车走行公里的比重。",
+          "ids": [
+            "U-N-J0190"
+          ]
+        },
+        {
+          "query": "列车超速防护系统的车载设备采用速度方式显示，应具有运行数据记录功能，不干扰司机正常操纵，超速时自动实施常用制动进行安全防护。",
+          "ids": [
+            "U-N-J0194"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202206/t20220624_327439.shtml",
+        "https://source.nra.gov.cn/jglz/apjc/zcfg/202106/t20210624_198489.shtml",
+        "https://xzfg.moj.gov.cn/law/download?LawID=1621&t=1782442216232&type=pdf"
+      ],
+      "otherLinks": [
+        "https://www.ttbz.org.cn/Home/PdfFileStreamGet/c3QsMTQ4Njkx",
+        "https://qxb-img-osscache.qixin.com/standards/927a244e459adfea1d3ecd3dcfb04a5c.pdf",
+        "https://qxb-img-osscache.qixin.com/standards/d3cec59ea936658eea2f2020cf3aafdf.pdf",
+        "https://infosharingp2-oss.camet.org.cn/resources/manual/2025/11/19/743043815256133.pdf",
+        "https://certification.camet.org.cn/upload/attachment/2019-5/a889890a-a564-40bb-987c-f0a21b222e7f.pdf",
+        "https://m.sohu.com/a/116378573_475129/"
+      ]
+    }
+  ]
+}

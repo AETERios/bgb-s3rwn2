@@ -1,0 +1,89 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "补机在超过补机区段运行时，其超过部分无调度命令时按重联统计。",
+          "ids": [
+            "U-N-J0053"
+          ]
+        },
+        {
+          "query": "采用双管供风的列车因错接风管发出的列车不按关闭折角塞门发出列车论。",
+          "ids": [
+            "U-N-J0054"
+          ]
+        },
+        {
+          "query": "厂修的内燃机车出厂时，全部按无动力附挂方式回送。",
+          "ids": [
+            "U-N-J0056"
+          ]
+        },
+        {
+          "query": "超重列车是指列车重量超过运行图规定的牵引定数81t及以上的货物列车。",
+          "ids": [
+            "U-N-J0057"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.nra.gov.cn/jglz/fgzd/gfwj/bm/qtbm/202204/P020220406014325966514.pdf"
+      ],
+      "otherLinks": [
+        "https://anliku.whgxbj.com/anliku/20160831/17369_qyjjL/zm_%E6%A1%88%E4%BE%8B10%E3%80%80%E5%88%97%E8%BD%A6%E8%BF%9D%E7%BC%96%E6%97%B6%E7%9A%84%E5%BA%94%E6%80%A5%E5%A4%84%E7%90%86.doc",
+        "https://www.110.com/fagui/law_178350.html",
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E6%9C%BA%E8%BD%A6%E7%BB%9F%E8%AE%A1%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E5%8F%91%E6%94%B9%20%5B2020%5D%20203%E5%8F%B7.pdf",
+        "https://doc.xuehai.net/b6a702496005794666264b526-2.html",
+        "https://www.sohu.com/a/131252878_658154",
+        "https://falvdb.com/law/codex/acts/362035",
+        "https://max.book118.com/html/2025/0115/7102045002010024.shtm",
+        "https://trans.bjtu.edu.cn/media/attachments/2024/01/20240104153218.pdf",
+        "https://oss.baigongbao.com/2021/01/29/ExsFYtMkTa.pdf"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "车站行车室内一切电话中断，双线按时间间隔法行车时，只准发出反方向的列车。",
+          "ids": [
+            "U-N-J0058"
+          ]
+        },
+        {
+          "query": "磁场削弱系数表示磁场被削弱的程度。它等于磁场削弱前后，励磁电流与电枢电流之比值。",
+          "ids": [
+            "U-N-J0060"
+          ]
+        },
+        {
+          "query": "错办或未及时办理信号致使列车停车，为一般B类事故。",
+          "ids": [
+            "U-N-J0061"
+          ]
+        },
+        {
+          "query": "打印机不能打印文档的原因是因为没有经过打印预览查看。",
+          "ids": [
+            "U-N-J0062"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.moj.gov.cn/pub/sfbgw/flfggz/flfggzbmgz/200801/t20080114_144478.html",
+        "https://support.microsoft.com/zh-cn/edge/troubleshoot-print-issues-in-microsoft-edge",
+        "https://support.microsoft.com/zh-cn/windows/hardware/printer/fix-printing-problems-in-word-excel-or-other-apps",
+        "https://jtt.gxzf.gov.cn/ztzl/jtkjybzh/P020221001675084763148.pdf",
+        "https://xxgk.mot.gov.cn/2020/jigou/ysfws/202609/P020260902546355677181.pdf"
+      ],
+      "otherLinks": [
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E4%BA%A4%E9%80%9A%E4%BA%8B%E6%95%85%E8%B0%83%E6%9F%A5%E5%A4%84%E7%90%86%E8%A7%84%E5%88%99%E3%80%8B-%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD%E9%93%81%E9%81%93%E9%83%A8%E4%BB%A4%E7%AC%AC30%E5%8F%B7.pdf",
+        "https://jacksing.top/upload/sucai/%E4%B8%AD%E5%9B%BD%E9%93%81%E8%B7%AF%E6%80%BB%E5%85%AC%E5%8F%B8%E3%80%8A%E9%93%81%E8%B7%AF%E6%8A%80%E6%9C%AF%E7%AE%A1%E7%90%86%E8%A7%84%E7%A8%8B%E3%80%8B%EF%BC%88%E6%99%AE%E9%80%9F%E9%93%81%E8%B7%AF%E9%83%A8%E5%88%86%EF%BC%89.pdf",
+        "https://www.epson.com.cn/faq/5057028e1e5941b692c2e94971d0d1a5.html?productId=4afc7199494c4a9683607b155a732e98"
+      ]
+    }
+  ]
+}

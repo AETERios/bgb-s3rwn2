@@ -1,0 +1,85 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "\"行规\" \"第31条\"",
+          "ids": [
+            "U-W-J0007"
+          ]
+        },
+        {
+          "query": "\"行规\" \"第33条\"",
+          "ids": [
+            "U-W-J0008",
+            "U-W-J0277"
+          ]
+        },
+        {
+          "query": "\"行规\" \"第35条\"",
+          "ids": [
+            "U-W-J0011",
+            "j1-1399"
+          ]
+        },
+        {
+          "query": "\"机统规\" \"第17条\"",
+          "ids": [
+            "U-W-J0028"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primary": [],
+      "links": [
+        "https://cjfx.cufe.edu.cn/__local/3/9A/2D/EAF8C7E18E3F1C5A4C9D6439BE1_E6AAE102_10D3AF.pdf",
+        "https://gaj.sh.gov.cn/shga/wzXxfbZfgkxx/importToWord?pa=7e6fb2fa2038e383acc387e9ebe515656650a8b9d5642b4a428347d8ccf4016e4f8d5649415718f5",
+        "https://zsm.shangxueba.com/A74CCAA5.html",
+        "https://www.bilibili.com/video/BV1B14y1A7gS/",
+        "https://sports.sina.cn/sa/2002-01-24/detail-ikftpnnz0759487.d.html?wm=3049_0015"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "\"机统规\" \"第19条\"",
+          "ids": [
+            "U-W-J0037",
+            "U-W-J0128",
+            "U-W-J0228",
+            "U-W-J0304"
+          ]
+        },
+        {
+          "query": "\"机统规\" \"第39条\"",
+          "ids": [
+            "U-W-J0045"
+          ]
+        },
+        {
+          "query": "\"机统规\" \"第40条\"",
+          "ids": [
+            "U-W-J0047",
+            "U-W-J0309"
+          ]
+        },
+        {
+          "query": "\"机统规\" \"第41条\"",
+          "ids": [
+            "U-W-J0049"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primary": [],
+      "links": [
+        "https://najieip.com/najie/blog/index.html",
+        "https://daozang.app/text/GD0874/juan/4/",
+        "https://policy.mofcom.gov.cn/pact/pactContent.shtml?id=2698",
+        "https://www.liuxuequn.com/a/4282430.html",
+        "https://www.scribd.com/document/892095756/%25E8%25A7%..."
+      ]
+    }
+  ]
+}

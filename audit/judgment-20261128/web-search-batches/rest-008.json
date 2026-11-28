@@ -1,0 +1,90 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "机车平均全周转时间是指机车每周转一次所消耗的时间。",
+          "ids": [
+            "U-N-J0140"
+          ]
+        },
+        {
+          "query": "机车平均修车时间不包括待修中发生的中断时间。",
+          "ids": [
+            "U-N-J0142"
+          ]
+        },
+        {
+          "query": "机车牵引力按机械功的传递顺序排序分为：1.车钩牵引力2.指示牵引力3.轮周牵引力。",
+          "ids": [
+            "U-N-J0144"
+          ]
+        },
+        {
+          "query": "机车牵引力按机械功的传递顺序排序分为：1.轮周牵引力2.车钩牵引力3.指示牵引力。",
+          "ids": [
+            "U-N-J0145"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.nra.gov.cn/jglz/fgzd/gfwj/201804/P0202208015681729407..."
+      ],
+      "otherLinks": [
+        "https://www.wangxiao.cn/UserCenter/zhangjie.aspx?id=58658&type=1",
+        "https://www.renrendoc.com/paper/210962213.html",
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E6%9C%BA%E8%BD%A6%E7%BB%9F%E8%AE%A1%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E5%8F%91%E6%94%B9%20%5B2020%5D%20203%E5%8F%B7.pdf",
+        "https://law1.110.com/law_181576.html",
+        "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?_fromV2_=&_from_=&courseId=223389211&knowledgeId=534338460&rtag=",
+        "https://max.book118.com/html/2019/1010/6231141044002112.shtm",
+        "https://patents.google.com/patent/CN202433140U/zh",
+        "https://www.scribd.com/document/648154852/%E9%93%81%E8%B7%AF%E5%B7%A5%E7%A8%8B%E6%9C%AF%E8%AF%AD%E6%A0%87%E5%87%86-%E5%BE%81%E6%B1%82%E6%84%8F%E8%A7%81%E7%A8%BF",
+        "https://jdxb.bjtu.edu.cn/CN/article/downloadArticleFile.do?attachType=PDF&id=2120",
+        "https://www.2winpub.com/static/uploads/journalArticle/gcjsyfz0310059.pdf"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "机车牵引力是与列车运行方向相同并可以由司机根据需要调节的运行阻力。",
+          "ids": [
+            "U-N-J0148"
+          ]
+        },
+        {
+          "query": "机车日计划机车周转图的兑现情况是定期分析主要内容之一。",
+          "ids": [
+            "U-N-J0149"
+          ]
+        },
+        {
+          "query": "机车上的电磁灭弧装置是根据电荷在磁场中运行受到力的作用，将电弧推出磁场以外，使其增加冷却面积而熄灭。",
+          "ids": [
+            "U-N-J0151"
+          ]
+        },
+        {
+          "query": "机车上的角灭弧装置的作用是当两触头断开时，使产生的电弧沿灭弧角向外移动，使之拉长而熄灭的原理制成。",
+          "ids": [
+            "U-N-J0152"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.chinamine-safety.gov.cn/zfxxgk/fdzdgknr/zcfg/hybz_01/mkanj/202004/P020200422403321141290.pdf"
+      ],
+      "otherLinks": [
+        "https://files.sciengine.com/pdfs/2096-5427/3839DDCEE11C4162B6DFCACBA11109FB.pdf",
+        "https://ask.fsou.com/html/text/chl/276/27655_7.html",
+        "https://www.ttbz.org.cn/Home/PdfFileStreamGet/c3QsMTI5NzM2",
+        "https://www.fymate.net/html/text/chl/320/32074.html",
+        "https://patentimages.storage.googleapis.com/f1/d7/54/b832cb9cc18e44/CN103847749A.pdf",
+        "https://blog.sina.com.cn/s/blog_4a3e04780100f3ig.html",
+        "https://www.xiexiebang.com/a5/2019051311/3e1069b803ff0c14.html"
+      ]
+    }
+  ]
+}

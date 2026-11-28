@@ -1,0 +1,78 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "\"机运规\" \"第5条\"",
+          "ids": [
+            "U-W-J0252"
+          ]
+        },
+        {
+          "query": "\"机运规\" \"第67条\"",
+          "ids": [
+            "U-W-J0261"
+          ]
+        },
+        {
+          "query": "\"行规\" \"第44条\"",
+          "ids": [
+            "U-W-J0281",
+            "j1-1407",
+            "j1-1410"
+          ]
+        },
+        {
+          "query": "\"机调规\" \"第6条\"",
+          "ids": [
+            "U-W-J0315"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primary": [],
+      "links": [
+        "https://hntyfy.hncourt.gov.cn/public/detail.php?id=1892",
+        "https://www.nra.gov.cn/jglz/fgzd/gfwj/201803/P020220801567338398169.pdf",
+        "https://law.nuochi.cn/laws/s/%E6%B7%84%E5%8D%9A%E5%B8%82%E6%96%87%E6%98%8E%E8%A1%8C%E4%B8%BA%E4%BF%83%E8%BF%9B%E6%9D%A1%E4%BE%8B.html",
+        "https://nayona.cn/2001690.html"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "\"机运规\" \"第48条\"",
+          "ids": [
+            "U-W-J0336"
+          ]
+        },
+        {
+          "query": "\"机运规\" \"第69条\"",
+          "ids": [
+            "U-W-J0340"
+          ]
+        },
+        {
+          "query": "\"机运细\" \"第40条\"",
+          "ids": [
+            "U-W-J0353"
+          ]
+        },
+        {
+          "query": "\"机运细\" \"第72条\"",
+          "ids": [
+            "U-W-J0357"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primary": [],
+      "links": [
+        "https://www.qj.gov.cn/html/2025/ghjh_0211/271606.html",
+        "https://lawyeryang.wordpress.com/author/lawyeryang/",
+        "https://www.moj.gov.cn/pub/sfbgw/flfggz/flfggzbmgz/200703/t20070320_144322.html"
+      ]
+    }
+  ]
+}

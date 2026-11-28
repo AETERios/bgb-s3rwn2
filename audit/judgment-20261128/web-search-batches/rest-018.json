@@ -1,0 +1,84 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "\"技规\" \"第302条\"",
+          "ids": [
+            "j1-0554",
+            "j1-0555",
+            "j1-0556",
+            "j1-0559"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第306条\"",
+          "ids": [
+            "j1-0573"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第356条\"",
+          "ids": [
+            "j1-0588"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第358条\"",
+          "ids": [
+            "j1-0603",
+            "j1-0606"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [],
+      "otherLinks": [
+        "https://zsm.shangxueba.com/96F656DD.html",
+        "https://www.wjx.cn/m/36880791.aspx",
+        "https://www.sohu.com/a/847182079_121425822",
+        "https://fanshouji.com/shen-me-jiao-qin-xian-jue-yuan",
+        "https://max.book118.com/html/2019/1120/8073045040002064.shtm",
+        "https://www.renrendoc.com/paper/480963780.html"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "\"技规\" \"第410条\"",
+          "ids": [
+            "j1-0608"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第454条\"",
+          "ids": [
+            "j1-0739"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第457条\"",
+          "ids": [
+            "j1-0741"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第461条\"",
+          "ids": [
+            "j1-0743"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [],
+      "otherLinks": [
+        "https://m.bidcenter.com.cn/news-1-448099090.html",
+        "https://www.tongxinzhaobiao.com/news-612b8e9466a9e6bd0705288dcda20c16/",
+        "https://www.wjx.cn/m/36880791.aspx",
+        "https://yfbzb.com/inviteBid/detail/20261019_639893387.html",
+        "https://www.sohu.com/a/271502057_664807"
+      ]
+    }
+  ]
+}

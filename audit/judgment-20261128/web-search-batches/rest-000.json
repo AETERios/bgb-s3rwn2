@@ -1,0 +1,86 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "《铁路机车操作规则》规定移动机车前，应确认机班全员处于安全处所，防溜撤除，注意邻线机车、车辆的移动情况。段内走行严守速度规定。",
+          "ids": [
+            "U-N-J0023"
+          ]
+        },
+        {
+          "query": "《铁路机车调度工作规则》规定发生涉及机务铁路交通和安全生产事故时，机车调度要迅速了解情况、积极配合、协助相关调度处置，并及时向主管",
+          "ids": [
+            "U-N-J0024"
+          ]
+        },
+        {
+          "query": "《铁路机车调度工作规则》规定机车调度要严格掌握机车乘务员一次乘务作业工作时间，配合相关调度有预见性的采取有效措施，对超劳机班及时组",
+          "ids": [
+            "U-N-J0027"
+          ]
+        },
+        {
+          "query": "《铁路机车运用管理规则》规定机车牵引定数波动尾数，跨铁路局的由两局协商商定。",
+          "ids": [
+            "U-N-J0031"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/xzzf/202111/t20211111_261219.shtml"
+      ],
+      "otherLinks": [
+        "https://www.ttbz.org.cn/Home/PdfFileStreamGet/c3QsMTI5NzM2",
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E6%9C%BA%E8%BD%A6%E8%B0%83%E5%BA%A6%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E6%80%BB%E6%9C%BA%E8%BE%86%20%5B2017%5D%20323%E5%8F%B7.pdf",
+        "https://www.jhstljc.cn/news/60.html",
+        "https://www.mlzp.cc/portal.php?_dsign=c1f61eb3&aid=282&mod=view&page=1",
+        "https://www.jhstljc.cn/news/61.html",
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E6%9C%BA%E8%BD%A6%E8%BF%90%E7%94%A8%E7%AE%A1%E7%90%86%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E6%80%BB%E8%BF%90%20%5B2015%5D%20314%E5%8F%B7.pdf",
+        "https://ask.fsou.com/html/text/chl/276/27655_3.html"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "《铁路机车运用管理规则》规定机车牵引定数在冬运期间因天气严寒必须减吨时，跨铁路局的须报铁路总公司批准。",
+          "ids": [
+            "U-N-J0032"
+          ]
+        },
+        {
+          "query": "《铁路机车运用管理规则》规定遇机车配属、机车跨局调拨时，机车调度员应代表铁路局发布调度命令。",
+          "ids": [
+            "U-N-J0035"
+          ]
+        },
+        {
+          "query": "《铁路运输调度规则》规定列车运行线表示方法中，红单线加红方框表示回送军用列车。",
+          "ids": [
+            "U-N-J0038"
+          ]
+        },
+        {
+          "query": "《铁路运输调度规则》规定列车运行线表示方法中，红色断线加红方框表示军用列车。",
+          "ids": [
+            "U-N-J0039"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://source.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202206/t20220624_327439.shtml"
+      ],
+      "otherLinks": [
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E6%9C%BA%E8%BD%A6%E8%B0%83%E5%BA%A6%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E6%80%BB%E6%9C%BA%E8%BE%86%20%5B2017%5D%20323%E5%8F%B7.pdf",
+        "https://www.fsou.net/html/text/chl/320/32074_2.html",
+        "https://falvdb.com/law/codex/acts/362035",
+        "https://doc.mbalib.com/view/82a82762d9c8b0f3cfcd4506a47ff4f9.html",
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E6%9C%BA%E8%BD%A6%E8%BF%90%E7%94%A8%E7%AE%A1%E7%90%86%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E6%80%BB%E8%BF%90%20%5B2015%5D%20314%E5%8F%B7.pdf",
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E6%9C%BA%E5%8A%A1%E8%A1%8C%E8%BD%A6%E5%AE%89%E5%85%A8%E7%AE%A1%E7%90%86%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E6%80%BB%E8%BF%90%20%5B2014%5D%20388%E5%8F%B7.pdf"
+      ]
+    }
+  ]
+}

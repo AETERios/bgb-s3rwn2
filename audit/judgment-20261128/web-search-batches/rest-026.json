@@ -1,0 +1,85 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "生产安全事故责任按责任程度分为：主要责任、次要责任、一定责任、同等责任和无责任。",
+          "ids": [
+            "sg-0239"
+          ]
+        },
+        {
+          "query": "凡因货物装载不良造成的事故，定施工维修负责单位的责任事故。",
+          "ids": [
+            "sg-0242"
+          ]
+        },
+        {
+          "query": "伤害后果：是指按国家标准构成轻伤以上或城市轨道交通企业责任医疗费用500元以上。",
+          "ids": [
+            "sg-0253"
+          ]
+        },
+        {
+          "query": "事故性质、情节严重的，只追究当事人责任，不用逐级追究领导责任",
+          "ids": [
+            "sg-0254"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://wap.sasac.gov.cn/n2588030/n2588954/c30227422/content.html",
+        "https://www.samr.gov.cn/cms_files/filemanager/1647978232/attach/20246/c76dbe62d8a84654a6a0983309145cbf.pdf?fileName=TSG+03--2024%E3%80%8A%E7%89%B9%E7%A7%8D%E8%AE%BE%E5%A4%87%E4%BA%8B%E6%95%85%E6%8A%A5%E5%91%8A%E5%92%8C%E8%B0%83%E6%9F%A5%E5%A4%84%E7%90%86%E5%AF%BC%E5%88%99%E3%80%8B",
+        "https://www.mem.gov.cn/fw/flfgbz/fg/202107/t20210716_416558.shtml",
+        "https://www.samr.gov.cn/tzsbj/zcfg/flfg/art/2021/art_d8ec5ba871464b49bfd0a0275bb57756.html",
+        "https://wap.sasac.gov.cn/n2588035/n2588320/n2588335/c29970110/content.html",
+        "https://dlrk.jining.gov.cn/module/download/downfile.jsp?classid=0&filename=50babfc76aeb4c45806fd7a4e8086e2a.pdf&showname=%E6%B5%8E%E5%AE%81%E4%BA%A4%E8%BF%90%E9%9B%86%E5%9B%A2%E5%AE%89%E5%85%A8%E7%94%9F%E4%BA%A7%E7%AE%A1%E7%90%86%E5%8A%9E%E6%B3%95.pdf"
+      ],
+      "otherLinks": [
+        "https://jtf.bjtu.edu.cn/bshgl/tlf2/bmgz/153747.htm"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "向运营总部提交快报表或专题报告时，应同步提供现场照片、与事件有关的现场记录数据、运行图等资料，不能同步提供时，应在10个工作日内补",
+          "ids": [
+            "sg-0255"
+          ]
+        },
+        {
+          "query": "险性事件及以上的生产安全事故的，由部门内部负责组织调查处理。",
+          "ids": [
+            "sg-0256"
+          ]
+        },
+        {
+          "query": "某员工在一次安全事故中负30%的责任，则该员工负一定责任",
+          "ids": [
+            "sg-0258"
+          ]
+        },
+        {
+          "query": "应停载客列车未停站通过属于一般事件。",
+          "ids": [
+            "sg-0260"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.mem.gov.cn/gk/zfxxgkpt/fdzdgknr/202212/W020221213599799114552.pdf",
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202211/t20221117_338894.shtml",
+        "https://www.shanghai.gov.cn/202313zfwj/20230713/768c630d0e89427aa85feb6fc8f010e1.html",
+        "https://jtt.gxzf.gov.cn/ztzl/jtkjybzh/P020221001675084763148.pdf",
+        "https://www.jsfy.gov.cn/article/94748.html",
+        "https://www.mem.gov.cn/gk/gwgg/agwzlfl/gfxwj/2013/201312/t20131202_242977.shtml"
+      ],
+      "otherLinks": [
+        "https://nirp.chinacdc.cn/fswsfgbz/fg/fl/202502/P020250219462449975260.pdf"
+      ]
+    }
+  ]
+}

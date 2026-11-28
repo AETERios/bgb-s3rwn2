@@ -1,0 +1,113 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "\"技规\" \"第462条\"",
+          "ids": [
+            "j1-0744"
+          ]
+        },
+        {
+          "query": "\"行规\" \"第50条\"",
+          "ids": [
+            "j1-0893",
+            "j1-1497",
+            "j1-1498"
+          ]
+        },
+        {
+          "query": "\"行规\" \"第27条\"",
+          "ids": [
+            "j1-1225",
+            "j1-1226",
+            "j1-1227",
+            "j1-1230",
+            "j1-1231",
+            "j1-1232",
+            "j1-1263",
+            "j1-1265",
+            "j1-1298",
+            "j1-1301",
+            "j1-1302",
+            "j1-1348",
+            "j1-1349",
+            "j1-1322"
+          ]
+        },
+        {
+          "query": "\"行规\" \"第28条\"",
+          "ids": [
+            "j1-1385",
+            "j1-1386",
+            "j1-1387",
+            "j1-1388",
+            "j1-1390",
+            "j1-1396",
+            "j1-1397"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.shqp.gov.cn/shqp/shqp/upload/202310/1024_093659_769.pdf",
+        "https://cgzf.sh.gov.cn/cmsres/31/31a803192f9346048121977d936e9976/5bd1f721168c2e69e37fc71ed60c2943.pdf",
+        "https://www.shqp.gov.cn/shqp/shqp/upload/202311/1115_102057_915.pdf",
+        "https://www.hnhx.gov.cn/portal/rootfiles/2025/09/02/1758012575598550-1758012575882170.pdf"
+      ],
+      "otherLinks": [
+        "https://zsm.shangxueba.com/4F5E8A9F.html",
+        "https://doc.xuehai.net/bd6ce200d1947e2395501e1fd.html",
+        "https://buddhist.org.sg/wp-content/uploads/2014/01/NY483.pdf",
+        "https://finance.sina.cn/sa/2004-06-27/detail-ikknscsi1272886.d.html"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "\"行规\" \"第37条\"",
+          "ids": [
+            "j1-1400"
+          ]
+        },
+        {
+          "query": "\"行规\" \"第38条\"",
+          "ids": [
+            "j1-1402",
+            "j1-1404"
+          ]
+        },
+        {
+          "query": "\"行规\" \"第45条\"",
+          "ids": [
+            "j1-1422",
+            "j1-1431",
+            "j1-1421"
+          ]
+        },
+        {
+          "query": "\"行规\" \"第48条\"",
+          "ids": [
+            "j1-1486"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.nra.gov.cn/jglz/fgzd/gfwj/201803/P020220801567338398169.pdf",
+        "https://renda.thnet.gov.cn/renda/2024nzfjcbg/202505/fac4b5a6004f493a8953a5afdba853df/files/11ea5f85867b4f8d8c08f6d20a55a55c.pdf",
+        "https://gaj.sh.gov.cn/shga/wzXxfbZfgkxx/detail?pa=7e6fb2fa2038e383acc387e9ebe515656650a8b9d5642b4a428347d8ccf4016e4f8d5649415718f5",
+        "https://chinajob.mohrss.gov.cn/h5/c/2018-05-03/176986.shtml"
+      ],
+      "otherLinks": [
+        "https://zsm.shangxueba.com/E31F7689.html",
+        "https://www.vlaws.cn/show.aspx?cid=114&id=27854",
+        "https://www.a-site.cn/article/301947.html",
+        "https://www.bilibili.com/video/BV1B14y1A7gS/",
+        "https://nayona.cn/2001690.html",
+        "https://r..."
+      ]
+    }
+  ]
+}

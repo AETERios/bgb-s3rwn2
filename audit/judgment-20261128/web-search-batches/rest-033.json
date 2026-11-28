@@ -1,0 +1,87 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "机车使用台数＝列车对数×机车使用系数\n＝26×0.46\n＝12\n答：该区段机车使用台数7.2台。",
+          "ids": [
+            "dv-0304"
+          ]
+        },
+        {
+          "query": "机车使用台数＝列车对数×机车使用系数\n＝42×0.5\n＝21\n答：运用机车台数为13台。",
+          "ids": [
+            "dv-0307"
+          ]
+        },
+        {
+          "query": "日车公里＝机车沿线走行公里/运用机车台日\n＝1 166 520/3 393.6\n＝343.7\n答：9月份实际货运日车公里为206日",
+          "ids": [
+            "dv-0310"
+          ]
+        },
+        {
+          "query": "日车公里＝牵引区段距离×48÷平均全周转时间\n＝186×48÷16.5\n＝541.1\n答：担当货运的机车日车公里为325日车公里。",
+          "ids": [
+            "dv-0313"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.shhuangpu.gov.cn/uploadfile/edba2732-ea9b-4603-91f2-c4b73fbb7448/%E4%BA%A4%E9%80%9A%E8%BF%90%E8%BE%93%E3%80%81%E4%BB%93%E5%82%A8%E5%92%8C%E9%82%AE%E7%94%B5%E4%B8%9A%E7%BB%9F%E8%AE%A1%E6%8A%A5%E8%A1%A8%E5%88%B6%E5%BA%A6%EF%BC%882022%E5%B9%B4%E6%8A%A5%E5%92%8C2023%E5%AE%9A%E6%8A%A5%EF%BC%89%EF%BC%88%E5%8D%B0%E5%88%B7%E7%89%88%EF%BC%89.pdf",
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/gfxw/202204/P020220405516454631333.pdf"
+      ],
+      "otherLinks": [
+        "https://www.wangxiao.cn/UserCenter/zhangjie.aspx?id=58658&type=1",
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E6%9C%BA%E8%BD%A6%E7%BB%9F%E8%AE%A1%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E5%8F%91%E6%94%B9%20%5B2020%5D%20203%E5%8F%B7.pdf",
+        "https://s.macrodatas.cn/article/indicator/hg-eae13c27b09638aadab0d-huoyunjicherichegongli-5ce01c",
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E6%9C%BA%E8%BD%A6%E8%BF%90%E7%94%A8%E7%AE%A1%E7%90%86%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E6%80%BB%E8%BF%90%20%5B2015%5D%20314%E5%8F%B7.pdf",
+        "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?_fromV2_=&_from_=&courseId=223389211&knowledgeId=534338510&rtag=",
+        "https://www.e-ging.com/user/site26644/file/20171229/20171229075124462446.pdf"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "单机走行率＝单机走行公里÷本务机车走行公里\n＝22 763÷283 065\n＝4.8%\n答：单机率为8.04%。",
+          "ids": [
+            "dv-0316"
+          ]
+        },
+        {
+          "query": "M使＝2LN÷S日\n＝÷550\n＝8\n答：使用机车4.8台。",
+          "ids": [
+            "dv-0321"
+          ]
+        },
+        {
+          "query": "M使＝ß需×n\n＝0.5×40\n＝20\n答：使用机车为12台。",
+          "ids": [
+            "dv-0324"
+          ]
+        },
+        {
+          "query": "运用机车台数＝区段距离×2×列车对数÷日车公里\n＝200×2×15÷500\n＝12\n答：运用机车台数为7.2台。",
+          "ids": [
+            "dv-0327"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://scjgj.beijing.gov.cn/hdjl/myzj/bzzxdyjzj/202409/P020240913513263209131.pdf"
+      ],
+      "otherLinks": [
+        "https://www.chinaacc.com/new/287/288/303/2006/1/ad78619173517160023762.htm",
+        "https://www.wangxiao.cn/UserCenter/zhangjie.aspx?id=58658&type=1",
+        "https://www.233.com/zjjjs/tlbiji/20120323/092252497-3.html",
+        "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?_fromV2_=&_from_=&courseId=223389211&knowledgeId=534338400&rtag=",
+        "https://www.2winpub.com/static/uploads/journalArticle/gcjsyfz0310059.pdf",
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E6%9C%BA%E8%BD%A6%E7%BB%9F%E8%AE%A1%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E5%8F%91%E6%94%B9%20%5B2020%5D%20203%E5%8F%B7.pdf",
+        "https://journal.ecjtu.edu.cn/hdjtdxen/article/pdf/20210512"
+      ]
+    }
+  ]
+}

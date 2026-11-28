@@ -1,0 +1,88 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "行车工作必须坚持集中领导、统一指挥、人人负责的原则。",
+          "ids": [
+            "U-N-J0113"
+          ]
+        },
+        {
+          "query": "换算走行公里中调车工作每小时作业时间换算15km。",
+          "ids": [
+            "U-N-J0115"
+          ]
+        },
+        {
+          "query": "换算走行公里中有动力停留每小时换算5km。",
+          "ids": [
+            "U-N-J0116"
+          ]
+        },
+        {
+          "query": "回送机车不用纳入日计划机车周转图。",
+          "ids": [
+            "U-N-J0117"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://jtt.gxzf.gov.cn/ztzl/jtkjybzh/P020230414565440390236.pdf",
+        "https://xxgk.mot.gov.cn/2020/jigou/fgs/202006/t20200623_3308015.html"
+      ],
+      "otherLinks": [
+        "https://scjtgc.com/active_show.aspx?id=207",
+        "https://www.wangxiao.cn/UserCenter/zhangjie.aspx?id=58658&type=1",
+        "https://lyg148.cn/showinfo.asp?id=7638",
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E6%9C%BA%E8%BD%A6%E8%B0%83%E5%BA%A6%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E6%80%BB%E6%9C%BA%E8%BE%86%20%5B2017%5D%20323%E5%8F%B7.pdf",
+        "https://www.jhstljc.cn/news/60.html",
+        "https://www.shititong.cn/cha-kan/shiti/0055060c-e9c2-e378-c066-ef0ac1c15500.html"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "回送机车可以担当牵引列车任务。",
+          "ids": [
+            "U-N-J0118"
+          ]
+        },
+        {
+          "query": "货运机车在外段发生故障，不能继续牵引列车回段修理时所产生的单机，按货运单机统计。",
+          "ids": [
+            "U-N-J0119"
+          ]
+        },
+        {
+          "query": "机车、动车组在跨局间调拨时列车运行监控记录装置系统设备应及时拆除。",
+          "ids": [
+            "U-N-J0120"
+          ]
+        },
+        {
+          "query": "机车乘务员的一次连续工作时间不包括乘务员在自段的作业时间。",
+          "ids": [
+            "U-N-J0124"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202206/t20220624_327439.shtml",
+        "https://www.nra.gov.cn/jglz/fgzd/gfwj/201802/P020220801566708033244.pdf",
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/gfxw/bumen/other/201803/P020220629534356112175.pdf"
+      ],
+      "otherLinks": [
+        "https://www.fsou.net/html/text/chl/320/32074_2.html",
+        "https://www.eia543.com/documents/02%E5%A3%B0/%E9%81%93%E8%B7%AF%E3%80%81%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%EF%BC%88%E5%90%AB%E5%BA%9F%E6%B0%94%EF%BC%89/%E9%93%81%E8%B7%AF%E5%B7%A5%E7%A8%8B%E6%9C%AF%E8%AF%AD%E6%A0%87%E5%87%86%EF%BC%88GB%20T%2050262-2024%EF%BC%89.pdf",
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E6%9C%BA%E8%BD%A6%E8%BF%90%E7%94%A8%E7%AE%A1%E7%90%86%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E6%80%BB%E8%BF%90%20%5B2015%5D%20314%E5%8F%B7.pdf",
+        "https://law1.110.com/law_178350.html",
+        "https://jtgc.cbpt.cnki.net/portal/journal/portal//client/paper/preview?cache=false&filePath=history%2FEditor%2F2021%2F0504%2Fjtgc%2F612e6ccf-afd7-4c24-a386-6be4627a5897.pdf",
+        "https://www.fymate.net/html/text/chl/281/28122_5.html"
+      ]
+    }
+  ]
+}

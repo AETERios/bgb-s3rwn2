@@ -1,0 +1,89 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "对于本局的配属机车都有权支配。",
+          "ids": [
+            "U-N-J0098"
+          ]
+        },
+        {
+          "query": "对运行中的机车、车辆施加制动力，使其停止运动或减低速度，这种作用叫作制动力。",
+          "ids": [
+            "U-N-J0099"
+          ]
+        },
+        {
+          "query": "繁忙干线货运列车脱轨30辆以上并中断铁路行车48h以上的，为特别重大事故。",
+          "ids": [
+            "U-N-J0101"
+          ]
+        },
+        {
+          "query": "非运用机车包括备用、检修、路用等机车。",
+          "ids": [
+            "U-N-J0103"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/xzzf/202111/t20211111_261219.shtml",
+        "https://xzfg.moj.gov.cn/law/download?LawID=1621&t=1782442216232&type=pdf",
+        "https://xxgk.mot.gov.cn/jigou/ysfws/202609/P020260902546355677181.pdf"
+      ],
+      "otherLinks": [
+        "https://www.xnjdcbs.com/upfile/file/201807/15323356189675.pdf",
+        "https://www.fsou.net/html/text/chl/278/27801_1.html",
+        "https://www.tup.tsinghua.edu.cn/upload/books/yz/063097-01.pdf",
+        "https://www.renrendoc.com/paper/486876531.html",
+        "https://www.fsou.com/Html/text/chl/1011/101130_4.html"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "各相绕组的首端与首端之间的电压称相电压。",
+          "ids": [
+            "U-N-J0106"
+          ]
+        },
+        {
+          "query": "根据铁路总公司命令由他局、段派至本局、段入助及临时加入支配的机车为配属机车。",
+          "ids": [
+            "U-N-J0107"
+          ]
+        },
+        {
+          "query": "功率因数就是有功功率和无功功率的比值。",
+          "ids": [
+            "U-N-J0108"
+          ]
+        },
+        {
+          "query": "固定走行径路运行的旅客列车，列车运行监控装置基础数据文件中对应一个实际列车运行径路可编制两套列车运行监控记录装置数据。",
+          "ids": [
+            "U-N-J0109"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202206/t20220624_327439.shtml"
+      ],
+      "otherLinks": [
+        "https://www.xnjdcbs.com/upfile/file/201807/15323356189675.pdf",
+        "https://library.e.abb.com/public/ae02d67223624c4a9fe41eed1b3cab39/D13%2015_User%20Manual_ZH_9AKK108468A8827_RevA_20241029.pdf?x-sign=qawotwiBSslFjWj3ixiGr04L7B3qpEp0LXw52n9yFzeMDwoZkcHsdU7XLCI9G8jv",
+        "https://www.renrendoc.com/paper/486876531.html",
+        "https://www.5idoc.com/doc/5e16445513.html",
+        "https://www.yiqifuwu.com/uploadfile/file/20250724/1753328715226727.pdf",
+        "https://www.sciengine.com/cfs/files/pdfs/view/1000-128X/4AC5B5A28B4E4FD6976DFAE52D764958.pdf",
+        "https://www.mlzp.cc/plugin.php?id=aieditor_7ree%3Alibrary_7ree&page=70",
+        "https://law1.110.com/law_178350.html",
+        "https://www.sigedu.cn/tcn/nd.jsp?id=2259"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "从表中比较可知：机车全周转时间的六项因素或延长或压缩，但延长的总时分大于压缩的总时分，平均每个周转延长19分，因而造成日车公里比月",
+          "ids": [
+            "dv-0361"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [],
+      "otherLinks": [
+        "https://www.wangxiao.cn/UserCenter/zhangjie.aspx?id=58658&type=1",
+        "https://www.2winpub.com/static/uploads/journalArticle/gcjsyfz0310059.pdf",
+        "https://www.xiexiebang.com/a5/2019051311/24e8b5dd98ac27be.html",
+        "https://www.110.com/fagui/law_178350.html",
+        "https://law1.110.com/law_178350.html",
+        "https://www.fsou.net/html/text/chl/278/27804_3.html",
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E6%9C%BA%E8%BD%A6%E7%BB%9F%E8%AE%A1%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E5%8F%91%E6%94%B9%20%5B2020%5D%20203%E5%8F%B7.pdf",
+        "https://patents.google.com/patent/CN114524004B/zh",
+        "https://patents.google.com/patent/CN114524004A/zh"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "列车制动距离等于有效制动距离减去空走距离。",
+          "ids": [
+            "U-N-J0230"
+          ]
+        },
+        {
+          "query": "列车制动力是与列车运行方向相同、阻碍列车运行的、司机可以根据需要调节的外力。",
+          "ids": [
+            "U-N-J0233"
+          ]
+        },
+        {
+          "query": "列车中制动软管连结，有列检作业的始发列车由列检人员负责；无列检作业的，由机车乘务员负责。",
+          "ids": [
+            "U-N-J0235"
+          ]
+        },
+        {
+          "query": "列车中最后两辆不得为关门车。",
+          "ids": [
+            "U-N-J0236"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://source.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202206/t20220624_327439.shtml"
+      ],
+      "otherLinks": [
+        "https://jacksing.top/upload/sucai/%E4%B8%AD%E5%9B%BD%E9%93%81%E8%B7%AF%E6%80%BB%E5%85%AC%E5%8F%B8%E3%80%8A%E9%93%81%E8%B7%AF%E6%8A%80%E6%9C%AF%E7%AE%A1%E7%90%86%E8%A7%84%E7%A8%8B%E3%80%8B%EF%BC%88%E6%99%AE%E9%80%9F%E9%93%81%E8%B7%AF%E9%83%A8%E5%88%86%EF%BC%89.pdf",
+        "https://www.bzko.com/std/268226.html",
+        "https://falvdb.com/law/codex/acts/362505-",
+        "https://files.sciengine.com/pdfs/2096-5427/3839DDCEE11C4162B6DFCACBA11109FB.pdf",
+        "https://www.wjx.cn/m/36880791.aspx",
+        "https://www.tup.tsinghua.edu.cn/upload/books/yz/063097-01.pdf",
+        "https://patentimages.storage.googleapis.com/27/a9/bf/25483008f6c9e3/CN102951165A.pdf",
+        "https://patents.google.com/patent/CN102951165B"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "列控车载设备有完全监控模式、部分监控模式、目视行车模式、调车模式、隔离模式等五种模式划分。",
+          "ids": [
+            "U-N-J0237"
+          ]
+        },
+        {
+          "query": "轮包结合制就是机车支配段固定机车乘务组使用机车，配属段机车乘务员轮乘的一种乘务制度。",
+          "ids": [
+            "U-N-J0238"
+          ]
+        },
+        {
+          "query": "旅行时间为自始发站出发时起至终到站到达时止的纯运行时间。",
+          "ids": [
+            "U-N-J0240"
+          ]
+        },
+        {
+          "query": "每日事故的统计时间，由上一日0时至当日0时止。",
+          "ids": [
+            "U-N-J0242"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://std.samr.gov.cn/dcpspTools/gbPlan/download?path=%2Fzxd%2F2020101698%2F20_%E6%A0%87%E5%87%86%E8%B5%B7%E8%8D%89%2F20_WD_2020101698_%E9%93%81%E8%B7%AF%E6%97%85%E5%AE%A2%E8%BF%90%E8%BE%93%E8%AF%8D%E6%B1%87.pdf",
+        "https://www.nra.gov.cn/jglz/fgzd/gfwj/bm/qtbm/202204/P020220406014325966514.pdf"
+      ],
+      "otherLinks": [
+        "https://www.eia543.com/documents/02%E5%A3%B0/%E9%81%93%E8%B7%AF%E3%80%81%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%EF%BC%88%E5%90%AB%E5%BA%9F%E6%B0%94%EF%BC%89/%E9%93%81%E8%B7%AF%E5%B7%A5%E7%A8%8B%E6%9C%AF%E8%AF%AD%E6%A0%87%E5%87%86%EF%BC%88GB%20T%2050262-2024%EF%BC%89.pdf",
+        "https://www.scribd.com/document/729725086/%25E9%2593%2581%25E8%25B7%25AF%25E6%258A%2580%25E6%259C%25AF%25E7%25AE%25A1%25E7%2590%2586%25E8%25A7%2584%25E7%25A8%258B-%25E9%25AB%2598%25E9%2593%2581%25E9%2583%25A8%25E5%2588%2586-%25E5%25B7%25B2%25E6%258C%2589%25E9%2593%2581%25E6%2580%25BB%25E7%25A7%2591%25E6%258A%2580-2017-221%25E5%258F%25B7%25E7%25AC%25AC%25E4%25B8%2580%25E6%25AC%25A1%25E4%25BF%25AE%25E8%25AE%25A2",
+        "https://shandong-chorography.org/database/a/section/41/article/145/",
+        "https://www.ceic.com/gjnyjtww/chnjcxw/202005/f57c5ef105df43eab4a3fc820158b002.shtml",
+        "https://www.scribd.com/document/648154852/%E9%93%81%E8%B7%AF%E5%B7%A5%E7%A8%8B%E6%9C%AF%E8%AF%AD%E6%A0%87%E5%87%86-%E5%BE%81%E6%B1%82%E6%84%8F%E8%A7%81%E7%A8%BF",
+        "https://tiria.org/data-viz/accident-time-pattern/day"
+      ]
+    }
+  ]
+}

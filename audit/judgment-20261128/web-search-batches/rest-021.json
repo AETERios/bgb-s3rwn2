@@ -1,0 +1,88 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "长轨列车车列不得溜放，允许牵引通过驼峰。",
+          "ids": [
+            "j1-1747"
+          ]
+        },
+        {
+          "query": "调车作业调动特种车辆时，须连结不少于二分之一软管。",
+          "ids": [
+            "j1-1751"
+          ]
+        },
+        {
+          "query": "因作业需要，可以进行转变线路的手推调车作业。",
+          "ids": [
+            "j1-1752"
+          ]
+        },
+        {
+          "query": "手推调车作业，推车人员应在车辆两侧地面上推动车辆，有站台时可以站在站台上推车。",
+          "ids": [
+            "j1-1754"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202206/t20220624_327439.shtml",
+        "https://source.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202206/t20220624_327439.shtml",
+        "https://www.nra.gov.cn/jglz/fgzd/gfwj/bm/qtbm/202204/P020220406014325966514.pdf"
+      ],
+      "otherLinks": [
+        "https://hbba.sacinfo.org.cn/portal/download/2228eea459c36b153880e63093e40478a4c697c247731f5fcab9b4a2a61e2cc0",
+        "https://museum.jty.edu.cn/Home/Content/50669",
+        "https://www.xiexiebang.com/a5/201905139/1dda01164fcb507a.html",
+        "https://qhpt.lntdxy.com/meol/analytics/resPdfShow.do%3Bjsessionid%3DC94A40C637E892016F6149EA01691F1E?lid=10608&resId=34721",
+        "https://gf.cabr-fire.com/m/article-49084.htm",
+        "https://m.kaoyanmiji.com/wendang/729906.html"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "车站到发线兼货物线停留车辆时，停留车辆必须实施铁鞋、人力制动机、防溜枕木三防溜措施。",
+          "ids": [
+            "j1-1759"
+          ]
+        },
+        {
+          "query": "衔接正线、到发线且无隔开设备的调车线以外的线路，向站内方向为下坡或平坡时，在停留车辆站内方向最外端，须实施铁鞋、人力制动机、防溜枕",
+          "ids": [
+            "j1-1761"
+          ]
+        },
+        {
+          "query": "\"行规\" \"第162条\"",
+          "ids": [
+            "j1-1765",
+            "j1-1766"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第229条\"",
+          "ids": [
+            "j2-0066"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202206/t20220624_327439.shtml",
+        "https://source.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202206/t20220624_327439.shtml",
+        "https://source.nra.gov.cn/xxgk/gkml/ztjg/zqyj/202404/P020240428549488614684.pdf"
+      ],
+      "otherLinks": [
+        "https://jacksing.top/upload/sucai/%E4%B8%AD%E5%9B%BD%E9%93%81%E8%B7%AF%E6%80%BB%E5%85%AC%E5%8F%B8%E3%80%8A%E9%93%81%E8%B7%AF%E6%8A%80%E6%9C%AF%E7%AE%A1%E7%90%86%E8%A7%84%E7%A8%8B%E3%80%8B%EF%BC%88%E6%99%AE%E9%80%9F%E9%93%81%E8%B7%AF%E9%83%A8%E5%88%86%EF%BC%89.pdf",
+        "https://max.book118.com/html/2019/0820/6113123114002055.shtm",
+        "https://anli.chinazy.org/upload_dir/files/2015/08/28/63704c9eaaef46ef712a986a43c14bba.pdf",
+        "https://www.bzko.com/std/262392.html"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "机车使用系数 = 平均全周转时间 / 24h =16.13h/ 24h =1台日\n机车使用台数 =牵引区段图定列车对数×机车使用系",
+          "ids": [
+            "dv-0264"
+          ]
+        },
+        {
+          "query": "T全周=本次入段时间－上次入段时间\n=13小时－9.3小时\n= 12.2 \n答：该机车一次全周转时间为12.2h。",
+          "ids": [
+            "dv-0270"
+          ]
+        },
+        {
+          "query": "机车使用台数=列车对数×机车使用系数\n=45×0.8\n=36\n答：运用机车台数为22台。",
+          "ids": [
+            "dv-0273"
+          ]
+        },
+        {
+          "query": "日车公里=牵引区段距离×48÷平均全周转时间\n=188×48÷18.5\n=487.7\n答：担当货运的机车日车公里为293日车公里。",
+          "ids": [
+            "dv-0276"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.shhuangpu.gov.cn/uploadfile/edba2732-ea9b-4603-91f2-c4b73fbb7448/%E4%BA%A4%E9%80%9A%E8%BF%90%E8%BE%93%E3%80%81%E4%BB%93%E5%82%A8%E5%92%8C%E9%82%AE%E7%94%B5%E4%B8%9A%E7%BB%9F%E8%AE%A1%E6%8A%A5%E8%A1%A8%E5%88%B6%E5%BA%A6%EF%BC%882022%E5%B9%B4%E6%8A%A5%E5%92%8C2023%E5%AE%9A%E6%8A%A5%EF%BC%89%EF%BC%88%E5%8D%B0%E5%88%B7%E7%89%88%EF%BC%89.pdf"
+      ],
+      "otherLinks": [
+        "https://www.wangxiao.cn/UserCenter/zhangjie.aspx?id=58658&type=1",
+        "https://www.renrendoc.com/paper/210962213.html",
+        "https://www.110.com/fagui/law_178113.html",
+        "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?_fromV2_=&_from_=&courseId=223389211&knowledgeId=534338400&rtag=",
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E6%9C%BA%E8%BD%A6%E7%BB%9F%E8%AE%A1%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E5%8F%91%E6%94%B9%20%5B2020%5D%20203%E5%8F%B7.pdf",
+        "https://www.2winpub.com/static/uploads/journalArticle/gcjsyfz0310059.pdf"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "单机走行率=单机走行公里÷本务机车走行公里\n=24 763÷285 065\n=5.2%\n答：单机率为8.68%。",
+          "ids": [
+            "dv-0279"
+          ]
+        },
+        {
+          "query": "机车使用台数=列车对数×机车使用系数\n=28×0.66\n=18\n答：该区段机车使用台数11台。",
+          "ids": [
+            "dv-0284"
+          ]
+        },
+        {
+          "query": "运用机车台数=沿线走行公里/日车公里 =12 600/600 =21\n机车周转次数=机车全周转时间总和/平均全周转时间 =21×2",
+          "ids": [
+            "dv-0295"
+          ]
+        },
+        {
+          "query": "平均全周时间 10小时08分\n解：使用系数= ────────────\n24小时\n=0.71\n使用台数=列车对数×机车使用系数) ",
+          "ids": [
+            "dv-0298"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [],
+      "otherLinks": [
+        "https://www.eia543.com/documents/02%E5%A3%B0/%E9%81%93%E8%B7%AF%E3%80%81%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%EF%BC%88%E5%90%AB%E5%BA%9F%E6%B0%94%EF%BC%89/%E9%93%81%E8%B7%AF%E5%B7%A5%E7%A8%8B%E6%9C%AF%E8%AF%AD%E6%A0%87%E5%87%86%EF%BC%88GB%20T%2050262-2024%EF%BC%89.pdf",
+        "https://www.wangxiao.cn/UserCenter/zhangjie.aspx?id=58658&type=1",
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E6%9C%BA%E8%BD%A6%E7%BB%9F%E8%AE%A1%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E5%8F%91%E6%94%B9%20%5B2020%5D%20203%E5%8F%B7.pdf",
+        "https://patents.google.com/patent/CN114524004A/zh",
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E6%9C%BA%E8%BD%A6%E8%BF%90%E7%94%A8%E7%AE%A1%E7%90%86%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E6%80%BB%E8%BF%90%20%5B2015%5D%20314%E5%8F%B7.pdf",
+        "https://www.110.com/fagui/law_181576.html",
+        "https://www.2winpub.com/static/uploads/journalArticle/gcjsyfz0310059.pdf",
+        "https://k.sina.cn/article_1620468410_609662ba00100ccs1.html)..."
+      ]
+    }
+  ]
+}

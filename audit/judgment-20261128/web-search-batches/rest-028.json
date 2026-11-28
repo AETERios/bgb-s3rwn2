@@ -1,0 +1,86 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "按照事故的责任划分，属于一定责任的是负有事故损失及不良影响50%-99%的责任",
+          "ids": [
+            "sg-0278"
+          ]
+        },
+        {
+          "query": "按照事故的责任划分，属于次要责任的是负有事故损失及不良影响1%-19%的责任",
+          "ids": [
+            "sg-0279"
+          ]
+        },
+        {
+          "query": "按照事故的责任划分，属于主要责任的是负有事故损失及不良影响20%-49%的的责任",
+          "ids": [
+            "sg-0280"
+          ]
+        },
+        {
+          "query": "事件涉及外部人员侵犯员工权益的，事发部门还应同时报运营总部安委会、运营总部安全技术部，并及时续报有关情况。",
+          "ids": [
+            "sg-0282"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://ccgp-neimenggu.gov.cn/uploader/upload/commoninfo/2025/8/14/1755138022772_909.pdf?accessCode=c9d23d4f9aaca27f7acb94e310ded01c6e7d73358ccb7909de1d726280c4d5ab9b5251a34cf849efa30ee57c59a72f4d78546704e848a4dc3ca4edfea5240f3a66d0496d4603c731879c2d4125778b65",
+        "https://www.court.gov.cn/zixun/xiangqing/499051.html",
+        "https://ccgp-neimenggu.gov.cn/uploader/upload/commoninfo/2026/3/13/1773368363298_9630.pdf?accessCode=c9d23d4f9aaca27f7acb94e310ded01c6e7d73358ccb7909de1d726280c4d5ab66a51e74785db27199e11c8dedc9ef4ca039355a3e088550ca19ad69c12ee356e5526cb0d433f659be2fe096236d0c3b",
+        "https://www.court.gov.cn/zixun/xiangqing/233181.html",
+        "https://ccgp-neimenggu.gov.cn/uploader/upload/commoninfo/2025/3/20/1742455642952_1763.pdf?accessCode=0a018d0b1a7ecf8950089ac33abcde55"
+      ],
+      "otherLinks": [
+        "https://www.cpic.com.cn/upload/resources/file/2020/09/25/53368.pdf",
+        "https://disc.static.szse.cn/download/disc/disk03/finalpage/2025-11-08/9782e718-bb13-42b5-8274-80a8819e0b2b.PDF"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "生产安全事故责任按责任程度分为全部责任、主要责任、次要责任、一定责任、同等责任",
+          "ids": [
+            "sg-0283"
+          ]
+        },
+        {
+          "query": "城市轨道交通设备的施工、维修而造成的生产安全事故，\n定装载部门的责任事故。",
+          "ids": [
+            "sg-0284"
+          ]
+        },
+        {
+          "query": "错挂、漏挂、错撤、忘撤接地线属于险性事件",
+          "ids": [
+            "sg-0286"
+          ]
+        },
+        {
+          "query": "车辆溜逸，且已经进入正线区间或车站：系指机车辆发生溜车，越出本车原占用的进路、道岔或信号机，并且进入了正线区间或车站。",
+          "ids": [
+            "sg-0289"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://wap.sasac.gov.cn/n2588030/n2588954/c30227422/content.html",
+        "https://www.moj.gov.cn/pub/sfbgw/flfggz/flfggzbmgz/200801/t20080114_144478.html",
+        "https://www.samr.gov.cn/tzsbj/zcfg/flfg/art/2021/art_d8ec5ba871464b49bfd0a0275bb57756.html",
+        "https://www.mem.gov.cn/fw/flfgbz/fg/202107/t20210716_416558.shtml",
+        "https://jtj.cq.gov.cn/ztzl/aqsc/zcfg/202010/t20201027_8100423.html",
+        "https://yjglt.gxzf.gov.cn/ztzl/aqsczbgjsnxd/aqsczbgjflfg/P020230601637023477892.pdf",
+        "https://zjjcmspublic.oss-cn-hangzhou-zwynet-d01-a.internet.cloud.zj.gov.cn/jcms_files/jcms1/web2769/site/attach/0/b3a48e8176eb42e1ad436713ee768310.pdf"
+      ],
+      "otherLinks": [
+        "https://rail-urban.com/index.php/content-1066"
+      ]
+    }
+  ]
+}

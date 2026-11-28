@@ -1,0 +1,90 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "机车调度员是机车日常运用的组织者和管理者。",
+          "ids": [
+            "U-N-J0155"
+          ]
+        },
+        {
+          "query": "机车小、辅修计划兑现、机车临修情况及原因是定期分析主要内容之一。",
+          "ids": [
+            "U-N-J0157"
+          ]
+        },
+        {
+          "query": "机车运用定期分析就是旬、季、年度分析。",
+          "ids": [
+            "U-N-J0161"
+          ]
+        },
+        {
+          "query": "机车运用工作必须贯彻统一指挥，逐级负责的原则。",
+          "ids": [
+            "U-N-J0163"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://jtt.hunan.gov.cn/jtt/jjzdgz/aqsc/zcfg_2/gdjt/202103/t20210330_15136080.html",
+        "https://www.mot.gov.cn/yijianzhengji/201706/P020170622375185269494.pdf"
+      ],
+      "otherLinks": [
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E6%9C%BA%E8%BD%A6%E8%BF%90%E7%94%A8%E7%AE%A1%E7%90%86%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E6%80%BB%E8%BF%90%20%5B2015%5D%20314%E5%8F%B7.pdf",
+        "https://www.fsou.com.cn/html/text/chl/290/29064_1.html",
+        "https://www.qianlima.com/bid-624022794.html",
+        "https://jiqunzhihui.org.cn/a/lwfb/lglwfb/13241/",
+        "https://www.zzcbjt.com/index.php/lbd-2-12-31174",
+        "https://ahcoal.com.cn/newsinfo/11181106.html",
+        "https://www.110.com/fagui/law_178113.html"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "机务段自定的加装改造项目的机车，自实际开始时起至完成交出时止，按非运用其他统计。",
+          "ids": [
+            "U-N-J0172"
+          ]
+        },
+        {
+          "query": "挤道岔，为一般C类事故。",
+          "ids": [
+            "U-N-J0173"
+          ]
+        },
+        {
+          "query": "计算机防病毒软件可以查、杀任何种类病毒。",
+          "ids": [
+            "U-N-J0175"
+          ]
+        },
+        {
+          "query": "计算机软件和硬件之间的关系是，没有硬件，软件也能起作用。",
+          "ids": [
+            "U-N-J0176"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://xxgk.mot.gov.cn/jigou/ysfws/202609/P020260902564747445584.pdf"
+      ],
+      "otherLinks": [
+        "https://www.tup.tsinghua.edu.cn/upload/books/yz/062916-01.pdf",
+        "https://ansafe.xust.edu.cn/DownLoad/jizudiyizhang.pdf",
+        "https://www.tup.tsinghua.edu.cn/upload/books/yz/098786-01.pdf",
+        "https://www.tup.tsinghua.edu.cn/upload/books/yz/106274-01.pdf",
+        "https://www.hbgdys.cn/uploads/file1/20250321/67dce361ab833.pdf",
+        "https://law1.110.com/law_178350.html",
+        "https://www.ibm.com/cn-zh/think/topics/hardware",
+        "https://www.ibm.com/cn-zh/think/insights/firmware-vs-software",
+        "https://www.fsou.com.cn/html/text/chl/278/27804.html"
+      ]
+    }
+  ]
+}

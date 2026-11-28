@@ -1,0 +1,10 @@
+[
+  {
+    "id": "U-N-J0002",
+    "status": "verified_web",
+    "correctedText": "“特洛伊木马”是一种驻留在计算机中的恶意程序，它可以在人们不知情时操纵计算机。",
+    "explanation": "错误点是把计算机木马称为“微生物”。这里说的是恶意软件或程序，不是生物。",
+    "note": "只补充订正说明，原题和原判定保留。",
+    "sources": [{"kind":"web","title":"Microsoft Learn · 特洛伊木马恶意软件","url":"https://learn.microsoft.com/zh-cn/defender-endpoint/malware/trojans-malware","version":"2026-11-28 核对页面","quote":"特洛伊木马是一种常见的恶意软件，与病毒不同，它不能自行传播。"}]
+  }
+]

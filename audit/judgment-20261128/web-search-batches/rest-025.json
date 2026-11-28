@@ -1,0 +1,83 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "重伤10人以下属于一般事件。",
+          "ids": [
+            "sg-0222"
+          ]
+        },
+        {
+          "query": "死亡3人以上10人以下一般事故。",
+          "ids": [
+            "sg-0223"
+          ]
+        },
+        {
+          "query": "1直接经济损失5000万元以上1亿元以下属于较大事故。",
+          "ids": [
+            "sg-0224"
+          ]
+        },
+        {
+          "query": "生产安全事故责任按责任程度分为直接责任、间接责任、管理责任、领导责任等。",
+          "ids": [
+            "sg-0226"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.mem.gov.cn/gk/zfxxgkpt/fdzdgknr/202506/W020250618568788786722.pdf",
+        "https://www.caac.gov.cn/PHONE/HDJL/YJZJ/202308/P020230807451919786285.pdf",
+        "https://www.beijing.gov.cn/zhengce/zhengcefagui/qtwj/202204/W020220408409471053037.pdf",
+        "https://xxgk.mot.gov.cn/jigou/haishi/202308/t20230814_3889095.html",
+        "https://public.xinmi.gov.cn/attachment/%E9%99%84%E4%BB%B62%E7%AA%81%E5%8F%91%E4%BA%8B%E4%BB%B6%E5%88%86%E7%BA%A7%E6%A0%87%E5%87%86_20200907153006.pdf?stxaKxUkU5HbATsJI3HGAMqknlqALeBtLNz9ufK5QTFeHmO1h8itZDMlJ4KRmoz7TSy7XkT4j6vfwksMhonuIP04OS3BYYC8=",
+        "https://www.mem.gov.cn/gk/zfxxgkpt/fdzdgknr/202504/W020250516592549854566.pdf",
+        "https://www.jining.gov.cn/attach/0/204993e227a349daa5fa0f9dab6fce65.pdf",
+        "https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/tzsbs/art/2023/art_ccdfbf1b0ad247f882cc82512e057c6d.html"
+      ],
+      "otherLinks": []
+    },
+    {
+      "queries": [
+        {
+          "query": "非故障情况下，擅自切除客运列车的车载安全装置开车属于一般事件。",
+          "ids": [
+            "sg-0231"
+          ]
+        },
+        {
+          "query": "事故责任判定的原则：四不放过原则。",
+          "ids": [
+            "sg-0236"
+          ]
+        },
+        {
+          "query": "生产安全事故责任按责任关系分为：全部责任、主要责任、次要责任、一定责任、同等责任和无责任。",
+          "ids": [
+            "sg-0237"
+          ]
+        },
+        {
+          "query": "生产安全事故责任按责任程度分为：直接责任、间接责任、管理责任、领导责任。",
+          "ids": [
+            "sg-0238"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.samr.gov.cn/cms_files/filemanager/1647978232/attach/20246/c76dbe62d8a84654a6a0983309145cbf.pdf?fileName=TSG+03--2024%E3%80%8A%E7%89%B9%E7%A7%8D%E8%AE%BE%E5%A4%87%E4%BA%8B%E6%95%85%E6%8A%A5%E5%91%8A%E5%92%8C%E8%B0%83%E6%9F%A5%E5%A4%84%E7%90%86%E5%AF%BC%E5%88%99%E3%80%8B",
+        "https://jtt.gxzf.gov.cn/ztzl/jtkjybzh/P020221001675084763148.pdf",
+        "https://www.samr.gov.cn/tzsbj/zcfg/flfg/art/2021/art_d8ec5ba871464b49bfd0a0275bb57756.html",
+        "https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/tzsbs/art/2023/art_ccdfbf1b0ad247f882cc82512e057c6d.html",
+        "https://yjgl.xinjiang.gov.cn/xjyjgl/c112878/202402/97b5650c4c48465183ff33cc0ad86bd1/files/%E8%87%AA%E6%B2%BB%E5%8C%BA%E5%AE%89%E5%85%A8%E4%BA%8B%E6%95%85%E6%8A%A5%E5%91%8A%E3%80%81%E8%B0%83%E6%9F%A5%E8%AF%84%E4%BC%B0%E5%B7%A5%E4%BD%9C%E6%8C%87%E5%8D%97%281%29.pdf",
+        "https://www.mem.gov.cn/fw/flfgbz/fg/202107/t20210716_416558.shtml"
+      ],
+      "otherLinks": []
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "\"技规\" \"第323条\"",
+          "ids": [
+            "j2-1004"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第325条\"",
+          "ids": [
+            "j2-1019",
+            "j2-1022"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第328条\"",
+          "ids": [
+            "j2-1041"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第338条\"",
+          "ids": [
+            "j2-1056",
+            "j2-1057",
+            "j2-1058"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [],
+      "otherLinks": [
+        "https://nayona.cn/2001639.html",
+        "https://www.renrendoc.com/paper/535977115.html",
+        "https://www.sohu.com/a/232126119_234901",
+        "https://www.51wendang.com/doc/ec3f043f8502a102e448e9c2",
+        "https://nayona.cn/2002233.html"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "\"技规\" \"第351条\"",
+          "ids": [
+            "j2-1083",
+            "j2-1084",
+            "j2-1088",
+            "j2-1100"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第353条\"",
+          "ids": [
+            "j2-1169",
+            "j2-1172",
+            "j2-1173",
+            "j2-1175",
+            "j2-1176",
+            "j2-1178",
+            "j2-1179",
+            "j2-1181",
+            "j2-1186",
+            "j2-1187"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第359条\"",
+          "ids": [
+            "j2-1314"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第360条\"",
+          "ids": [
+            "j2-1356"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [],
+      "otherLinks": [
+        "https://kaoshi.wjx.top/vm/YDZHlDF.aspx",
+        "https://nayona.cn/2001639.html",
+        "https://nayona.cn/2002233.html",
+        "https://www.renrendoc.com/paper/317841316.html",
+        "https://www.mlzp.cc/forum.php?extra=page%3D4&mod=viewthread&tid=7118"
+      ]
+    }
+  ]
+}

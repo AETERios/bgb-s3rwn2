@@ -1,0 +1,11 @@
+{
+  "falseJudgments": 1688,
+  "statuses": {
+    "original_correction": 406,
+    "existing_verified": 118,
+    "pending": 460,
+    "verified_web": 1,
+    "bank_contrast": 695,
+    "conflict": 8
+  }
+}

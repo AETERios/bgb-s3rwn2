@@ -1,0 +1,86 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "单机挂车的辆数，线路坡度不超过10‰的区段，以10辆为限。",
+          "ids": [
+            "U-N-J0065"
+          ]
+        },
+        {
+          "query": "单机挂车时，在区间被迫停车后的防护工作由车辆乘务员负责，开车前应确认附挂辆数和通风状态是否良好。",
+          "ids": [
+            "U-N-J0067"
+          ]
+        },
+        {
+          "query": "当带电导体落地时，电流由接地点向四周扩散，由于大地存在电阻且地面越潮湿电阻越大，在电流扩散方向上远近不同点形成电势差。",
+          "ids": [
+            "U-N-J0068"
+          ]
+        },
+        {
+          "query": "当机车平均周转距离一定时，机车平均日车公里随着平均全周转时间的缩短而减少。",
+          "ids": [
+            "U-N-J0069"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://jtt.hunan.gov.cn/jtt/jjzdgz/aqsc/zcfg_2/gdjt/202103/t20210330_15136080.html",
+        "https://www.mem.gov.cn/gk/tzgg/yjglbgg/202510/P020251016556340837604.pdf",
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/gfxw/bumen/other/201805/P020220629535458197160.pdf"
+      ],
+      "otherLinks": [
+        "https://www.shititong.cn/cha-kan/shiti/0055060c-e9c2-f0c0-c066-ef0ac1c15500.html",
+        "https://www.2winpub.com/static/uploads/journalArticle/gcjsyfz0310059.pdf",
+        "https://patents.google.com/patent/CN114524004B/zh",
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E6%9C%BA%E8%BD%A6%E7%BB%9F%E8%AE%A1%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E5%8F%91%E6%94%B9%20%5B2020%5D%20203%E5%8F%B7.pdf",
+        "https://mooc1.chaoxing.com/mooc-ans/ztnodedetailcontroller/visitnodedetail?_fromV2_=&_from_=&courseId=223389211&knowledgeId=534338400&rtag="
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "当列车在运行中施行制动时，从制动开始到全列车闸瓦突然同时以最大压力压紧车轮的假定瞬间，这段时间称为制动空走距离。",
+          "ids": [
+            "U-N-J0071"
+          ]
+        },
+        {
+          "query": "导体的电阻值与导体的截面积成正比。",
+          "ids": [
+            "U-N-J0073"
+          ]
+        },
+        {
+          "query": "导体的电阻值与导体的长度成反比。",
+          "ids": [
+            "U-N-J0074"
+          ]
+        },
+        {
+          "query": "电话中断后发出的列车，应于停车后，立即从列车后方距离列车不少于800m处防护。",
+          "ids": [
+            "U-N-J0076"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://source.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202206/t20220624_327439.shtml"
+      ],
+      "otherLinks": [
+        "https://www.daowen.com/lilun/2003388.html",
+        "https://www.scribd.com/document/1062987922/%E7%94%B5%E6%9C%BA%E6%A2%B0%E5%88%B6%E5%8A%A8-EMB-%E6%8A%80%E6%9C%AF-%E4%BA%A4%E9%80%9A%E8%BF%90%E8%BE%93%E5%B7%A5%E5%85%B7%E6%96%B0%E5%9E%8B%E5%88%B6%E5%8A%A8%E7%B3%BB%E7%BB%9F-%E7%8E%8B%E5%86%9B%E4%B8%BB%E7%BC%96-%E6%9C%BA%E6%A2%B0%E5%B7%A5%E4%B8%9A%E5%87%BA%E7%89%88%E7%A4%BE-ocr",
+        "https://patentimages.storage.googleapis.com/7c/b7/1e/6b524b0a621302/CN114506366A.pdf",
+        "https://zh.wikipedia.org/wiki/%E9%93%81%E8%B7%AF%E5%88%B6%E5%8A%A8",
+        "https://img.antpedia.com/standard/files/pdfs_ora/CN-GB/472/GB%21T%203367.6-2000.pdf",
+        "https://fztr.file.gkfz.net/pdf/ae731d80c909cff40868a0dc04b656e9.pdf"
+      ]
+    }
+  ]
+}

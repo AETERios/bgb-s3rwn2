@@ -1,0 +1,17 @@
+{
+  "version": "r24",
+  "passed": 11,
+  "checks": [
+    "new users default to direct answering",
+    "legacy preference and learning dates, due records, custom cloze survive reload",
+    "legacy learnFirst=1 does not reveal judgment answer or explanation before answering",
+    "false judgment shows full source, source question number and visible changed wording after answering",
+    "optional knowledge card still works when explicitly opened",
+    "web verified explanation links directly to the checked primary source",
+    "incomplete evidence remains visibly pending",
+    "all 1688 false judgments have an evidence state; all eight conflicts stay explicit",
+    "choice and multiple choice start directly with their original options",
+    "fill question starts directly with the first input focused",
+    "desktop layout and browser execution have no errors"
+  ]
+}

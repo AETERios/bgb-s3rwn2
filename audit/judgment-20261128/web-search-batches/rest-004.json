@@ -1,0 +1,89 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "电器的机械寿命是指电器在负载操作时电器开闭的极限次数。",
+          "ids": [
+            "U-N-J0080"
+          ]
+        },
+        {
+          "query": "电器的热稳定性是指电器在指定的电路中，能承受一定值电流的热作用而不发生热损坏的能力。",
+          "ids": [
+            "U-N-J0081"
+          ]
+        },
+        {
+          "query": "动车组按固定模式限速值+6km/h确定常用固定模式限速值。",
+          "ids": [
+            "U-N-J0085"
+          ]
+        },
+        {
+          "query": "动车组无动力回送时可加挂回送过渡车，也可使用货运机车牵引。",
+          "ids": [
+            "U-N-J0089"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://std.samr.gov.cn/dcpspTools/gbPlan/download?path=%2Fzxd%2F2023000937%2F20_%E6%A0%87%E5%87%86%E8%B5%B7%E8%8D%89%2F20_WD_2023000937_%E4%BD%8E%E5%8E%8B%E5%BC%80%E5%85%B3%E8%AE%BE%E5%A4%87%E5%92%8C%E6%8E%A7%E5%88%B6%E8%AE%BE%E5%A4%87+%E7%AC%AC3%E9%83%A8%E5%88%86%3A%E5%BC%80%E5%85%B3%E3%80%81.pdf",
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/gfxw/bumen/other/201805/P020220629535458197160.pdf",
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/gfxw/202204/P020230821379496723026.pdf"
+      ],
+      "otherLinks": [
+        "https://www.jshn.com.cn/jdgcx/upload/files/2021/3/e7343823a71d9d1.pdf",
+        "https://device.panasonic.cn/ac/c/control/switch/operation/explain_term/explain_term_001.jsp",
+        "https://www.fsou.com/html/text/chl/320/32074_1.html",
+        "https://11165375.s21i.faiusr.com/61/ABUIABA9GAAgsd3wyAYom-ycvwU.pdf",
+        "https://jacksing.top/upload/sucai/%E4%B8%AD%E5%9B%BD%E9%93%81%E8%B7%AF%E6%80%BB%E5%85%AC%E5%8F%B8%E3%80%8A%E9%93%81%E8%B7%AF%E6%8A%80%E6%9C%AF%E7%AE%A1%E7%90%86%E8%A7%84%E7%A8%8B%E3%80%8B%EF%BC%88%E9%AB%98%E9%80%9F%E9%93%81%E8%B7%AF%E9%83%A8%E5%88%86%EF%BC%89.pdf",
+        "https://www.antpedia.com/standard/content_object/272135.html"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "动车组运行中对于侧向道岔和临时施工慢性引起的列车限速特殊规定为：按固定模式限速值+3km/h时确定紧急固定模式限速值。",
+          "ids": [
+            "U-N-J0090"
+          ]
+        },
+        {
+          "query": "动车组在段内接车时自机车乘务员出勤后接车时起加入支配，机车乘务员交车时取消支配。",
+          "ids": [
+            "U-N-J0091"
+          ]
+        },
+        {
+          "query": "动车组种类分为动力集中式和动力分散式动车组。",
+          "ids": [
+            "U-N-J0094"
+          ]
+        },
+        {
+          "query": "段修机车台日数不包括外段等待修理的定检机车。",
+          "ids": [
+            "U-N-J0096"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.miit.gov.cn/n1146295/n1652858/n1652930/n4509627/c6042752/part/6043022.pdf",
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/gfxw/zuti/other/201804/P020220629526032049052.pdf",
+        "https://big5.mot.gov.cn/gate/big5/xxgk.mot.gov.cn/2020/xzgfxwj/202504/W020250415328716085465.pdf",
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202206/t20220624_327439.shtml"
+      ],
+      "otherLinks": [
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E6%9C%BA%E8%BD%A6%E7%BB%9F%E8%AE%A1%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E5%8F%91%E6%94%B9%20%5B2020%5D%20203%E5%8F%B7.pdf",
+        "https://www.renrendoc.com/paper/107391853.html",
+        "https://law1.110.com/law_178350.html",
+        "https://jinkex.obs.cn-north-4.myhuaweicloud.com/jinke/20210326/5c9908e5e2dedd42ff5dd1fc91febf34.pdf",
+        "https://pdf.dfcfw.com/pdf/H3_AP202408151639297468_1.pdf"
+      ]
+    }
+  ]
+}

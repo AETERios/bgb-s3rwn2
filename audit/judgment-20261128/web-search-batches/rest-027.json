@@ -1,0 +1,88 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "某次事故中造成直接经济损失达1800万元人民币属于一般事故构成条件。",
+          "ids": [
+            "sg-0261"
+          ]
+        },
+        {
+          "query": "某次铁路隧道塌方造成28死亡、15人失踪属于重大事故构成条件。",
+          "ids": [
+            "sg-0262"
+          ]
+        },
+        {
+          "query": "某高架线路列车三节车厢掉落高架造成45小时连续中断正线行车属于较大事故构成。",
+          "ids": [
+            "sg-0263"
+          ]
+        },
+        {
+          "query": "某车站电梯故障，电梯轿厢滞留人员65分钟属于事件苗头。",
+          "ids": [
+            "sg-0266"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/xzzf/202111/t20211111_261219.shtml",
+        "https://jtt.gxzf.gov.cn/ztzl/jtkjybzh/P020221001675084763148.pdf",
+        "https://jtw.beijing.gov.cn/xxgk/flfg/jthy/201912/P020191231387579422162.pdf",
+        "https://xxgk.mot.gov.cn/2020/jigou/ysfws/202609/P020260902546355677181.pdf",
+        "https://amr.sz.gov.cn/attachment/1/1476/1476631/11491176.pdf",
+        "https://xzfg.moj.gov.cn/law/download?LawID=1051&t=1782215922359&type=pdf",
+        "https://source.nra.gov.cn/xxgk/gkml/ztjg/gfzd/gfxw/zuti/jgzf/202606/t20260612_351429.shtml",
+        "https://www.fujian.gov.cn/hdjl/hdjlzsk/sscjdglj/tzsb/tzsbjczs/202301/t20230131_6101036...."
+      ],
+      "otherLinks": [
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E4%BA%A4%E9%80%9A%E4%BA%8B%E6%95%85%E8%B0%83%E6%9F%A5%E5%A4%84%E7%90%86%E8%A7%84%E5%88%99%E3%80%8B-%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD%E9%93%81%E9%81%93%E9%83%A8%E4%BB%A4%E7%AC%AC30%E5%8F%B7.pdf"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "应停载客列车未停站通过：系指因有关行车人员违反劳动纪律、违反规章制度致使应停载客列车在站通过。且包括行车调度根据列车运行情况临时调",
+          "ids": [
+            "sg-0269"
+          ]
+        },
+        {
+          "query": "凡自身带有动力能独立行驶的车辆都是机车",
+          "ids": [
+            "sg-0270"
+          ]
+        },
+        {
+          "query": "同等责任：各方均负有事故损失及不良影响的相同的责任",
+          "ids": [
+            "sg-0276"
+          ]
+        },
+        {
+          "query": "列车冒进信号不含因列车超速，致使列车采取紧急制动后越出信号机的。",
+          "ids": [
+            "sg-0277"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.moj.gov.cn/pub/sfbgw/flfggz/flfggzbmgz/200801/t20080114_144478.html",
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202206/t20220624_327439.shtml",
+        "https://jtt.gxzf.gov.cn/ztzl/jtkjybzh/P020230414565440390236.pdf"
+      ],
+      "otherLinks": [
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E4%BA%A4%E9%80%9A%E4%BA%8B%E6%95%85%E8%B0%83%E6%9F%A5%E5%A4%84%E7%90%86%E8%A7%84%E5%88%99%E3%80%8B-%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD%E9%93%81%E9%81%93%E9%83%A8%E4%BB%A4%E7%AC%AC30%E5%8F%B7.pdf",
+        "https://rail-urban.com/index.php/content-1066",
+        "https://www.hbgdys.cn/uploads/file1/20250321/67dce361ab833.pdf",
+        "https://www.safehoo.com/item/807_3.aspx",
+        "https://journal.ecjtu.edu.cn/hdjtdx/Article/pdf/20220828001"
+      ]
+    }
+  ]
+}

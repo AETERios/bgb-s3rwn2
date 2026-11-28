@@ -1,0 +1,78 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "\"行规\" \"第34条\"",
+          "ids": [
+            "U-W-J0096"
+          ]
+        },
+        {
+          "query": "\"行规\" \"第150条\"",
+          "ids": [
+            "U-W-J0105"
+          ]
+        },
+        {
+          "query": "\"机运规\" \"第80条\"",
+          "ids": [
+            "U-W-J0166"
+          ]
+        },
+        {
+          "query": "\"机运规\" \"第85条\"",
+          "ids": [
+            "U-W-J0167"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primary": [],
+      "links": [
+        "https://max.book118.com/html/2019/0610/7122164130002032.shtm",
+        "https://nayona.cn/2001690.html",
+        "https://www.megbook.com.hk/mall/detail.jsp?proID=3136468",
+        "https://www.qj.gov.cn/html/2025/ghjh_0211/271606.html"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "\"机运细\" \"第51条\"",
+          "ids": [
+            "U-W-J0177",
+            "U-W-J0178"
+          ]
+        },
+        {
+          "query": "\"机统规\" \"第22条\"",
+          "ids": [
+            "U-W-J0231"
+          ]
+        },
+        {
+          "query": "\"机统规\" \"第38条\"",
+          "ids": [
+            "U-W-J0232"
+          ]
+        },
+        {
+          "query": "\"机调规\" \"第8条\"",
+          "ids": [
+            "U-W-J0239"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primary": [],
+      "links": [
+        "https://www.econlaw.org.cn/list_35/765.html",
+        "https://www.wipo.int/wipolex/en/text/475203",
+        "https://www.yztiantailaw.com/news/2026-09-24-ai-yijian-jiedu-1.html",
+        "https://www.scribd.com/document/729725086/%25E9%2593%2581%25E8%25B7%25AF%25E6%258A%2580%25E6%259C%25AF%25E7%25AE%25A1%25E7%2590%2586%25E8%25A7%2584%25E7%25A8%258B-%25E9%25AB%2598%25E9%2593%2581%25E9%2583%25A8%25E5%2588%2586-%25E5%25B7%25B2%25E6%258C%2589%25E9%2593%2581%25E6%2580%25BB%25E7%25A7%2591%25E6%258A%2580-2017-221%25E5%258F%25B7%25E7%25AC%25AC%25E4%25B8%2580%25E6%25AC%25A1%25E4%25BF%25AE%25E8%25AE%25A2"
+      ]
+    }
+  ]
+}

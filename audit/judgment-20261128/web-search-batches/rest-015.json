@@ -1,0 +1,89 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "实行包乘制机车乘务员人数按配属机车有人、有车和长期备用机车不加预备率的原则进行计算。",
+          "ids": [
+            "U-N-J0258"
+          ]
+        },
+        {
+          "query": "实行长交路轮乘制的机车发生临修时，由机车配属段填报。",
+          "ids": [
+            "U-N-J0259"
+          ]
+        },
+        {
+          "query": "使用磁场削弱时，要在牵引电机端电压、电流接近或达到额定值时，逐级进行。",
+          "ids": [
+            "U-N-J0260"
+          ]
+        },
+        {
+          "query": "使用无线调车灯显信号时，解锁信号为两个红灯。",
+          "ids": [
+            "U-N-J0262"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://std.samr.gov.cn/dcpspTools/gbPlan/download?path=%2Fzxd%2F2020101698%2F20_%E6%A0%87%E5%87%86%E8%B5%B7%E8%8D%89%2F20_WD_2020101698_%E9%93%81%E8%B7%AF%E6%97%85%E5%AE%A2%E8%BF%90%E8%BE%93%E8%AF%8D%E6%B1%87.pdf",
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/gfxw/202204/P020220405516454631333.pdf",
+        "https://www.nra.gov.cn/jglz/fgzd/gfwj/201804/P020220801568207502170.pdf"
+      ],
+      "otherLinks": [
+        "https://law1.110.com/law_178350.html",
+        "https://zsm.shangxueba.com/1C6E858E.html",
+        "https://falvdb.com/law/codex/acts/362035",
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E9%93%81%E8%B7%AF%E6%9C%BA%E8%BD%A6%E7%BB%9F%E8%AE%A1%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E5%8F%91%E6%94%B9%20%5B2020%5D%20203%E5%8F%B7.pdf",
+        "https://www.manuallib.com/download/pdf2/ETD-790-DIRECT-CURRENT-SPEED-GOVERNOR-SOLUTIONS-MANUAL-790-SCRPY-16-USA-VERSION-3.PDF",
+        "https://www.schaeffler.com/remotemedien/media/_shared_media/08_media_library/01_publications/schaeffler_2/catalogue_1/downloads_6/re1_zh_cn.pdf",
+        "https://www.mlzp.cc/forum.php?mod=viewthread&tid=6400"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "使用无线调车灯显信号时，起动信号为绿、红灯交替后绿灯长亮。",
+          "ids": [
+            "U-N-J0264"
+          ]
+        },
+        {
+          "query": "司机根据列车前部距出站信号机实际距离，申请列车允许前行距离，在列车调度员下达调度命令时，方可使用列车运行监控记录装置“特殊前行”功",
+          "ids": [
+            "U-N-J0268"
+          ]
+        },
+        {
+          "query": "所有车站客货列车起停车附加时分都规定为1分钟。",
+          "ids": [
+            "U-N-J0270"
+          ]
+        },
+        {
+          "query": "提高支配机车日车公里，应提高非运用机车的台日数。",
+          "ids": [
+            "U-N-J0271"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://source.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202206/t20220624_327439.shtml",
+        "https://xxgk.mot.gov.cn/xzgfxwj/202504/W020250415328716085465.pdf",
+        "https://scjgj.beijing.gov.cn/hdjl/myzj/bzzxdyjzj/202101/P020210107494415501412.pdf",
+        "https://www.mot.gov.cn/yijianzhengji/201710/P020171024479432660729.pdf"
+      ],
+      "otherLinks": [
+        "https://www.renrendoc.com/paper/185148911.html",
+        "https://m.duote.com/tech/tiku/328040.html",
+        "https://dbba.sacinfo.org.cn/attachment/downloadStdFile?pk=623d828788f39397b4ba6a7fa73c85bc79d69eb83c9e580ac0fb4eff731b314e",
+        "https://www.wangxiao.cn/UserCenter/zhangjie.aspx?id=58658&type=1"
+      ]
+    }
+  ]
+}

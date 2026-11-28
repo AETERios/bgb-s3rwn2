@@ -1,0 +1,84 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "\"机统规\" \"第43条\"",
+          "ids": [
+            "U-W-J0050"
+          ]
+        },
+        {
+          "query": "\"机调规\" \"第12条\"",
+          "ids": [
+            "U-W-J0055",
+            "U-W-J0145",
+            "U-W-J0241",
+            "U-W-J0318"
+          ]
+        },
+        {
+          "query": "\"机运细\" \"第32条\"",
+          "ids": [
+            "U-W-J0080",
+            "U-W-J0174",
+            "U-W-J0350"
+          ]
+        },
+        {
+          "query": "\"机运细\" \"第33条\"",
+          "ids": [
+            "U-W-J0081"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primary": [],
+      "links": [
+        "https://www.mac.gov.tw/cn/News_Content.aspx?n=FF87AB3AC4507DE3&s=BAB135059FBD2282&sms=4A22C80D8C659C54",
+        "https://www.yeyulingfeng.com/wendang/163210.html",
+        "https://www.beijing.gov.cn/gongkai/guihua/wngh/cqgh/202004/t20200409_1798426.html",
+        "https://www.moj.gov.cn/pub/sfbgw/flfggz/flfggzbmgz/200703/t20070320_144322.html",
+        "https://najieip.com/najie/blog/index.html"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "\"机运细\" \"第34条\"",
+          "ids": [
+            "U-W-J0082"
+          ]
+        },
+        {
+          "query": "\"机运细\" \"第50条\"",
+          "ids": [
+            "U-W-J0086"
+          ]
+        },
+        {
+          "query": "\"机运细\" \"第71条\"",
+          "ids": [
+            "U-W-J0087"
+          ]
+        },
+        {
+          "query": "\"行规\" \"第32条\"",
+          "ids": [
+            "U-W-J0095"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primary": [],
+      "links": [
+        "https://news.cjn.cn/24hour/wh24/201004/t1113215.htm",
+        "https://cjfx.cufe.edu.cn/__local/3/9A/2D/EAF8C7E18E3F1C5A4C9D6439BE1_E6AAE102_10D3AF.pdf",
+        "https://docs.cn-healthcare.com/sharedoc/src_files/20170615/38db0c0843024ef6858114730c980e0b.pdf",
+        "https://nayona.cn/2001690.html",
+        "https://www.wenjuan.com/s/j63eQz0/"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "《机务行车安全管理规则》规定遇有列车运行监控记录装置基础数据换装，运用车间要有干部坐岗，加强出勤指导，安排干部添乘。",
+          "ids": [
+            "U-N-J0011"
+          ]
+        },
+        {
+          "query": "《机务行车安全管理规则》规定遇有列车运行图调整，运用车间要有干部坐岗，加强出勤指导，安排干部添乘。",
+          "ids": [
+            "U-N-J0012"
+          ]
+        },
+        {
+          "query": "《列车牵引计算规程》规定，机车牵引力以车钩牵引力为计算标准。",
+          "ids": [
+            "U-N-J0013"
+          ]
+        },
+        {
+          "query": "《列车牵引计算规程》规定，机车牵引力以指示牵引力为计算标准。",
+          "ids": [
+            "U-N-J0015"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primary": [],
+      "links": [
+        "https://hbba.sacinfo.org.cn/stdDetail/55b743680504d000938791f03e84182e4559ca26bf26e5baac7c26765cae8928",
+        "https://www.jhstljc.cn/news/61.html",
+        "https://www.sohu.com/a/298075592_120061015",
+        "https://source.nra.gov.cn/xwzx/xwxx/xwlb/202412/t20241224_347568.shtml",
+        "https://www.110.com/fagui/law_143356.html",
+        "https://www.ttbz.org.cn/Home/PdfFileStreamGet/c3QsMTI5NzM2",
+        "https://www.guifanku.com/916039.html"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "《铁路机车操作规则》规定机车出段挂车到达站、段分界点停车，签认出段时分，按信号显示出段。",
+          "ids": [
+            "U-N-J0017"
+          ]
+        },
+        {
+          "query": "《铁路机车操作规则》规定机车故障后20分钟内不能恢复运行时，司机应迅速请求救援。",
+          "ids": [
+            "U-N-J0018"
+          ]
+        },
+        {
+          "query": "《铁路机车操作规则》规定列车起动时，应检查自阀、单阀手柄是否在正常位置及各仪表的显示状态，做到起车快、加速快、防止空转。",
+          "ids": [
+            "U-N-J0020"
+          ]
+        },
+        {
+          "query": "《铁路机车操作规则》规定列车运行中或未停稳前，换向手柄可以换向操作。",
+          "ids": [
+            "U-N-J0022"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primary": [],
+      "links": [
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/gfxw/202204/P020230821379496723026.pdf",
+        "https://upload.wikimedia.org/wikipedia/commons/a/ab/China_Ministry_of_Railways_Operational_Rules_of_Railway_Locomotives.pdf",
+        "https://www.mlzp.cc/portal.php?_dsign=c1f61eb3&aid=282&mod=view&page=1",
+        "https://www.nra.gov.cn/jglz/fgzd/gfwj/bm/qtbm/202204/P020220406014325966514.pdf",
+        "https://www.ttbz.org.cn/Home/PdfFileStreamGet/c3QsMTI5NzM2"
+      ]
+    }
+  ]
+}

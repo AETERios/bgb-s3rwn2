@@ -1,0 +1,86 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "。事故的统计可按事故类别进行统计。分为行车事故、施工事故、工伤事故、火灾事故等。",
+          "ids": [
+            "sg-0292"
+          ]
+        },
+        {
+          "query": "信号升级显示系指由于某种信号连锁条件错误或有关人员违章操作，信号机设备发生应停信号显示为通过信号。",
+          "ids": [
+            "sg-0295"
+          ]
+        },
+        {
+          "query": "火灾事故以安全技术部定性为准，事故处理比照本规定进行。",
+          "ids": [
+            "sg-0296"
+          ]
+        },
+        {
+          "query": "设备质量不良造成事故时，判定为施工维修部门责任。",
+          "ids": [
+            "sg-0297"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.nea.gov.cn/2011-08/17/c_131054108.htm",
+        "https://www.stats.gov.cn/fw/bmdcxmsp/bmzd/202506/t20250605_1960029.html",
+        "https://yjglt.yn.gov.cn/uploadfile/yjglt_files/P020200414613943472592.pdf"
+      ],
+      "otherLinks": [
+        "https://jtf.bjtu.edu.cn/bshgl/tlf2/bmgz/153747.htm",
+        "https://ccsa-share-prod.safetyinformation.cn/pdf/1612026768/4f08e012663b4988b617226148e70a6b/20201125--%E7%94%9F%E4%BA%A7%E5%AE%89%E5%85%A8%E4%BA%8B%E6%95%85%E7%BB%9F%E8%AE%A1%E8%B0%83%E6%9F%A5%E5%88%B6%E5%BA%A6%EF%BC%88%E5%BA%94%E6%80%A5%E3%80%942020%E3%80%9593%E5%8F%B7%EF%BC%89.pdf",
+        "https://www.kleyou.com/html/text/chl/277/27707_8.html",
+        "https://cli.im/knowledge/business-scenarios/safety-production/safety-production/resources/certified-safety-engineer/materials/material-010-chapter-08"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "运营总部安全技术部是运营总部内部事故的最终裁定机构。",
+          "ids": [
+            "sg-0299"
+          ]
+        },
+        {
+          "query": "超速运行是指列车的运行速度超过线路、车辆、规章等设备要求和安全规定的最高速度。包括行车组织、服务需要进行的临时限速，ATP保护范围",
+          "ids": [
+            "sg-0300"
+          ]
+        },
+        {
+          "query": "为了落实《中华人民共和国安全生产法》，贯彻“高度集中、统一指挥、逐级负责”的安全工作方针",
+          "ids": [
+            "sg-0302"
+          ]
+        },
+        {
+          "query": "系指客运列车客室门未关闭或未关闭好发车，故障车门已越出站台或进入区间。",
+          "ids": [
+            "sg-0320-d3"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://xxgk.mot.gov.cn/xzgfxwj/202504/t20250414_4166929.html",
+        "https://www.mem.gov.cn/fw/flfgbz/fg/202107/t20210716_416558.shtml"
+      ],
+      "otherLinks": [
+        "https://qxb-img-osscache.qixin.com/standards/a16c2af5f944beacf75914d7c9598658.pdf",
+        "https://www.bj-tct.com/paper/pdf/12.pdf",
+        "https://www.dgjtjt.com.cn/dgluqiao/zbgg/202312/f5d9f4a41b154cb9a9d9d9a5fa822fad/files/df31cb171b2a4675b94068b8ee930f6d.pdf",
+        "https://certification.camet.org.cn/upload/attachment/2019-5/a889890a-a564-40bb-987c-f0a21b222e7f.pdf",
+        "https://rail-urban.com/index.php/content-1066",
+        "https://www.scribd.com/document/996106842/%E5%9F%8E%E5%B8%82%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E5%85%A8%E8%87%AA%E5%8A%A8%E8%BF%90%E8%A1%8C%E7%B3%BB%E7%BB%9F%E8%BF%90%E8%90%A5%E9%9C%80%E6%B1%82%E5%AF%BC%E5%88%99-%E7%99%BD%E7%9A%AE%E4%B9%A6"
+      ]
+    }
+  ]
+}

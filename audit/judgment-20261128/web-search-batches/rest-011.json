@@ -1,0 +1,89 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "列车等线和超、欠轴情况是日常分析主要内容之一。",
+          "ids": [
+            "U-N-J0195"
+          ]
+        },
+        {
+          "query": "列车分部运行将车辆拉向两端车站时，以拉向前方站的第一次到达时分为准。",
+          "ids": [
+            "U-N-J0197"
+          ]
+        },
+        {
+          "query": "列车及调车作业中，货物列车脱轨2辆以上，5辆以下，为一般B类事故。",
+          "ids": [
+            "U-N-J0198"
+          ]
+        },
+        {
+          "query": "列车平均总重包括单机牵引车辆的吨公里数和走行公里数。",
+          "ids": [
+            "U-N-J0201"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://source.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202206/t20220624_327440.shtml",
+        "https://source.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202206/t20220624_327439.shtml",
+        "https://www.bynr.gov.cn/xxgk/zfgb/2023/202306/szfbgswj/202312/P020231213547759180086.pdf",
+        "https://xxgk.mot.gov.cn/jigou/ysfws/202609/P020260902564747445584.pdf",
+        "https://source.nra.gov.cn/xxgk/gkml/ztjg/gfzd/gfxw/zuti/jgzf/202606/t20260612_351429.shtml"
+      ],
+      "otherLinks": [
+        "https://anli.chinazy.org/upload_dir/files/2015/08/28/63704c9eaaef46ef712a986a43c14bba.pdf",
+        "https://www.110.com/fagui/law_178113.html",
+        "https://www.fsou.net/html/text/chl/278/27801_1.html",
+        "https://www.sohu.com/a/119376491_475129",
+        "https://www.wangxiao.cn/UserCen..."
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "列车司机在列车运行中，遇机车信号发生故障时，列车应在前方站停车报告。",
+          "ids": [
+            "U-N-J0204"
+          ]
+        },
+        {
+          "query": "列车调度员接到热轴报告后，应按热轴预报等级要求果断处理。必要时，立即安排停车检查或维持运行。",
+          "ids": [
+            "U-N-J0206"
+          ]
+        },
+        {
+          "query": "列车调度指挥系统由铁路局、车站、机务段三级构成。",
+          "ids": [
+            "U-N-J0208"
+          ]
+        },
+        {
+          "query": "列车通过减速地点标时，运行限制速度为标明的速度，未标明时为20km/h。",
+          "ids": [
+            "U-N-J0210"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/bmgz/202206/t20220624_327439.shtml",
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/gfxw/202204/P020220405517313420408.pdf",
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/gfxw/202204/P020220405517339484893.pdf",
+        "https://std.samr.gov.cn/dcpspTools/gbPlan/download?path=%2Fzxd%2F2020101135%2F20_%E6%A0%87%E5%87%86%E8%B5%B7%E8%8D%89%2F20_WD_2020101135_%E5%9F%8E%E5%B8%82%E8%BD%A8%E9%81%93%E4%BA%A4%E9%80%9A%E8%BF%90%E8%90%A5%E5%AE%89%E5%85%A8%E8%AF%84%E4%BC%B0%E8%A7%84%E8%8C%83+%E7%AC%AC3%E9%83%A8%E5%88%86%EF%BC%9A.pdf",
+        "https://xxgk.mot.gov.cn/xzgfxwj/202504/W020250415328716085465.pdf"
+      ],
+      "otherLinks": [
+        "https://www.scrc.edu.cn/jwc/upload/files/2025/3/828aaa73fe8d6641.pdf",
+        "https://jacksing.top/upload/sucai/%E4%B8%AD%E5%9B%BD%E9%93%81%E8%B7%AF%E6%80%BB%E5%85%AC%E5%8F%B8%E3%80%8A%E9%93%81%E8%B7%AF%E6%8A%80%E6%9C%AF%E7%AE%A1%E7%90%86%E8%A7%84%E7%A8%8B%E3%80%8B%EF%BC%88%E6%99%AE%E9%80%9F%E9%93%81%E8%B7%AF%E9%83%A8%E5%88%86%EF%BC%89.pdf",
+        "https://www.s..."
+      ]
+    }
+  ]
+}

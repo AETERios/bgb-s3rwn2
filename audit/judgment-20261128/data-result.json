@@ -1,0 +1,15 @@
+{
+  "baseline": "9af948e3a1e4b34d1bcda343fed827af7b31498d",
+  "originalDatasetsUnchanged": 8,
+  "falseJudgments": 1688,
+  "statuses": {
+    "original_correction": 406,
+    "existing_verified": 118,
+    "pending": 460,
+    "verified_web": 1,
+    "bank_contrast": 695,
+    "conflict": 8
+  },
+  "allPendingSearched": true,
+  "sourceQuotesValidated": true
+}

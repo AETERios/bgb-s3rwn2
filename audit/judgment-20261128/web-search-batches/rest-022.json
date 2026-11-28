@@ -1,0 +1,97 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "\"技规\" \"第231条\"",
+          "ids": [
+            "j2-0069",
+            "j2-0085"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第249条\"",
+          "ids": [
+            "j2-0185",
+            "j2-0187",
+            "j2-0189",
+            "j2-0194",
+            "j2-0197",
+            "j2-0203",
+            "j2-0204",
+            "j2-0207"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第253条\"",
+          "ids": [
+            "j2-0265",
+            "j2-0266",
+            "j2-0267",
+            "j2-0269",
+            "j2-0271"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第254条\"",
+          "ids": [
+            "j2-0296",
+            "j2-0297",
+            "j2-0298"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [],
+      "otherLinks": [
+        "https://max.book118.com/html/2019/0801/7042013044002044.shtm",
+        "https://q.qcds.com/content-detail/EQmQ0",
+        "https://www.mlzp.cc/portal.php?aid=5732&mod=view",
+        "https://www.shititong.cn/cha-kan/tikuheji/CB7A32F626C0000196586F341B0A15A2.html",
+        "https://nayona.cn/2001820.html"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "\"技规\" \"第256条\"",
+          "ids": [
+            "j2-0311",
+            "j2-0312",
+            "j2-0324",
+            "j2-0325"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第304条\"",
+          "ids": [
+            "j2-0896"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第321条\"",
+          "ids": [
+            "j2-0980",
+            "j2-0981"
+          ]
+        },
+        {
+          "query": "\"技规\" \"第322条\"",
+          "ids": [
+            "j2-0999"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [],
+      "otherLinks": [
+        "https://www.mlzp.cc/portal.php?aid=5732&mod=view",
+        "https://zsm.shangxueba.com/7805B3D7.html",
+        "https://www.qingsuyun.com/lib/d/6001204800130057/",
+        "https://www.qingsuyun.com/lib/d/6001204800130055/",
+        "https://www.renrendoc.com/paper/480963780.html"
+      ]
+    }
+  ]
+}

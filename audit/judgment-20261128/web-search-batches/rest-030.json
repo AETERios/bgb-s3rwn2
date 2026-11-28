@@ -1,0 +1,87 @@
+{
+  "checkedAt": "2026-11-28",
+  "batches": [
+    {
+      "queries": [
+        {
+          "query": "附挂回送机车应挂于本务机车次位，每列不得超过 1.2 台",
+          "ids": [
+            "dv-0018"
+          ]
+        },
+        {
+          "query": "CTCS-1.8级列控车载设备按CTCS-3级控车时的模式有完全监控、引导、目视行车、调车、休眠、隔离和待机等模式",
+          "ids": [
+            "dv-0052"
+          ]
+        },
+        {
+          "query": "动车组列车在CTCS-1.2级区段与CTCS-0/1级区段级间自动转换失败时，司机应立即报告列车调度员，并按下述规定办理：\n由CT",
+          "ids": [
+            "dv-0062"
+          ]
+        },
+        {
+          "query": "动车组列车在CTCS-1.8级区段与CTCS-2级区段级间自动转换失败时，司机应立即报告列车调度员，并按下述规定办理：\n由CTCS",
+          "ids": [
+            "dv-0065"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://source.nra.gov.cn/xxgk/gkml/ztjg/gfzd/gfxw/bumen/other/201803/P020220629534412302602.pdf",
+        "https://www.nra.gov.cn/jglz/fgzd/gfwj/201803/P020220801568066767094.pdf",
+        "https://www.nra.gov.cn/jglz/fgzd/gfwj/bm/qtbm/202204/P020220406013647181839.pdf",
+        "https://source.nra.gov.cn/xxgk/gkml/ztjg/gfzd/gfxw/bumen/other/201803/P020220629534397334056.pdf"
+      ],
+      "otherLinks": [
+        "https://jacksing.top/upload/sucai/%E4%B8%AD%E5%9B%BD%E9%93%81%E8%B7%AF%E6%80%BB%E5%85%AC%E5%8F%B8%E3%80%8A%E9%93%81%E8%B7%AF%E6%8A%80%E6%9C%AF%E7%AE%A1%E7%90%86%E8%A7%84%E7%A8%8B%E3%80%8B%EF%BC%88%E9%AB%98%E9%80%9F%E9%93%81%E8%B7%AF%E9%83%A8%E5%88%86%EF%BC%89.pdf",
+        "https://sub2.dlust.edu.cn/syzx/uploadfile/file/20240113/20240113152602_66730.pdf",
+        "https://www.scribd.com/document/729725086/%25E9%2593%2581%25E8%25B7%25AF%25E6%258A%2580%25E6%259C%25AF%25E7%25AE%25A1%25E7%2590%2586%25E8%25A7%2584%25E7%25A8%258B-%25E9%25AB%2598%25E9%2593%2581%25E9%2583%25A8%25E5%2588%2586-%25E5%25B7%25B2%25E6%258C%2589%25E9%2593%2581%25E6%2580%25BB%25E7%25A7%2591%25E6%258A%2580-2017-221%25E5%258F%25B7%25E7%25AC%25AC%25E4%25B8%2580%25E6%25AC%25A1%25E4%25BF%25AE%25E8%25AE%25A2",
+        "https://www.scribd.com/document/1020982247/p-020220629525207307150"
+      ]
+    },
+    {
+      "queries": [
+        {
+          "query": "空调失效超过12 min不能恢复但列车能够正常运行时，列车长可视情况通知司机向列车调度员提出在前方最近客运站停车的请求，列车调度员",
+          "ids": [
+            "dv-0072"
+          ]
+        },
+        {
+          "query": "动车组列车反方向运行时，在CTCS-1.8级区段，CTCS-3级列控系统最高允许速度为300 km/h，CTCS-2级列控系统最高",
+          "ids": [
+            "dv-0075"
+          ]
+        },
+        {
+          "query": "为避免和减少机车乘务员超劳，铁路局列车、机车调度员要做好以下工作：\n1. 提高日计划编制质量，及时准确铺画下达3-2.4小时阶段计",
+          "ids": [
+            "dv-0148"
+          ]
+        },
+        {
+          "query": "附挂回送机车应挂于本务机车次位，每列不得超过1.2台",
+          "ids": [
+            "dv-0160"
+          ]
+        }
+      ],
+      "status": "searched",
+      "primarySources": [
+        "https://source.nra.gov.cn/jglz/gcjg/fggz/202610/P020261029394777487840.pdf",
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/gfzd/gfxw/zuti/other/201803/P020220629525192231786.pdf",
+        "https://www.nra.gov.cn/xxgk/gkml/ztjg/bzgf/gcjshzjbz/jsbz/202410/P020241029635228146872.pdf",
+        "https://www.nra.gov.cn/jglz/fgzd/gfwj/bm/qtbm/202204/P020220406014325966514.pdf",
+        "https://www.nra.gov.cn/jglz/fgzd/gfwj/zt/qt/202204/P0202204..."
+      ],
+      "otherLinks": [
+        "https://jacksing.top/upload/sucai/%E3%80%8A%E6%9C%BA%E5%8A%A1%E8%A1%8C%E8%BD%A6%E5%AE%89%E5%85%A8%E7%AE%A1%E7%90%86%E8%A7%84%E5%88%99%E3%80%8B-%E9%93%81%E6%80%BB%E8%BF%90%20%5B2014%5D%20388%E5%8F%B7.pdf",
+        "https://www.scribd.com/document/729725086/%25E9%2593%2581%25E8%25B7%25AF%25E6%258A%2580%25E6%259C%25AF%25E7%25AE%25A1%25E7%2590%2586%25E8%25A7%2584%25E7%25A8%258B-%25E9%25AB%2598%25E9%2593%2581%25E9%2583%25A8%25E5%2588%2586-%25E5%25B7%25B2%25E6%258C%2589%25E9%2593%2581%25E6%2580%25BB%25E7%25A7%2591%25E6%258A%2580-2017-221%25E5%258F%25B7%25E7%25AC%25AC%25E4%25B8%2580%25E6%25AC%25A1%25E4%25BF%25AE%25E8%25AE%25A2",
+        "https://www.110.com/fagui/law_143356.html"
+      ]
+    }
+  ]
+}
