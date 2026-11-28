@@ -133,7 +133,7 @@ $('ignore-punctuation').checked=!!state.ignorePunctuation;$('ignore-punctuation'
 function saveOnExit(){flushDraft();updateClock();persist();}
 window.addEventListener('pagehide',saveOnExit);document.addEventListener('visibilitychange',()=>{if(document.hidden)saveOnExit();else{updateClock();renderClock();}});
 async function init(){
-  try{const response=await fetch('./audit/jidiao-merged-20261126/collection-data.json?v=20261128-r22');if(!response.ok)throw Error('HTTP '+response.status);collection=await response.json();
+  try{const response=await fetch('./audit/jidiao-merged-20261126/collection-data.json?v=20261128-r23');if(!response.ok)throw Error('HTTP '+response.status);collection=await response.json();
     groupMap=new Map(collection.groups.map(g=>[g.id,g]));sourceMap=new Map(collection.originals.map(s=>[s.sourceId,s]));const ready=collection.groups.filter(g=>g.passages.length).length;
     $('bank-summary').textContent=`${ready} 组可默写 · ${collection.groups.length-ready} 组查原题 · 原文完整保留`;
     $('book-filter').innerHTML='<option value="">全部规章</option>'+[...new Set(collection.groups.map(g=>g.book))].map(b=>`<option>${escapeHTML(b)}</option>`).join('');

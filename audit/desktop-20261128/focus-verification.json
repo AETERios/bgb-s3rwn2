@@ -1,0 +1,15 @@
+{
+  "passed": 9,
+  "checks": [
+    "Camera never auto-starts and plant reflects recorded focus minutes",
+    "Permission denial is recoverable and does not claim active monitoring",
+    "Explicit start requests video only; paused clock disables camera frames",
+    "Phone persistence triggers a sharp reminder, with cooldown and no pause/break alerts",
+    "Absence needs configured grace period and can be disabled for paper dictation",
+    "Closing camera stops every track; reload preserves preferences and requires another click",
+    "Comfort layout fits desktop and camera controls fit narrow screens",
+    "Bundled CPU models detect a real phone and upstream portrait; blank frame has no phone",
+    "Production camera startup with fake media completes, detects, then releases device"
+  ],
+  "errors": []
+}
