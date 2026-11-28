@@ -1,0 +1,19 @@
+{
+  "passed": 13,
+  "checks": [
+    "All eight existing embedded datasets byte-identical",
+    "Desktop layout uses three columns, readable editor, no overflow",
+    "Character diff detects substitutions, omissions, additions and punctuation",
+    "Reference can be hidden or shown, blank submission is rejected",
+    "Draft persists through group change and reload; exact comparison works",
+    "Search and filter, source-only groups retain originals without inventing text",
+    "Plan validates minutes and updates daily target without changing active round",
+    "Focus elapsed time, pause, round end, and breaks are counted correctly",
+    "Cross-midnight focus is split between days; reload restores timer and plan",
+    "Legacy storage remains byte-identical and no runtime errors",
+    "Running timer survives reload and switching phase preserves focus totals",
+    "Laptop and mobile layouts have no horizontal overflow",
+    "Previously loaded desktop page and full collection work offline"
+  ],
+  "errors": []
+}
