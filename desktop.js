@@ -51,16 +51,24 @@ function renderReference(){
   }else if(referenceVisible){$('reference-body').innerHTML=current.passages.map((p,i)=>`<p>${escapeHTML(p.text)}<span class="source-label">原文 ${i+1} · ${p.sources.map(escapeHTML).join('、')}</span></p>`).join('');}
   else $('reference-body').innerHTML='<div class="covered">原文已遮住。<br>先凭记忆写，再对照补齐。<br>需要时可以点击“显示原文”。</div>';
 }
+function passageSource(p){return p.sources.map(id=>sourceMap.get(id)).find(s=>s.kind==='r')||sourceMap.get(p.sources[0]);}
+function questionHTML(source){
+  const q=source.q,kind={f:'填空',c:'单选',m:'多选',j:'判断',r:'问答'}[source.kind];
+  const stem=q.q.replace(/\{\{blank(?::[^}]*)?\}\}/g,'______');
+  return `<span class="question-source">题目 · ${kind} · ${escapeHTML(source.sourceId)}</span><div class="question-stem">${escapeHTML(stem)}</div>`+((q.k==='c'||q.k==='m')?`<ol type="A" class="question-options">${q.o.map(o=>`<li>${escapeHTML(o)}</li>`).join('')}</ol>`:'');
+}
 function openGroup(id,remember=true){
   if(!groupMap.has(id))return;flushDraft();
   if(remember&&current&&current.id!==id){state.history=(state.history||[]).concat(current.id).slice(-200);}
   current=groupMap.get(id);state.current=id;result=null;referenceVisible=state.mode==='copy';
+  const primary=current.originals.map(id=>sourceMap.get(id)).find(s=>s.kind==='r')||(current.passages.length?passageSource(current.passages[0]):sourceMap.get(current.originals[0]));
+  $('group-question').innerHTML=questionHTML(primary);
   $('group-title').textContent=current.title;$('group-book').textContent=`${current.book} · 原文背诵`;
   $('group-detail').textContent=`${current.passages.length} 段背诵原文 · ${current.originals.length} 道原题${current.passages.length?' · '+normalized(expectedText(),false).length+' 字':''}`;
   $('draft').value=state.entries[id]?.text||'';$('draft').disabled=!current.passages.length;$('compare').disabled=!current.passages.length;$('peek').disabled=!current.passages.length;
   $('draft-count').textContent=Array.from($('draft').value.replace(/\s/g,'')).length+' 字';$('save-status').textContent=storageOK?'草稿自动保存':'浏览器存储不可用';
   $('originals-body').innerHTML=current.originals.map(sid=>{const s=sourceMap.get(sid);return `<article><strong>${escapeHTML(s.sourceId)} · ${escapeHTML({f:'填空',c:'单选',m:'多选',j:'判断',r:'问答'}[s.kind])}</strong><pre>${escapeHTML(s.raw)}</pre></article>`;}).join('');
-  $('reading-body').innerHTML=(current.passages.length?current.passages.map((p,i)=>`<p>${escapeHTML(p.text)}<span class="reading-source">原文 ${i+1} / ${current.passages.length} · ${p.sources.map(escapeHTML).join('、')}</span></p>`).join(''):'<p class="muted">本组没有可直接背诵的完整正确原文，先看下面的原题与答案。</p>')+`<details ${current.passages.length?'':'open'}><summary>本组 ${current.originals.length} 道原题与答案</summary>${$('originals-body').innerHTML}</details>`;
+  $('reading-body').innerHTML=(current.passages.length?current.passages.map((p,i)=>`<section class="reading-passage">${current.passages.length>1||passageSource(p).sourceId!==primary.sourceId?`<div class="passage-question">${questionHTML(passageSource(p))}</div>`:''}<span class="reading-source">背诵内容 · ${i+1} / ${current.passages.length}</span><p class="reading-answer">${escapeHTML(p.text)}<span class="reading-source">来源：${p.sources.map(escapeHTML).join('、')}</span></p></section>`).join(''):'<p class="muted">本组没有可直接背诵的完整正确原文，先看下面的原题与答案。</p>')+`<details ${current.passages.length?'':'open'}><summary>本组 ${current.originals.length} 道原题与答案</summary>${$('originals-body').innerHTML}</details>`;
   $('begin-dictation').disabled=!current.passages.length;
   $('originals').open=!current.passages.length;$('editor-message').textContent=current.passages.length?'':'本组没有可默写的合并原文，可查阅右侧原题，或点击下一组。';
   $('previous').disabled=!(state.history||[]).length;
@@ -125,7 +133,7 @@ $('ignore-punctuation').checked=!!state.ignorePunctuation;$('ignore-punctuation'
 function saveOnExit(){flushDraft();updateClock();persist();}
 window.addEventListener('pagehide',saveOnExit);document.addEventListener('visibilitychange',()=>{if(document.hidden)saveOnExit();else{updateClock();renderClock();}});
 async function init(){
-  try{const response=await fetch('./audit/jidiao-merged-20261126/collection-data.json?v=20261128-r21');if(!response.ok)throw Error('HTTP '+response.status);collection=await response.json();
+  try{const response=await fetch('./audit/jidiao-merged-20261126/collection-data.json?v=20261128-r22');if(!response.ok)throw Error('HTTP '+response.status);collection=await response.json();
     groupMap=new Map(collection.groups.map(g=>[g.id,g]));sourceMap=new Map(collection.originals.map(s=>[s.sourceId,s]));const ready=collection.groups.filter(g=>g.passages.length).length;
     $('bank-summary').textContent=`${ready} 组可默写 · ${collection.groups.length-ready} 组查原题 · 原文完整保留`;
     $('book-filter').innerHTML='<option value="">全部规章</option>'+[...new Set(collection.groups.map(g=>g.book))].map(b=>`<option>${escapeHTML(b)}</option>`).join('');

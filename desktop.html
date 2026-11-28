@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#173f37">
   <title>拾光 · 电脑默写室</title>
   <link rel="icon" href="./icon-192-v3.png">
-  <link rel="stylesheet" href="./desktop.css?v=20261128-r21">
-  <script src="./desktop.js?v=20261128-r21" defer></script>
+  <link rel="stylesheet" href="./desktop.css?v=20261128-r22">
+  <script src="./desktop.js?v=20261128-r22" defer></script>
 </head>
 <body>
   <header class="topbar">
@@ -23,7 +23,7 @@
   </section>
   <main class="workspace">
     <aside class="library"><div class="library-heading"><h1>机调合并背诵</h1><span id="library-count" class="muted"></span></div><label class="sr-only" for="group-search">搜索知识点或原文</label><input id="group-search" type="search" placeholder="搜索条款、知识点、原文"><label class="sr-only" for="book-filter">筛选规章</label><select id="book-filter"><option value="">全部规章</option></select><nav id="group-list" aria-label="知识点列表"></nav></aside>
-    <section class="writing"><div class="writing-heading"><p class="eyebrow" id="group-book">机调 · 原文背诵</p><h2 id="group-title">准备好，先学一条。</h2><p class="muted" id="group-detail"></p></div><div class="mode-switch" role="group" aria-label="学习方式"><button id="mode-read" aria-pressed="true">先背原文</button><button id="mode-hidden" aria-pressed="false">遮住默写</button><button id="mode-copy" aria-pressed="false">对照抄写</button></div><section id="reading" aria-label="当前知识组背诵原文"><div id="reading-body"></div></section><div id="dictation-editor"><label class="editor-label" for="draft">我的默写<span id="draft-count" class="muted">0 字</span></label><textarea id="draft" placeholder="先读一遍原文，再遮住试着写。不会的地方留着，写完后对照补齐。" spellcheck="false" maxlength="12000" disabled></textarea><div class="save-line"><span id="save-status" aria-live="polite">草稿自动保存</span><span>Ctrl / ⌘ + Enter 对照</span></div></div><div class="writing-actions"><button id="begin-dictation" class="primary">背过了，试着默写</button><button id="compare" class="primary" disabled>提交并逐字对照</button><button id="previous">上一组</button><button id="next">下一组 · 打乱</button></div><p id="editor-message" role="status"></p><p class="footnote">草稿与专注时间保存在此浏览器；默写对照不改动正式答题的复习进度。</p></section>
+    <section class="writing"><div class="writing-heading"><p class="eyebrow" id="group-book">机调 · 原文背诵</p><h2 id="group-title">准备好，先学一条。</h2><p class="muted" id="group-detail"></p><div id="group-question" aria-label="当前原题题干"></div></div><div class="mode-switch" role="group" aria-label="学习方式"><button id="mode-read" aria-pressed="true">先背原文</button><button id="mode-hidden" aria-pressed="false">遮住默写</button><button id="mode-copy" aria-pressed="false">对照抄写</button></div><section id="reading" aria-label="当前知识组背诵原文"><div id="reading-body"></div></section><div id="dictation-editor"><label class="editor-label" for="draft">我的默写<span id="draft-count" class="muted">0 字</span></label><textarea id="draft" placeholder="先读一遍原文，再遮住试着写。不会的地方留着，写完后对照补齐。" spellcheck="false" maxlength="12000" disabled></textarea><div class="save-line"><span id="save-status" aria-live="polite">草稿自动保存</span><span>Ctrl / ⌘ + Enter 对照</span></div></div><div class="writing-actions"><button id="begin-dictation" class="primary">背过了，试着默写</button><button id="compare" class="primary" disabled>提交并逐字对照</button><button id="previous">上一组</button><button id="next">下一组 · 打乱</button></div><p id="editor-message" role="status"></p><p class="footnote">草稿与专注时间保存在此浏览器；默写对照不改动正式答题的复习进度。</p></section>
     <aside class="reference"><div class="reference-heading"><h2 id="reference-title">背诵原文</h2><button id="peek" disabled>显示原文</button></div><div id="comparison-summary" role="status"></div><label class="punctuation-option"><input id="ignore-punctuation" type="checkbox">对照时忽略标点（空白始终忽略）</label><div id="reference-body"><p class="muted">题库载入后即可学习。</p></div><details id="originals"><summary>查看本组原题与答案</summary><div id="originals-body"></div></details></aside>
   </main>
   <div id="load-error" class="load-error" role="alert" hidden></div>
